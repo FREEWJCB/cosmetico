@@ -167,6 +167,9 @@ Route::resource('Estudiante', 'EstudianteController')->except('show','edit','cre
 Route::PUT('/Estudiante', 'EstudianteController@update')->name('Estudiante.update');
 Route::POST('/Estudiantes', 'EstudianteController@cargar')->name('Estudiante.cargar');
 Route::POST('/Estudiante/rellenar', 'EstudianteController@mostrar')->name('Estudiante.mostrar');
+Route::POST('/Estudiante/clear_a', 'EstudianteController@clear_a')->name('Estudiante.clear_a');
+Route::POST('/Estudiante/clear_d', 'EstudianteController@clear_d')->name('Estudiante.clear_d');
+Route::POST('/Estudiante/representante', 'EstudianteController@representante')->name('Estudiante.representante');
 Route::GET('/Estudiante/{js?}', 'EstudianteController@index');
 
 Route::resource('Pregunta', 'PreguntaController')->except('show','edit','create','update');

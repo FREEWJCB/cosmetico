@@ -16,6 +16,26 @@
         cargar();
     });
 
+    $("#state").on("change", function() {
+        var state = $("#state").val();
+        combo("municipality", "state", state, "municipality", 0, "municipio", "municipalitys", 2);
+    });
+
+    $("#state_r").on("change", function() {
+        var state = $("#state_r").val();
+        combo("municipality", "state", state, "municipality_r", 0, "municipio", "municipalitys", 2);
+    });
+
+    $("#tipoa").on("change", function() {
+        var tipo = $("#tipoa").val();
+        combo("alergia", "tipo", tipo, "alergia", 0, "alergia", "alergias", 2);
+    });
+
+    $("#tipod").on("change", function() {
+        var tipo = $("#tipod").val();
+        combo("discapacidad", "tipo", tipo, "discapacidad", 0, "discapacidad", "discapacidades", 2);
+    });
+
 @endsection
 
 @section('url_registro') var url = "{{ route('Estudiante.store') }}"; @endsection
