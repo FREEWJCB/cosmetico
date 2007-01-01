@@ -54,7 +54,6 @@
                 <td><center>{{ $cons2->nombre }} {{ $cons2->apellido }}</center></td>
                 <td><center>{{ $cons2->fecha_nacimiento }}</center></td>
                 <td><center>{{ $cons2->lugar_nacimiento }}</center></td>
-                <td><center>{{ $cons2->labor }}</center></td>
                 <td><center>{{ $cons2->states }}</center></td>
                 <td><center>{{ $cons2->municipalitys }}</center></td>
 
@@ -71,6 +70,7 @@
     <input type="hidden" id="persona" name="persona" />
     <input type="hidden" id="representante" name="representante" />
     <input type="hidden" id="representante2" name="representante2" />
+    <input type="text" style='display: none' required id="representante_regis" name="representante_regis" />
     <div id="estudiante">
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -152,32 +152,7 @@
             <div class="form-group col-md-6">
                 <label for="lugar_nacimiento">Lugar de nacimiento</label>
                 <textarea class="form-control" required id="lugar_nacimiento" name="lugar_nacimiento"></textarea>
-                <input type="hidden" id="lugar_nacimiento" name="lugar_nacimiento" />
-            </div>
-        </div>
-
-        <div class="form-row">
-
-            <div class="form-group col-md-6">
-                <label for="alergia">Alergias</label>
-                <select required name="alergia[]" style="border-radius: 2px;" id="alergia" class="alergia full-width has-padding has-border" style="height: 22px"  multiple>
-                    @if ($num_alergia>0)
-                        @foreach ($alergia as $alergia2)
-                            <option value="{{ $alergia2->id }}">{{ $alergia2->alergias }}</option>
-                        @endforeach
-                    @endif
-                </select>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="discapacidad">Discapacidades</label>
-                <select required name="discapacidad[]" style="border-radius: 2px;" id="discapacidad" class="discapacidad full-width has-padding has-border" style="height: 22px"  multiple>
-                    @if ($num_discapacidad>0)
-                        @foreach ($discapacidad as $discapacidad2)
-                            <option value="{{ $discapacidad2->id }}">{{ $discapacidad2->discapacidades }}</option>
-                        @endforeach
-                    @endif
-                </select>
+                <input type="hidden" id="lugar_nacimiento2" name="lugar_nacimiento2" />
             </div>
         </div>
 
@@ -187,17 +162,99 @@
             <input type="hidden" id="descripcion2" name="descripcion2" />
         </div>
     </div>
+
+    <div style='display: none' id="salud">
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
+                <label for="tipoa">Tipo de alergia</label>
+                <select class="form-control" id="tipoa" name="tipoa">
+                    <option value="null" disabled selected>Seleccione un tipo</option>
+                    @if ($num_tipoa>0)
+                        @foreach ($tipoa as $tipoa2)
+                            <option value="{{ $tipoa2->id }}">{{ $tipoa2->tipo }}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="tipod">Tipo de discapacidad</label>
+                <select class="form-control" id="tipod" name="tipod">
+                    <option value="null" disabled selected>Seleccione un tipo</option>
+                    @if ($num_tipod>0)
+                        @foreach ($tipod as $tipod2)
+                            <option value="{{ $tipod2->id }}">{{ $tipod2->tipo }}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="alergia">Alergias</label>
+                <div class="input-group mb-3">
+                    <select class="form-control" id="alergia" name="alergia" aria-describedby="button-addon2">
+                        <option value="null" disabled selected>Seleccione una alergia</option>
+                    </select>
+
+                    <div data-turbolinks="false" class="input-group-append">
+
+                        <a href="#" onclick = "return alergia();" class="btn btn-success btncolorblanco">
+                            <i class="fa fa-search"></i>
+                        </a>
+
+                        <a href="#" id="cance" onclick = "return limpiar_a();" class="btn btn-danger btncolorblanco">
+                            <i class="fa fa-times-circle"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="discapacidad">Discapacidad</label>
+                <div class="input-group mb-3">
+                    <select class="form-control" id="discapacidad" name="discapacidad" aria-describedby="button-addon2">
+                        <option value="null" disabled selected>Seleccione una discapacidad</option>
+                    </select>
+
+                    <div data-turbolinks="false" class="input-group-append">
+
+                        <a href="#" onclick = "return discapacidad();" class="btn btn-success btncolorblanco">
+                            <i class="fa fa-search"></i>
+                        </a>
+
+                        <a href="#" onclick = "return limpiar_d();" class="btn btn-danger btncolorblanco">
+                            <i class="fa fa-times-circle"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <div id="list_a"></div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div id="list_d"></div>
+            </div>
+        </div>
+    </div>
+
     <div style='display: none' id="representant">
         <div class="form-group">
             <label for="cedula_r">Representate</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Buscar por cédula" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula_r" name="cedula_r" />
                 <div  class="input-group-append">
-                    <a href="#" id="buscar" onclick = "return representante();" class="btn btn-success btncolorblanco">
+                    <a href="#" id="repre" onclick = "return representante();" class="btn btn-success btncolorblanco">
                         <i class="fa fa-search"></i>
                     </a>
-                    <a href="#" style='display: none' id="cancelar" onclick = "return norepresentante();" class="btn btn-danger btncolorblanco">
-                        <i class="fa fa-close"></i>
+
+                    <a href="#" style='display: none' id="cance" onclick = "return cancelar();" class="btn btn-danger btncolorblanco">
+                        <i class="fa fa-times-circle"></i>
                     </a>
                 </div>
             </div>
