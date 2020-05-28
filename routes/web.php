@@ -19,3 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::resource('Tipo', 'TipoController');
+Route::resource('Marca', 'MarcaController');
+Route::resource('Modelo', 'ModeloController');
+Route::resource('Cosmetic', 'CosmeticController');
+Route::resource('Cosmetico', 'CosmeticoController');
