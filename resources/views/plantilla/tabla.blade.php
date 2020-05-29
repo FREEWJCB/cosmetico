@@ -45,6 +45,7 @@
                 </button>
             </div>
             <form id="formulario" name="formulario" class="formulario" onsubmit="return agregaRegistro();">
+                @csrf
                 <input type="hidden" id="id" name="id" />
                 <input type="hidden" id="pro" name="pro" />
                 <div class="modal-body">

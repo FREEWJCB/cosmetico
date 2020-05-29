@@ -40,6 +40,8 @@ class TipoController extends Controller
     public function store(Request $request)
     {
         //
+        DB::table('tipos')->insert(['tipo' => $request->nombres]);
+        return "true";
     }
 
     /**

@@ -40,9 +40,13 @@ $(function() {
 });
 
 function agregaRegistro() {
+    if ($("#pro").val() == "Registro") {
+        var url = "{{ route('Tipo.store') }}";
+    }
+    alert(url);
     $.ajax({
         type: "POST",
-        url: url,
+        url: "http://127.0.0.1:8000/Tipo.store",
         data: $("#formulario").serialize(),
         beforeSend: function() {
             NProgress.start();
@@ -58,29 +62,8 @@ function agregaRegistro() {
                 $(".fade").removeClass("out");
             }, 1000);
 
-            var type = "error";
-            var datos = eval(valores);
-
-            $("#alert").html(datos[1]);
-
-            if (datos[0] == "true" || datos[0] == "true2") {
-                var type = "success";
-
-                if ($("#pro").val() == "Registro") {
-                    var message = "Registro completado con exito";
-                    $("#tipo").val("");
-                } else {
-                    var message = "edición completado con exito";
-                    $("#tipo2").val($("#tipo").val());
-                    if (datos[0] == "true2") {
-                        $("#id").val(datos[2]);
-                    }
-                }
-            } else if (datos[0] == "false") {
-                var message = "Error en el registro!";
-            } else {
-                var message = "No ha realizado ningun cambio!";
-            }
+            var type = "success";
+            var message = "Registro completado con exito";
 
             $("body").overhang({
                 type: type,
