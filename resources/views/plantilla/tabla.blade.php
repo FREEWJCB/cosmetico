@@ -17,18 +17,21 @@
         </form>
     </nav>
     <!-- catalogo -->
-    <table border="0" class="table table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th width="3%" scope="col"><center>#</center></th>
-                @yield('thead')
-                <th width="15%" scope="col"><center>Opcción</center></th>
-            </tr>
-        </thead>
-        <tbody>
-            @yield('tbody')
-        </tbody>
-    </table>
+
+    <div id="agrega-registros">
+        <table border="0" class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th width="3%" scope="col"><center>#</center></th>
+                    @yield('thead')
+                    <th width="15%" scope="col"><center>Opcción</center></th>
+                </tr>
+            </thead>
+            <tbody>
+                @yield('tbody')
+            </tbody>
+        </table>
+    </div>
 </center>
 
 <!-- Modal -->
