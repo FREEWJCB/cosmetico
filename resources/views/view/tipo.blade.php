@@ -26,17 +26,17 @@
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->tipo }}</center></td>
                 <td>
-                <center>
-                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
-                        <i class="fa fa-list-alt"></i>
-                    </a>
-                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    <a href="#" onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
-                        <i class="fa fa-trash-alt"></i>
-                    </a>
-                </center>
+                    <center>
+                        <a onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco" href="#" >
+                            <i class="fa fa-list-alt"></i>
+                        </a>
+                        <a onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco" href="#" >
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco" href="#" >
+                            <i class="fa fa-trash-alt"></i>
+                        </a>
+                    </center>
                 </td>
             </tr>
         @endforeach
@@ -60,7 +60,7 @@
 
 @section('script')
 
-    <script src="{{ asset('js/tipo.js') }}" crossorigin="anonymous"></script>
+    @include('js.tipos')
 
 @endsection
 

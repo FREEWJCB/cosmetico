@@ -76,6 +76,7 @@ class TipoController extends Controller
     public function update(Request $request, $id)
     {
         //
+
     }
 
     /**
@@ -87,5 +88,47 @@ class TipoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cargar(Request $request)
+    {
+        //
+        $tipo=$request->bs-tipo;
+        $cons= DB::table('tipos')
+                 ->where('tipo','like', "%$tipo%")
+                 ->where('status', '1')
+                 ->orderBy('tipo','asc');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+        if ($num>0) {
+            # code...
+            foreach ($cons1 as $cons2) {
+                # code...
+                $id=$cons2->id;
+                $tipo=$cons2->tipo;
+                $cat="<tr>
+                        <th scope='row'><center>$i</center></th>
+                        <td><center>$tipo</center></td>
+                        <td>
+                            <center>
+                                <a onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
+                                    <i class='fa fa-list-alt'></i>
+                                </a>
+                                <a onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
+                                    <i class='fa fa-edit'></i>
+                                </a>
+                                <a onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
+                                    <i class='fa fa-trash-alt'></i>
+                                </a>
+                            </center>
+                        </td>
+                    </tr>";
+
+            }
+        }else{
+            $cat="<tr><td colspan='3'>No hay datos registrados</td></tr>";
+        }
+        return $cat;
+
     }
 }

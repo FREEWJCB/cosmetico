@@ -18,7 +18,7 @@
     </nav>
     <!-- catalogo -->
 
-    <div id="agrega-registros">
+    <div >
         <table border="0" class="table table-striped">
             <thead class="thead-dark">
                 <tr>
@@ -27,7 +27,7 @@
                     <th width="15%" scope="col"><center>Opcción</center></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="agrega-registros">
                 @yield('tbody')
             </tbody>
         </table>
