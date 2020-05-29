@@ -58,10 +58,11 @@
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('js/popper.min.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" crossorigin="anonymous"></script>
+    @yield('script')
     <script src="{{ asset('js/turbolinks.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('js/nprogress.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('js/overhang2.min.js') }}" crossorigin="anonymous"></script>
-    @yield('script')
+
     <script>
         $('body').show();
 

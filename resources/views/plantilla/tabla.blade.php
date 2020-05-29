@@ -10,9 +10,10 @@
 
             @yield('busqueda')
 
-            <a href="#" id="nuevo" class="btn btn-info btncolorblanco">
+            <a href="#" data-toggle="dropdown" id="nuevo" class="btn btn-info btncolorblanco">
                 <i class="fas fa-user-plus"></i> Nuevo
             </a>
+
         </form>
     </nav>
     <!-- catalogo -->

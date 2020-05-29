@@ -21,7 +21,7 @@
 
 
     <div class="form-group">
-      <label for="marca">Tipo</label>
+      <label for="marca">Marca</label>
       <input type="text" required class="form-control" id="marca" name="marca" />
       <input type="hidden" id="marca2" name="marca2" />
     </div>
