@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\cosmetic;
 
 class cosmeticController extends Controller
 {
@@ -14,7 +16,15 @@ class cosmeticController extends Controller
     public function index()
     {
         //
-        return view('view.cosmetic');
+        $cons = DB::table('cosmetics')
+                    ->join('tipos', 'cosmetics.tipo', '=', 'tipos.id')
+                    ->join('modelos', 'cosmetics.modelo', '=', 'modelos.id')
+                    ->join('marcas', 'modelos.marca', '=', 'marcas.id')
+                    ->where('cosmetics.status', '1')
+                    ->orderBy('modelo','asc');
+        $cons2 = $cons->get();
+        $num = $cons->count();
+        return view('view.cosmetic',['cons' => $cons2, 'num' => $num]);
     }
 
     /**

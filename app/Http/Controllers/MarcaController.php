@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\marca;
 
 class MarcaController extends Controller
 {
@@ -14,7 +16,11 @@ class MarcaController extends Controller
     public function index()
     {
         //
-        return view('view.marca');
+        $cons = DB::table('marcas')->where('status', '1')->orderBy('marca','asc');
+        $cons2 = $cons->get();
+        $num = $cons->count();
+        return view('view.marca',['cons' => $cons2, 'num' => $num]);
+
     }
 
     /**

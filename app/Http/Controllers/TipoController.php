@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\tipo;
 class TipoController extends Controller
 {
@@ -14,9 +15,10 @@ class TipoController extends Controller
     public function index()
     {
         //
-        // $tipo = tipo::all();
-        // dd($tipo);
-        return view('view.tipo');
+        $cons = DB::table('tipos')->where('status', '1')->orderBy('tipo','asc');
+        $cons2 = $cons->get();
+        $num = $cons->count();
+        return view('view.tipo',['cons' => $cons2, 'num' => $num]);
     }
 
     /**

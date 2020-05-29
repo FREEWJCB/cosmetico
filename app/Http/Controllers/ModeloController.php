@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\modelo;
 
 class ModeloController extends Controller
 {
@@ -14,7 +16,13 @@ class ModeloController extends Controller
     public function index()
     {
         //
-        return view('view.modelo');
+        $cons = DB::table('modelos')
+                    ->join('marcas', 'modelos.marca', '=', 'marcas.id')
+                    ->where('modelos.status', '1')
+                    ->orderBy('modelo','asc');
+        $cons2 = $cons->get();
+        $num = $cons->count();
+        return view('view.modelo',['cons' => $cons2, 'num' => $num]);
     }
 
     /**
