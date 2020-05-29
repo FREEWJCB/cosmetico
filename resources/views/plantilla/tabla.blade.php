@@ -43,8 +43,9 @@
             <form id="formulario" name="formulario" class="formulario" onsubmit="return agregaRegistro();">
                 <input type="hidden" id="id" name="id" />
                 <input type="hidden" id="pro" name="pro" />
-
-                @yield('form')
+                <div class="modal-body">
+                    @yield('form')
+                </div>
                 <div class="modal-footer">
                     <input type="reset" class="btn btn-danger" id="lim" value="Limpiar" />
                     <input type="submit" class="btn btn-primary" id="reg" value="Registrar" />

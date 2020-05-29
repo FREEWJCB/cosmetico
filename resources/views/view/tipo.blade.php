@@ -16,11 +16,25 @@
 
 @endsection
 
+
+@section('form')
+
+
+    <div class="form-group">
+      <label for="tipo">Tipo</label>
+      <input type="text" required class="form-control" id="tipo" name="tipo" />
+      <input type="hidden" id="tipo2" name="tipo2" />
+    </div>
+
+
+@endsection
+
 @section('script')
 
     <script src="{{ asset('js/tipo.js') }}" crossorigin="anonymous"></script>
 
 @endsection
+
 
 @section('contenido')
 

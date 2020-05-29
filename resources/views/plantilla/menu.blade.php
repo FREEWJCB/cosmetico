@@ -8,6 +8,8 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('css/overhang.min.css') }}" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('css/progress/nprogress.css') }}" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ asset('css/fontawesome/css/all.min.css') }}" crossorigin="anonymous" />
   </head>
   <body>
@@ -56,6 +58,26 @@
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('js/popper.min.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/turbolinks.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/nprogress.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/overhang2.min.js') }}" crossorigin="anonymous"></script>
     @yield('script')
+    <script>
+        $('body').show();
+
+        NProgress.start();
+        setTimeout(function() { NProgress.done(); $('.fade').removeClass('out'); }, 1000);
+        $(document).on('turbolinks:click', function() {
+
+            NProgress.start();
+        });
+        $(document).on('turbolinks:render', function() {
+
+            NProgress.done();
+            NProgress.remove();
+        });
+
+    </script>
+
   </body>
 </html>

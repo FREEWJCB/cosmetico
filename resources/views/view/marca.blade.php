@@ -17,6 +17,18 @@
 @endsection
 
 
+@section('form')
+
+
+    <div class="form-group">
+      <label for="marca">Tipo</label>
+      <input type="text" required class="form-control" id="marca" name="marca" />
+      <input type="hidden" id="marca2" name="marca2" />
+    </div>
+
+
+@endsection
+
 @section('script')
 
     <script src="{{ asset('js/marca.js') }}" crossorigin="anonymous"></script>
