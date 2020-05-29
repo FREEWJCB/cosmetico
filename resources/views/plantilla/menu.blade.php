@@ -56,5 +56,6 @@
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('js/popper.min.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" crossorigin="anonymous"></script>
+    @yield('script')
   </body>
 </html>
