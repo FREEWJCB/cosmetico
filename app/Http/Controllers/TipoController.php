@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\tipo;
 class TipoController extends Controller
 {
     /**
@@ -14,6 +14,8 @@ class TipoController extends Controller
     public function index()
     {
         //
+        // $tipo = tipo::all();
+        // dd($tipo);
         return view('view.tipo');
     }
 
