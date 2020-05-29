@@ -14,6 +14,7 @@ class cosmeticController extends Controller
     public function index()
     {
         //
+        return view('view.cosmetic');
     }
 
     /**

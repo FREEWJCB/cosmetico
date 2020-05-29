@@ -1,5 +1,5 @@
 <center>
-    <h1>Gestionar @yield('tabla')</h1>
+    <h1>Gestionar @yield('titulo','Cosmetico')</h1>
 
     <br />
 

@@ -20,10 +20,10 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class='nav-link @yield("inicio","")'  href="#">Inicio <span class="sr-only">(current)</span></a>
+            <a class='nav-link @yield("inicio","")'  href="/">Inicio <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class='nav-link @yield("cosmeticos","")' href="cosmeticos.html">
+            <a class='nav-link @yield("cosmeticos","")' href="{{ route('Cosmetico.index') }}">
               Cosmeticos(Sin forey keys)
             </a>
           </li>
@@ -33,16 +33,16 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdown1">
               <li class="dropdown-item">
-                <a href="tipo.html">Tipo</a>
+                <a href="{{ route('Tipo.index') }}">Tipo</a>
               </li>
               <li class="dropdown-item">
-                <a href="marca.html">Marca</a>
+                <a href="{{ route('Marca.index') }}">Marca</a>
               </li>
               <li class="dropdown-item">
-                <a href="modelo.html">Modelo</a>
+                <a href="{{ route('Modelo.index') }}">Modelo</a>
               </li>
               <li class="dropdown-item">
-                <a href="cosmetic.html">Cosmetico</a>
+                <a href="{{ route('Cosmetic.index') }}">Cosmetico</a>
               </li>
             </ul>
           </li>
