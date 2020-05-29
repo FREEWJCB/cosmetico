@@ -16,6 +16,13 @@
 
 @endsection
 
+
+@section('script')
+
+    <script src="{{ asset('js/marca.js') }}" crossorigin="anonymous"></script>
+
+@endsection
+
 @section('contenido')
 
     @include('plantilla.tabla')

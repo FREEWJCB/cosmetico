@@ -22,6 +22,13 @@
 
 @endsection
 
+
+@section('script')
+
+    <script src="{{ asset('js/modelo.js') }}" crossorigin="anonymous"></script>
+
+@endsection
+
 @section('contenido')
 
     @include('plantilla.tabla')

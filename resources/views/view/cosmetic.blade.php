@@ -34,6 +34,13 @@
 @endsection
 
 
+@section('script')
+
+    <script src="{{ asset('js/cosmetic.js') }}" crossorigin="anonymous"></script>
+
+@endsection
+
+
 @section('contenido')
 
     @include('plantilla.tabla')
