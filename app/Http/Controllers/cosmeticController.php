@@ -17,6 +17,7 @@ class cosmeticController extends Controller
     {
         //
         $cons = DB::table('cosmetics')
+                    ->select('cosmetics.*', 'modelos.modelo as model', 'marcas.marca as marc', 'tipos.tipo as tip')
                     ->join('tipos', 'cosmetics.tipo', '=', 'tipos.id')
                     ->join('modelos', 'cosmetics.modelo', '=', 'modelos.id')
                     ->join('marcas', 'modelos.marca', '=', 'marcas.id')

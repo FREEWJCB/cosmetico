@@ -22,6 +22,36 @@
 
 @endsection
 
+@section('tbody')
+
+    @if ($num > 0)
+        @php($i=0)
+        @foreach ($cons as $cons2)
+            @php($i++)
+            <tr>
+                <th scope="row"><center>{{ $i }}</center></th>
+                <td><center>{{ $cons2->marc }}</center></td>
+                <td><center>{{ $cons2->tipo }}</center></td>
+                <td>
+                <center>
+                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
+                        <i class="fa fa-list-alt"></i>
+                    </a>
+                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a href="#" onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
+                        <i class="fa fa-trash-alt"></i>
+                    </a>
+                </center>
+                </td>
+            </tr>
+        @endforeach
+    @else
+        <tr><td colspan="3">No hay datos registrados</td></tr>
+    @endif
+
+@endsection
 
 @section('form')
 

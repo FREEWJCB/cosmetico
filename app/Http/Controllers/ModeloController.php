@@ -17,6 +17,7 @@ class ModeloController extends Controller
     {
         //
         $cons = DB::table('modelos')
+                    ->select('modelos.*', 'marcas.marca as marc')
                     ->join('marcas', 'modelos.marca', '=', 'marcas.id')
                     ->where('modelos.status', '1')
                     ->orderBy('modelo','asc');
