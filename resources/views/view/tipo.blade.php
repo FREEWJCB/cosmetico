@@ -58,6 +58,12 @@
 
 @endsection
 
+@section('document')
+    $("#bs-tipo").on("keyup", function() {
+        cargar();
+    });
+@endsection
+
 @section('script')
 
     @include('js.tipos')

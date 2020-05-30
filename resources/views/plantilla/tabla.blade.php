@@ -7,7 +7,7 @@
     <nav class="navbar navbar-light">
         <h3>Buscar:</h3>
         <form name="form" id="form" class="form-inline">
-
+            @csrf
             @yield('busqueda')
 
             <a href="#" data-toggle="dropdown" id="nuevo" class="btn btn-info btncolorblanco">
@@ -44,7 +44,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="formulario" name="formulario" class="formulario" onsubmit="return agregaRegistro();">
+            <form id="formulario" name="formulario" class="formulario"  onsubmit="return agregaRegistro();">
                 @csrf
                 <input type="hidden" id="id" name="id" />
                 <input type="hidden" id="pro" name="pro" />

@@ -29,4 +29,4 @@ Route::resource('Modelo', 'ModeloController');
 Route::resource('Cosmetic', 'CosmeticController');
 Route::resource('Cosmetico', 'CosmeticoController');
 
-Route::post('Tipo/cargar', 'TipoController@cargar')->name('Tipo.cargar');
+Route::POST('/Tipos', 'TipoController@cargar')->name('Tipo.cargar');

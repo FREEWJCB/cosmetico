@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('titulo','Cosmetico')</title>
 
     <!-- Bootstrap -->
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/progress/nprogress.css') }}" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ asset('css/fontawesome/css/all.min.css') }}" crossorigin="anonymous" />
   </head>
-  <body>
+  <body style='display: none'>
     <!-- menu -->
     <div class="navbar navbar-expand-md navbar-dark bg-dark mb-4" role="navigation">
       <a class="navbar-brand" href="#">CRUD Cosmeticos</a>
@@ -66,6 +67,43 @@
 
     <script>
 
+        $('body').show();
+
+        NProgress.start();
+        setTimeout(function() { NProgress.done(); $('.fade').removeClass('out'); }, 1000);
+        $(document).on('turbolinks:click', function() {
+
+            NProgress.start();
+        });
+        $(document).on('turbolinks:render', function() {
+
+            NProgress.done();
+            NProgress.remove();
+        });
+
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $("#nuevo").on("click", function() {
+                $("#formulario")[0].reset();
+                $("#pro").val("Registro");
+                $("#titulo").html("Registrar");
+                $("#edi").hide();
+                $("#lim").show();
+                $("#reg").show();
+                reiniciar();
+                $("#modal").modal({
+                    show: true,
+                    backdrop: "static"
+                });
+            });
+
+            @yield('document')
+
+        });
 
         @yield('script')
     </script>

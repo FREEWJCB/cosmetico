@@ -1,8 +1,7 @@
 function cargar() {
     $.ajax({
         type: "POST",
-        url: "Tipo.cargar",
-        dataType: "json",
+        url: "{{URL('Tipo.cargar')}}",
         // url: "http://127.0.0.1:8000/Tipo",
         data: $("#form").serialize(),
         success: function(registro) {
@@ -32,22 +31,8 @@ function reiniciar() {
     $("#formulario input[type=text]").removeAttr("readonly");
 }
 
-$(function() {
-    $("#nuevo").on("click", function() {
-        $("#formulario")[0].reset();
-        $("#pro").val("Registro");
-        $("#titulo").html("Registrar");
-        $("#edi").hide();
-        $("#lim").show();
-        $("#reg").show();
-        reiniciar();
-        $("#modal").modal({
-            show: true,
-            backdrop: "static"
-        });
-    });
 
-    $("#bs-tipo").on("keyup", function() {
-        cargar();
-    });
-});
+
+
+
+
