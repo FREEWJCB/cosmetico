@@ -18,20 +18,21 @@
     </nav>
     <!-- catalogo -->
 
-    <div >
-        <table border="0" class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th width="3%" scope="col"><center>#</center></th>
-                    @yield('thead')
-                    <th width="15%" scope="col"><center>Opcción</center></th>
-                </tr>
-            </thead>
-            <tbody id="agrega-registros">
-                @yield('tbody')
-            </tbody>
-        </table>
-    </div>
+    <div style="color: #1eb6a7;font-size: 14px;"  id="mas_tex2" class="borderClass"></div>
+    <div style="color: #1eb6a7;font-size: 14px;" hidden id="error_msg2"></div>
+    <table border="0" class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th width="3%" scope="col"><center>#</center></th>
+                @yield('thead')
+                <th width="15%" scope="col"><center>Opcción</center></th>
+            </tr>
+        </thead>
+        <tbody id="agrega-registros">
+            @yield('tbody')
+        </tbody>
+    </table>
+
 </center>
 
 <!-- Modal -->

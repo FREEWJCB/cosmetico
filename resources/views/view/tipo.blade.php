@@ -6,7 +6,7 @@
 @section('busqueda')
 
     <label for="bs-tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs-tipo" id="bs-tipo" class="form-control mr-sm-2" type="search" placeholder="Buscar por tipo" arialabel="Search" />
+    <input name="bs_tipo" id="bs_tipo" class="form-control mr-sm-2" type="text" placeholder="Buscar por tipo" arialabel="Search" />
 
 @endsection
 
@@ -59,17 +59,10 @@
 @endsection
 
 @section('document')
-    $("#bs-tipo").on("keyup", function() {
-        cargar();
+    $("#bs_tipo").on("keyup", function() {
+        cargar("{{route('Tipo.cargar')}}");
     });
 @endsection
-
-@section('script')
-
-    @include('js.tipos')
-
-@endsection
-
 
 @section('contenido')
 

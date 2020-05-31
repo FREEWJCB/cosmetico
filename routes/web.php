@@ -21,7 +21,9 @@ Auth::routes();
 
 
 
-
+Route::get('/prueba', function () {
+    return view('view/prueba');
+});
 
 Route::resource('Tipo', 'TipoController');
 Route::resource('Marca', 'MarcaController');

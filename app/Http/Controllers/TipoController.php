@@ -93,7 +93,12 @@ class TipoController extends Controller
     public function cargar(Request $request)
     {
         //
-        $tipo=$request->bs-tipo;
+        // \Log::info($request->all());
+
+        // return response()->json([
+        //     'catalogo'=>$request->bs_tipo
+        // ]);
+        $tipo=$request->bs_tipo;
         $cons= DB::table('tipos')
                  ->where('tipo','like', "%$tipo%")
                  ->where('status', '1')
@@ -102,8 +107,10 @@ class TipoController extends Controller
         $num = $cons->count();
         if ($num>0) {
             # code...
+            $i=0;
             foreach ($cons1 as $cons2) {
                 # code...
+                $i++;
                 $id=$cons2->id;
                 $tipo=$cons2->tipo;
                 $cat="<tr>
@@ -128,7 +135,9 @@ class TipoController extends Controller
         }else{
             $cat="<tr><td colspan='3'>No hay datos registrados</td></tr>";
         }
-        return $cat;
+        return response()->json([
+            'catalogo'=>$cat
+        ]);
 
     }
 }
