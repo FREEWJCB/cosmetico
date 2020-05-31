@@ -18,8 +18,6 @@
     </nav>
     <!-- catalogo -->
 
-    <div style="color: #1eb6a7;font-size: 14px;"  id="mas_tex2" class="borderClass"></div>
-    <div style="color: #1eb6a7;font-size: 14px;" hidden id="error_msg2"></div>
     <table border="0" class="table table-striped">
         <thead class="thead-dark">
             <tr>

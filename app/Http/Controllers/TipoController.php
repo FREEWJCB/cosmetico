@@ -40,8 +40,8 @@ class TipoController extends Controller
     public function store(Request $request)
     {
         //
-        DB::table('tipos')->insert(['tipo' => $request->nombres]);
-        return "true";
+        // DB::table('tipos')->insert(['tipo' => $request->nombres]);
+        // return "true";
     }
 
     /**
@@ -88,6 +88,10 @@ class TipoController extends Controller
     public function destroy($id)
     {
         //
+        \Log::info("tabla = ".$id);
+        DB::table('tipos')->where('id', $id)->delete();
+
+
     }
 
     public function cargar(Request $request)
@@ -118,13 +122,13 @@ class TipoController extends Controller
                         <td><center>$tipo</center></td>
                         <td>
                             <center>
-                                <a onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
+                                <a data-toggle='dropdown' onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
                                     <i class='fa fa-list-alt'></i>
                                 </a>
-                                <a onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
+                                <a data-toggle='dropdown' onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
                                     <i class='fa fa-edit'></i>
                                 </a>
-                                <a onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
+                                <a data-toggle='dropdown' onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
                                     <i class='fa fa-trash-alt'></i>
                                 </a>
                             </center>

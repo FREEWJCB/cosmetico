@@ -27,13 +27,13 @@
                 <td><center>{{ $cons2->tipo }}</center></td>
                 <td>
                     <center>
-                        <a onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco" href="#" >
+                        <a data-toggle="dropdown" onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco" href="#" >
                             <i class="fa fa-list-alt"></i>
                         </a>
-                        <a onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco" href="#" >
+                        <a data-toggle="dropdown" onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco" href="#" >
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco" href="#" >
+                        <a data-toggle="dropdown" onclick = "return desactivar({{ $cons2->id }})" class="btn btn-danger btncolorblanco" href="#" >
                             <i class="fa fa-trash-alt"></i>
                         </a>
                     </center>
@@ -58,11 +58,7 @@
 
 @endsection
 
-@section('document')
-    $("#bs_tipo").on("keyup", function() {
-        cargar("{{route('Tipo.cargar')}}");
-    });
-@endsection
+@include('js.tipos')
 
 @section('contenido')
 

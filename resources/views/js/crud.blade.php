@@ -58,3 +58,44 @@ $(document).ready(function() {
 
     @yield('document')
 });
+
+function desactivar(id) {
+    $("body").overhang({
+        type: "confirm",
+        primary: "#40D47E",
+        accent: "#27AE60",
+        yesColor: "#3498DB",
+        message: "¿Esta seguro de eliminar este dato?",
+        overlay: true,
+        callback: function(value) {
+            var response = value ? "Yes" : "No";
+            if (response == "Yes") {
+                $.ajax({
+                    type: "DELETE",
+                    @yield('delete')
+                    beforeSend: function() {
+                        setStart();
+                    },
+                    success: function() {
+
+                        setDone();
+                        $("body").overhang({
+                            type: "success",
+                            message: "Dato eliminado con exito",
+                            callback: function() {
+                                @yield('cargar')
+                            }
+                        });
+                        return false;
+                    },
+                    error: function(xhr, textStatus, errorMessage) {
+                        error(xhr, textStatus, errorMessage);
+                    }
+                });
+                return false;
+            } else {
+                return false;
+            }
+        }
+    });
+}
