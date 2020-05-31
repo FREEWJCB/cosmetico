@@ -1,14 +1,21 @@
+function setDone() {
+    setTimeout(function() {
+        NProgress.done();
+        $(".fade").removeClass("out");
+    }, 1000);
+}
+function setStart() {
+    NProgress.start();
+}
+
 $("body").show();
 
-NProgress.start();
-setTimeout(function() {
-    NProgress.done();
-    $(".fade").removeClass("out");
-}, 1000);
+setStart();
+setDone();
 $(document).on("turbolinks:click", function() {
-    NProgress.start();
+    setStart();
 });
 $(document).on("turbolinks:render", function() {
-    NProgress.done();
+    setDone();
     NProgress.remove();
 });

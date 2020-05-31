@@ -3,6 +3,19 @@ $.ajaxSetup({
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
     }
 });
+
+function error(xhr, textStatus, errorMessage) {
+    console.log("Error:" + errorMessage + textStatus + xhr.status);
+    $.each(xhr.responseJSON, function(indice, valor) {
+        console.log(indice + " - " + valor);
+    });
+    setDone();
+    $("body").overhang({
+        type: "error",
+        message: "error validacion!"
+    });
+}
+
 function cargar(url) {
     $.ajax({
         type: "POST",
@@ -13,18 +26,7 @@ function cargar(url) {
             return false;
         },
         error: function(xhr, textStatus, errorMessage) {
-            console.log("Error:" + errorMessage + textStatus + xhr.status);
-            $.each(xhr.responseJSON, function(indice, valor) {
-                console.log(indice + " - " + valor);
-            });
-            setTimeout(function() {
-                NProgress.done();
-                $(".fade").removeClass("out");
-            }, 1000);
-            $("body").overhang({
-                type: "error",
-                message: "error validacion!"
-            });
+            error(xhr, textStatus, errorMessage);
         }
     });
     return false;
