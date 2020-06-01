@@ -1,5 +1,7 @@
 @extends('plantilla.menu')
 
+@include('js.marcas')
+
 @section('titulo','Marca')
 @section('cosmetic','active')
 
@@ -43,12 +45,6 @@
       <input type="hidden" id="marca2" name="marca2" />
     </div>
 
-
-@endsection
-
-@section('script')
-
-    <script src="{{ asset('js/marca.js') }}" crossorigin="anonymous"></script>
 
 @endsection
 

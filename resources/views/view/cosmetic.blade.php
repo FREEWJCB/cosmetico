@@ -1,5 +1,7 @@
 @extends('plantilla.menu')
 
+@include('js.cosmetics')
+
 @section('cosmetic','active')
 
 @section('busqueda')
@@ -49,7 +51,7 @@
             </tr>
         @endforeach
     @else
-        <tr><td colspan="3">No hay datos registrados</td></tr>
+        <tr><td colspan="6">No hay datos registrados</td></tr>
     @endif
 
 @endsection
@@ -99,14 +101,6 @@
     </div>
 
 @endsection
-
-
-@section('script')
-
-    <script src="{{ asset('js/cosmetic.js') }}" crossorigin="anonymous"></script>
-
-@endsection
-
 
 @section('contenido')
 

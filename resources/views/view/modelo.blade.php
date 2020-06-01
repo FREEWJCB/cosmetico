@@ -1,5 +1,7 @@
 @extends('plantilla.menu')
 
+@include('js.modelos')
+
 @section('titulo','Modelo')
 @section('cosmetic','active')
 
@@ -31,7 +33,7 @@
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->marc }}</center></td>
-                <td><center>{{ $cons2->tipo }}</center></td>
+                <td><center>{{ $cons2->modelo }}</center></td>
                 @include('plantilla.catalogo')
             </tr>
         @endforeach
@@ -56,12 +58,6 @@
       <input type="text" class="form-control" required id="modelo" name="modelo" />
       <input type="hidden" id="modelo2" name="modelo2" />
     </div>
-
-@endsection
-
-@section('script')
-
-    <script src="{{ asset('js/modelo.js') }}" crossorigin="anonymous"></script>
 
 @endsection
 

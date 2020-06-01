@@ -1,5 +1,7 @@
 @extends('plantilla.menu')
 
+@include('js.cosmeticos')
+
 @section('cosmeticos','active')
 
 @section('busqueda')
@@ -43,7 +45,7 @@
             </tr>
         @endforeach
     @else
-        <tr><td colspan="3">No hay datos registrados</td></tr>
+        <tr><td colspan="6">No hay datos registrados</td></tr>
     @endif
 
 @endsection
@@ -84,13 +86,6 @@
       <textarea type="text" class="form-control" required id="descripcion" name="descripcion"></textarea>
       <input type="hidden" id="descripcion2" name="descripcion2" />
     </div>
-
-@endsection
-
-
-@section('script')
-
-    <script src="{{ asset('js/cosmeticos.js') }}" crossorigin="anonymous"></script>
 
 @endsection
 

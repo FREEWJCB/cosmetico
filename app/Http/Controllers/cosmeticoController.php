@@ -122,7 +122,7 @@ class cosmeticoController extends Controller
 
             }
         }else{
-            $cat="<tr><td colspan='3'>No hay datos registrados</td></tr>";
+            $cat="<tr><td colspan='6'>No hay datos registrados</td></tr>";
         }
         return response()->json([
             'catalogo'=>$cat

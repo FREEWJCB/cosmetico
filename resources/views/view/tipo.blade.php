@@ -7,7 +7,7 @@
 
 @section('busqueda')
 
-    <label for="bs-tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
+    <label for="bs_tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
     <input name="bs_tipo" id="bs_tipo" class="form-control mr-sm-2" type="text" placeholder="Buscar por tipo" arialabel="Search" />
 
 @endsection
@@ -47,8 +47,6 @@
 
 
 @endsection
-
-
 
 @section('contenido')
 
