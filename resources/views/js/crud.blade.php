@@ -60,16 +60,14 @@ $(document).ready(function() {
 });
 
 function agregaRegistro() {
-    if ($("#pro").val() == "Registro") {
-        var url = "{{ route('Tipo.store') }}";
-    }
-    alert(url);
+    @yield('pro')
+
     $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:8000/Tipo.store",
+        type: tipo,
+        url: url,
         data: $("#formulario").serialize(),
         beforeSend: function() {
-            NProgress.start();
+            setStart();
             $("#formulario input[type=reset]").val("Procesando...");
             $("#formulario input[type=submit]").val("Procesando...");
             $("#formulario input[type=reset]").attr("disabled", "disabled");
@@ -77,13 +75,16 @@ function agregaRegistro() {
             $("#formulario input[type=text]").attr("readonly", "readonly");
         },
         success: function(valores) {
-            setTimeout(function() {
-                NProgress.done();
-                $(".fade").removeClass("out");
-            }, 1000);
+            setDone();
 
             var type = "success";
-            var message = "Registro completado con exito";
+            if ($("#pro").val() == "Registro") {
+                 var message = "Registro completado con exito";
+                @yield('registro')
+            }else{
+                var message = "Edición completado con exito";
+                @yield('edicion')
+            }
 
             $("body").overhang({
                 type: type,
@@ -96,10 +97,7 @@ function agregaRegistro() {
             });
         },
         error: function() {
-            setTimeout(function() {
-                NProgress.done();
-                $(".fade").removeClass("out");
-            }, 1000);
+            setDone();
             $("body").overhang({
                 type: "error",
                 message: "error validacion!",
@@ -152,7 +150,6 @@ function desactivar(id) {
         }
     });
 }
-
 
 function mostrar(id, pro) {
     $.ajax({

@@ -30,7 +30,7 @@ class TipoController extends Controller
     public function store(Request $request)
     {
         //
-        // DB::table('tipos')->insert(['tipo' => $request->tipo]);
+        DB::table('tipos')->insert(['tipo' => $request->tipo]);
 
     }
     /**
@@ -43,9 +43,7 @@ class TipoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        // DB::table('tipos')
-        // ->where('id', $id)
-        // ->update(['tipo' => $request->tipo]);
+        DB::table('tipos')->where('id', $request->id)->update(['tipo' => $request->tipo]);
     }
 
     /**
@@ -65,12 +63,7 @@ class TipoController extends Controller
 
     public function cargar(Request $request)
     {
-        //
-        // \Log::info($request->all());
-
-        // return response()->json([
-        //     'catalogo'=>$request->bs_tipo
-        // ]);
+        $cat="";
         $tipo=$request->bs_tipo;
         $cons= DB::table('tipos')
                  ->where('tipo','like', "%$tipo%")
@@ -86,8 +79,8 @@ class TipoController extends Controller
                 $i++;
                 $id=$cons2->id;
                 $tipo=$cons2->tipo;
-                $cat="<tr>
-                        <th scope='row'><center>$id</center></th>
+                $cat.="<tr>
+                        <th scope='row'><center>$i</center></th>
                         <td><center>$tipo</center></td>
                         <td>
                             <center class='navbar navbar-light'>

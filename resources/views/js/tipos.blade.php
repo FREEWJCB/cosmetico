@@ -1,26 +1,34 @@
 @section('document')
+
     $("#bs_tipo").on("keyup", function() {
         cargar();
     });
-@endsection
-
-@section('delete')
-
-    url: "{{url('Tipo')}}"+"/"+id,
 
 @endsection
 
-@section('cargar')
+@section('pro')
 
-    url: "{{route('Tipo.cargar')}}",
+    if ($("#pro").val() == "Registro") {
+        var url = "{{ route('Tipo.store') }}";
+        var tipo = "POST";
+        var message = "Registro completado con exito";
+    }else{
+        var url = "{{ route('Tipo.update',0) }}";
+        var tipo = "PUT";
+        var message = "Edición completado con exito";
+    }
 
 @endsection
 
-@section('rellenar_url')
+@section('registro') $('#tipo').val(''); @endsection
 
-    url: "{{route('Tipo.mostrar')}}",
+@section('edicion') $('#tipo2').val($('#tipo').val()); @endsection
 
-@endsection
+@section('delete') url: "{{url('Tipo')}}"+"/"+id, @endsection
+
+@section('cargar') url: "{{route('Tipo.cargar')}}", @endsection
+
+@section('rellenar_url') url: "{{route('Tipo.mostrar')}}", @endsection
 
 @section('rellenar')
 
@@ -29,14 +37,6 @@
 
 @endsection
 
-@section('editar')
+@section('editar') $("#tipo").removeAttr("readonly"); @endsection
 
-    $("#tipo").removeAttr("readonly");
-
-@endsection
-
-@section('mostrar')
-
-    $("#tipo").attr("readonly", "readonly");
-
-@endsection
+@section('mostrar') $("#tipo").attr("readonly", "readonly"); @endsection
