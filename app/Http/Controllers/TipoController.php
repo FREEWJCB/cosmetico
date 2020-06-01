@@ -22,16 +22,6 @@ class TipoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -40,32 +30,9 @@ class TipoController extends Controller
     public function store(Request $request)
     {
         //
-        // DB::table('tipos')->insert(['tipo' => $request->nombres]);
-        // return "true";
-    }
+        DB::table('tipos')->insert(['tipo' => $request->tipo]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -76,7 +43,9 @@ class TipoController extends Controller
     public function update(Request $request, $id)
     {
         //
-
+        DB::table('tipos')
+        ->where('id', $id)
+        ->update(['tipo' => $request->tipo]);
     }
 
     /**
@@ -121,7 +90,7 @@ class TipoController extends Controller
                         <th scope='row'><center>$i</center></th>
                         <td><center>$tipo</center></td>
                         <td>
-                            <center>
+                            <center class='navbar navbar-light'>
                                 <a data-toggle='dropdown' onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
                                     <i class='fa fa-list-alt'></i>
                                 </a>
@@ -141,6 +110,18 @@ class TipoController extends Controller
         }
         return response()->json([
             'catalogo'=>$cat
+        ]);
+
+    }
+
+    public function rellenar(Request $request)
+    {
+        $cons= DB::table('tipos')
+                 ->where('id', $request->id);
+        $cons2 = $cons->get();
+        $tipo = $cons2->tipo;
+        return response()->json([
+            'tipo'=>$tipo
         ]);
 
     }

@@ -99,3 +99,40 @@ function desactivar(id) {
         }
     });
 }
+
+function mostrar(id, pro) {
+    $("#formulario")[0].reset();
+
+    $.ajax({
+        type: "POST",
+        @yield('rellenar_url')
+        data: "id=" + id,
+        success: function(valores) {
+            reiniciar();
+            $("#reg").hide();
+            $("#lim").hide();
+            $("#pro").val(pro);
+            @yield('rellenar')
+            $("#id").val(id);
+            if (pro == "Edicion") {
+                @yield('editar')
+                $("#edi").show();
+                $("#titulo").html("Editar");
+            } else {
+                @yield('mostrar')
+                $("#edi").hide();
+                $("#titulo").html("Mostrar");
+            }
+
+            $("#modal").modal({
+                show: true,
+                backdrop: "static"
+            });
+            return false;
+        },
+        error: function(xhr, textStatus, errorMessage) {
+            error(xhr, textStatus, errorMessage);
+        }
+    });
+    return false;
+}

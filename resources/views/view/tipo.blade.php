@@ -1,5 +1,7 @@
 @extends('plantilla.menu')
 
+@include('js.tipos')
+
 @section('titulo','Tipo')
 @section('cosmetic','active')
 
@@ -26,7 +28,7 @@
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->tipo }}</center></td>
                 <td>
-                    <center>
+                    <center class="navbar navbar-light">
                         <a data-toggle="dropdown" onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco" href="#" >
                             <i class="fa fa-list-alt"></i>
                         </a>
@@ -58,7 +60,7 @@
 
 @endsection
 
-@include('js.tipos')
+
 
 @section('contenido')
 
