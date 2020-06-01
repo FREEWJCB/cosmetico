@@ -44,3 +44,5 @@ Route::POST('/Cosmetic/rellenar', 'CosmeticController@mostrar')->name('Cosmetic.
 Route::resource('Cosmetico', 'CosmeticoController')->except('show','edit');
 Route::POST('/Cosmeticos', 'CosmeticoController@cargar')->name('Cosmetico.cargar');
 Route::POST('/Cosmetico/rellenar', 'CosmeticoController@mostrar')->name('Cosmetico.mostrar');
+
+Route::resource('combobox', 'combo')->only('store');
