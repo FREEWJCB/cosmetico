@@ -37,7 +37,6 @@ Route::resource('Modelo', 'ModeloController')->except('show','edit');
 Route::POST('/Modelos', 'ModeloController@cargar')->name('Modelo.cargar');
 Route::POST('/Modelo/rellenar', 'ModeloController@mostrar')->name('Modelo.mostrar');
 
-
 Route::resource('Cosmetic', 'CosmeticController')->except('show','edit');
 Route::POST('/Cosmetics', 'CosmeticController@cargar')->name('Cosmetic.cargar');
 Route::POST('/Cosmetic/rellenar', 'CosmeticController@mostrar')->name('Cosmetic.mostrar');
