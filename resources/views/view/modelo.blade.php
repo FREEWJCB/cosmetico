@@ -5,13 +5,13 @@
 
 @section('busqueda')
 
-    <label for="bs-marca">Marca: &nbsp;&nbsp;&nbsp;</label>
-    <select class="form-control mr-sm-2" required id="bs-marca" name="bs-marca">
+    <label for="bs_marca">Marca: &nbsp;&nbsp;&nbsp;</label>
+    <select class="form-control mr-sm-2" required id="bs_marca" name="bs_marca">
       <option value="" selected>Seleccione la marca</option>
     </select>
 
-    <label for="bs-modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs-modelo" id="bs-modelo" class="form-control mr-sm-2" type="search" placeholder="Buscar por modelo" arialabel="Search" />
+    <label for="bs_modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_modelo" id="bs_modelo" class="form-control mr-sm-2" type="text" placeholder="Buscar por modelo" arialabel="Search" />
 
 @endsection
 
@@ -33,14 +33,14 @@
                 <td><center>{{ $cons2->marc }}</center></td>
                 <td><center>{{ $cons2->tipo }}</center></td>
                 <td>
-                <center>
-                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
+                <center class='navbar navbar-light'>
+                    <a data-toggle='dropdown' href="#" onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
                         <i class="fa fa-list-alt"></i>
                     </a>
-                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
+                    <a data-toggle='dropdown' href="#" onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
                         <i class="fa fa-edit"></i>
                     </a>
-                    <a href="#" onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
+                    <a data-toggle='dropdown' href="#" onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
                         <i class="fa fa-trash-alt"></i>
                     </a>
                 </center>
@@ -48,7 +48,7 @@
             </tr>
         @endforeach
     @else
-        <tr><td colspan="3">No hay datos registrados</td></tr>
+        <tr><td colspan="4">No hay datos registrados</td></tr>
     @endif
 
 @endsection

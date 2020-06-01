@@ -4,17 +4,17 @@
 
 @section('busqueda')
 
-    <label for="bs-tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs-tipo" id="bs-tipo" class="form-control mr-sm-2" type="search" placeholder="Buscar por tipo" arialabel="Search" />
+    <label for="bs_tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_tipo" id="bs_tipo" class="form-control mr-sm-2" type="text" placeholder="Buscar por tipo" arialabel="Search" />
 
-    <label for="bs-marca">Marca: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs-marca" id="bs-marca" class="form-control mr-sm-2" type="search" placeholder="Buscar por marca" arialabel="Search" />
+    <label for="bs_marca">Marca: &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_marca" id="bs_marca" class="form-control mr-sm-2" type="text" placeholder="Buscar por marca" arialabel="Search" />
 
-    <label for="bs-modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs-modelo" id="bs-modelo" class="form-control mr-sm-2" type="search" placeholder="Buscar por modelo" arialabel="Search" />
+    <label for="bs_modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_modelo" id="bs_modelo" class="form-control mr-sm-2" type="text" placeholder="Buscar por modelo" arialabel="Search" />
 
-    <label for="bs-cosmetico">Cosmetico: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs-cosmetico" id="bs-cosmetico" class="form-control mr-sm-2" type="search" placeholder="Buscar por cosmetico" arialabel="Search" />
+    <label for="bs_cosmetico">Cosmetico: &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_cosmetico" id="bs_cosmetico" class="form-control mr-sm-2" type="text" placeholder="Buscar por cosmetico" arialabel="Search" />
 
 @endsection
 
@@ -40,14 +40,14 @@
                 <td><center>{{ $cons2->modelo }}</center></td>
                 <td><center>{{ $cons2->cosmetico }}</center></td>
                 <td>
-                <center>
-                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
+                <center class='navbar navbar-light'>
+                    <a href="#" data-toggle='dropdown' onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
                         <i class="fa fa-list-alt"></i>
                     </a>
-                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
+                    <a href="#" data-toggle='dropdown' onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
                         <i class="fa fa-edit"></i>
                     </a>
-                    <a href="#" onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
+                    <a href="#" data-toggle='dropdown' onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
                         <i class="fa fa-trash-alt"></i>
                     </a>
                 </center>

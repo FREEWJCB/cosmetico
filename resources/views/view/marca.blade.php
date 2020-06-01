@@ -5,8 +5,8 @@
 
 @section('busqueda')
 
-    <label for="bs-dato">Marca: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs-dato" id="bs-dato" class="form-control mr-sm-2" type="search" placeholder="Buscar por marca" arialabel="Search" />
+    <label for="bs_marca">Marca: &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_marca" id="bs_marca" class="form-control mr-sm-2" type="text" placeholder="Buscar por marca" arialabel="Search" />
 
 @endsection
 
@@ -26,14 +26,14 @@
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->marca }}</center></td>
                 <td>
-                <center>
-                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
+                <center class='navbar navbar-light'>
+                    <a href="#" data-toggle='dropdown' onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
                         <i class="fa fa-list-alt"></i>
                     </a>
-                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
+                    <a href="#" data-toggle='dropdown' onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
                         <i class="fa fa-edit"></i>
                     </a>
-                    <a href="#" onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
+                    <a href="#" data-toggle='dropdown' onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
                         <i class="fa fa-trash-alt"></i>
                     </a>
                 </center>

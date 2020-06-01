@@ -24,16 +24,6 @@ class MarcaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -42,29 +32,10 @@ class MarcaController extends Controller
     public function store(Request $request)
     {
         //
+        DB::table('marcas')->insert(['marca' => $request->marca]);
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -76,6 +47,7 @@ class MarcaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        DB::table('marcas')->where('id', $request->id)->update(['marca' => $request->marca]);
     }
 
     /**
@@ -87,5 +59,72 @@ class MarcaController extends Controller
     public function destroy($id)
     {
         //
+        \Log::info("tabla = ".$id);
+        DB::table('marcas')->where('id', $id)->delete();
+    }
+
+    public function cargar(Request $request)
+    {
+        $cat="";
+        $marca=$request->bs_marca;
+        $cons= DB::table('marcas')
+                 ->where('marca','like', "%$marca%")
+                 ->where('status', '1')
+                 ->orderBy('marca','asc');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+        if ($num>0) {
+            # code...
+            $i=0;
+            foreach ($cons1 as $cons2) {
+                # code...
+                $i++;
+                $id=$cons2->id;
+                $marca=$cons2->marca;
+                $cat.="<tr>
+                        <th scope='row'><center>$i</center></th>
+                        <td><center>$marca</center></td>
+                        <td>
+                            <center class='navbar navbar-light'>
+                                <a data-toggle='dropdown' onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
+                                    <i class='fa fa-list-alt'></i>
+                                </a>
+                                <a data-toggle='dropdown' onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
+                                    <i class='fa fa-edit'></i>
+                                </a>
+                                <a data-toggle='dropdown' onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
+                                    <i class='fa fa-trash-alt'></i>
+                                </a>
+                            </center>
+                        </td>
+                    </tr>";
+
+            }
+        }else{
+            $cat="<tr><td colspan='3'>No hay datos registrados</td></tr>";
+        }
+        return response()->json([
+            'catalogo'=>$cat
+        ]);
+
+    }
+
+    public function mostrar(Request $request)
+    {
+        //
+        $id=$request->id;
+        $cons= DB::table('marcas')
+                 ->where('id', $id)->get();
+
+        foreach ($cons as $cons2) {
+            # code...
+            $marca=$cons2->marca;
+
+        }
+        return response()->json([
+            'marca'=>$marca
+        ]);
+
+
     }
 }

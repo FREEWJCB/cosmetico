@@ -4,23 +4,23 @@
 
 @section('busqueda')
 
-    <label for="bs-tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
-    <select class="form-control mr-sm-2" required id="bs-tipo" name="bs-tipo">
+    <label for="bs_tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
+    <select class="form-control mr-sm-2" id="bs_tipo" name="bs_tipo">
       <option value="" selected>Seleccione la tipo</option>
     </select>
 
-    <label for="bs-marca">Marca: &nbsp;&nbsp;&nbsp;</label>
-    <select class="form-control mr-sm-2" required id="bs-marca" name="bs-marca">
+    <label for="bs_marca">Marca: &nbsp;&nbsp;&nbsp;</label>
+    <select class="form-control mr-sm-2" id="bs_marca" name="bs_marca">
       <option value="" selected>Seleccione la marca</option>
     </select>
 
-    <label for="bs-modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>
-    <select class="form-control mr-sm-2" required id="bs-modelo" name="bs-modelo">
+    <label for="bs_modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>
+    <select class="form-control mr-sm-2" id="bs_modelo" name="bs_modelo">
       <option value="" selected>Seleccione la modelo</option>
     </select>
 
-    <label for="bs-cosmetico">Cosmetico: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs-cosmetico" id="bs-cosmetico" class="form-control mr-sm-2" type="search" placeholder="Buscar por cosmetico" arialabel="Search" />
+    <label for="bs_cosmetico">Cosmetico: &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_cosmetico" id="bs_cosmetico" class="form-control mr-sm-2" type="text" placeholder="Buscar por cosmetico" arialabel="Search" />
 
 @endsection
 
@@ -46,14 +46,14 @@
                 <td><center>{{ $cons2->model }}</center></td>
                 <td><center>{{ $cons2->cosmetico }}</center></td>
                 <td>
-                <center>
-                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
+                <center class='navbar navbar-light'>
+                    <a href="#" data-toggle='dropdown' onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
                         <i class="fa fa-list-alt"></i>
                     </a>
-                    <a href="#" onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
+                    <a href="#" data-toggle='dropdown' onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
                         <i class="fa fa-edit"></i>
                     </a>
-                    <a href="#" onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
+                    <a href="#" data-toggle='dropdown' onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
                         <i class="fa fa-trash-alt"></i>
                     </a>
                 </center>
