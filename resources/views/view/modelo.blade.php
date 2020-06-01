@@ -32,19 +32,7 @@
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->marc }}</center></td>
                 <td><center>{{ $cons2->tipo }}</center></td>
-                <td>
-                <center class='navbar navbar-light'>
-                    <a data-toggle='dropdown' href="#" onclick = "return mostrar({{ $cons2->id }},'Mostrar');" class="btn btn-info btncolorblanco">
-                        <i class="fa fa-list-alt"></i>
-                    </a>
-                    <a data-toggle='dropdown' href="#" onclick = "return mostrar({{ $cons2->id }},'Edicion');" class="btn btn-success btncolorblanco">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    <a data-toggle='dropdown' href="#" onclick = "return desactivar({{ $cons2->id }});" class="btn btn-danger btncolorblanco">
-                        <i class="fa fa-trash-alt"></i>
-                    </a>
-                </center>
-                </td>
+                @include('plantilla.catalogo')
             </tr>
         @endforeach
     @else
