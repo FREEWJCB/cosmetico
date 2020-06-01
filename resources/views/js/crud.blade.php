@@ -8,6 +8,7 @@ function error(xhr, textStatus, errorMessage) {
     console.log("Error:" + errorMessage + textStatus + xhr.status);
     $.each(xhr.responseJSON, function(indice, valor) {
         console.log(indice + " - " + valor);
+        //console.log(´%c${indice} - ${valor}´,'color:red;');
     });
     setDone();
     $("body").overhang({
