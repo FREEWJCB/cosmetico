@@ -9,11 +9,21 @@
     <label for="bs_tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" id="bs_tipo" name="bs_tipo">
       <option value="" selected>Seleccione la tipo</option>
+      @if ($num_tipo>0)
+        @foreach ($tipos as $tipos2)
+            <option value="{{ $tipos2->id }}">{{ $tipos2->tipo }}</option>
+        @endforeach
+      @endif
     </select>
 
     <label for="bs_marca">Marca: &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" id="bs_marca" name="bs_marca">
       <option value="" selected>Seleccione la marca</option>
+      @if ($num_marca>0)
+        @foreach ($marcas as $marcas2)
+            <option value="{{ $marcas2->id }}">{{ $marcas2->marca }}</option>
+        @endforeach
+      @endif
     </select>
 
     <label for="bs_modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>
@@ -64,6 +74,11 @@
         <label for="marca">Marca</label>
         <select class="form-control" required id="marca" name="marca">
           <option value="null" disabled selected>Seleccione la marca</option>
+          @if ($num_marca>0)
+            @foreach ($marcas as $marcas2)
+                <option value="{{ $marcas2->id }}">{{ $marcas2->marca }}</option>
+            @endforeach
+          @endif
         </select>
       </div>
 
@@ -82,6 +97,11 @@
         <label for="tipo">Tipo</label>
         <select class="form-control" required id="tipo" name="tipo">
           <option value="null" disabled selected>Seleccione la tipo</option>
+          @if ($num_tipo>0)
+            @foreach ($tipos as $tipos2)
+                <option value="{{ $tipos2->id }}">{{ $tipos2->tipo }}</option>
+            @endforeach
+          @endif
         </select>
         <input type="hidden" id="tipo2" name="tipo2" />
       </div>

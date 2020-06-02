@@ -9,7 +9,13 @@
 
     <label for="bs_marca">Marca: &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" required id="bs_marca" name="bs_marca">
-      <option value="" selected>Seleccione la marca</option>
+      <option class="form-control mr-sm-2" value="" selected>Seleccione la marca</option>
+      @if ($num_marca>0)
+        @foreach ($marcas as $marcas2)
+            <option value="{{ $marcas2->id }}">{{ $marcas2->marca }}</option>
+        @endforeach
+      @endif
+
     </select>
 
     <label for="bs_modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>

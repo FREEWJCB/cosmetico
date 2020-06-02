@@ -25,7 +25,16 @@ class cosmeticController extends Controller
                     ->orderBy('cosmetico','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
-        return view('view.cosmetic',['cons' => $cons2, 'num' => $num]);
+
+        $tipos = DB::table('tipos')->where('status', '1')->orderBy('tipo','asc');
+        $tipos2 = $tipos->get();
+        $num_tipo = $tipos->count();
+
+        $marcas = DB::table('marcas')->where('status', '1')->orderBy('marca','asc');
+        $marcas2 = $marcas->get();
+        $num_marca = $marcas->count();
+
+        return view('view.cosmetic',['cons' => $cons2, 'num' => $num, 'marcas' => $marcas2, 'num_marca' => $num_marca, 'tipos' => $tipos2, 'num_tipo' => $num_tipo]);
     }
 
     /**

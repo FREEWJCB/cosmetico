@@ -23,7 +23,10 @@ class ModeloController extends Controller
                     ->orderBy('modelo','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
-        return view('view.modelo',['cons' => $cons2, 'num' => $num]);
+        $marcas = DB::table('marcas')->where('status', '1')->orderBy('marca','asc');
+        $marcas2 = $marcas->get();
+        $num_marca = $marcas->count();
+        return view('view.modelo',['cons' => $cons2, 'num' => $num, 'num_marca' => $num_marca]);
     }
 
     /**
