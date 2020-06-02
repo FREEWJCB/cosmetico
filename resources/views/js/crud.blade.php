@@ -97,15 +97,8 @@ function agregaRegistro() {
                 }
             });
         },
-        error: function() {
-            setDone();
-            $("body").overhang({
-                type: "error",
-                message: "error validacion!",
-                callback: function() {
-                    reiniciar();
-                }
-            });
+        error: function(xhr, textStatus, errorMessage) {
+            error(xhr, textStatus, errorMessage);
         }
     });
     return false;
