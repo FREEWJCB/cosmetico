@@ -97,9 +97,9 @@ function agregaRegistro() {
                 }
             });
         },
-        //error: function(xhr, textStatus, errorMessage) {
-       //     error(xhr, textStatus, errorMessage);
-        //}
+        error: function(xhr, textStatus, errorMessage) {
+            error(xhr, textStatus, errorMessage);
+        }
     });
     return false;
 }

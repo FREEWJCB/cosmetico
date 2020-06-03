@@ -14,11 +14,19 @@
     <link rel="stylesheet" href="{{ asset('css/progress/nprogress.css') }}"  />
     <link rel="stylesheet" href="{{ asset('css/fontawesome/css/all.min.css') }}"  />
 
-
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/popper.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/turbolinks.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/nprogress.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/overhang2.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript"> @include('js.crud') </script>
+    <script src="{{ asset('js/progress.js') }}" type="text/javascript"></script>
   </head>
-  <body style='display: none'>
+  <body >
     <!-- menu -->
-    <div class="navbar navbar-expand-md navbar-dark bg-dark mb-4" role="navigation">
+    <div data-turbolinks-permanent class="navbar navbar-expand-md navbar-dark bg-dark mb-4" role="navigation">
       <a class="navbar-brand" title="Inicio" href="/">CRUD Cosmeticos</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -56,17 +64,11 @@
       </div>
     </div>
     <!-- contenido -->
+    <div class="main fadein">
 
-    @yield('contenido')
+        @yield('contenido')
 
-    <script src="{{ asset('js/jquery-3.5.1.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/jquery-ui.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/popper.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/turbolinks.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/nprogress.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/overhang2.min.js') }}" type="text/javascript"></script>
-    <script type="text/javascript"> @include('js.crud') </script>
-    <script src="{{ asset('js/progress.js') }}" type="text/javascript"></script>
+    </div>
+
   </body>
 </html>
