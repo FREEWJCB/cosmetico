@@ -23,10 +23,12 @@ class ModeloController extends Controller
                     ->orderBy('modelo','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
+
         $marcas = DB::table('marcas')->where('status', '1')->orderBy('marca','asc');
         $marcas2 = $marcas->get();
         $num_marca = $marcas->count();
-        return view('view.modelo',['cons' => $cons2, 'num' => $num, 'num_marca' => $num_marca]);
+
+        return view('view.modelo',['cons' => $cons2, 'num' => $num, 'num_marca' => $num_marca, 'marcas' => $marcas2]);
     }
 
     /**
@@ -81,7 +83,7 @@ class ModeloController extends Controller
         $cons = DB::table('modelos')
                 ->select('modelos.*', 'marcas.marca as marc')
                 ->join('marcas', 'modelos.marca', '=', 'marcas.id')
-                ->where('marca', 'like', "%$marca%")
+                ->where('modelos.marca', 'like', "%$marca%")
                 ->where('modelo','like', "%$modelo%")
                 ->where('modelos.status', '1')
                 ->orderBy('modelo','asc');
@@ -101,14 +103,14 @@ class ModeloController extends Controller
                         <td><center>$marc</center></td>
                         <td><center>$modelo</center></td>
                         <td>
-                            <center class='navbar navbar-light'>
-                                <a data-toggle='dropdown' onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
+                            <center data-turbolinks='false' class='navbar navbar-light'>
+                                <a onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
                                     <i class='fa fa-list-alt'></i>
                                 </a>
-                                <a data-toggle='dropdown' onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
+                                <a onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
                                     <i class='fa fa-edit'></i>
                                 </a>
-                                <a data-toggle='dropdown' onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
+                                <a onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
                                     <i class='fa fa-trash-alt'></i>
                                 </a>
                             </center>

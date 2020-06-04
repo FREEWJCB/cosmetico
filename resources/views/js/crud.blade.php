@@ -40,6 +40,7 @@ function reiniciar() {
     $("#formulario input[type=reset]").removeAttr("disabled");
     $("#formulario input[type=submit]").removeAttr("disabled");
     $("#formulario input[type=text]").removeAttr("readonly");
+    $("#formulario textarea").removeAttr("readonly");
 }
 
 $(document).ready(function() {
@@ -74,6 +75,7 @@ function agregaRegistro() {
             $("#formulario input[type=reset]").attr("disabled", "disabled");
             $("#formulario input[type=submit]").attr("disabled", "disabled");
             $("#formulario input[type=text]").attr("readonly", "readonly");
+            $("#formulario textarea").attr("readonly", "readonly");
         },
         success: function(valores) {
             setDone();

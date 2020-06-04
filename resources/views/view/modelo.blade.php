@@ -55,6 +55,11 @@
       <label for="marca">Marca</label>
       <select class="form-control" required id="marca" name="marca">
         <option value="null" disabled selected>Seleccione la marca</option>
+        @if ($num_marca>0)
+            @foreach ($marcas as $marcas2)
+                <option value="{{ $marcas2->id }}">{{ $marcas2->marca }}</option>
+            @endforeach
+        @endif
       </select>
       <input type="hidden" id="marca2" name="marca2" />
     </div>

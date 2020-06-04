@@ -22,11 +22,11 @@
 
     if ($("#pro").val() == "Registro") {
         var url = "{{ route('Cosmetic.store') }}";
-        var marca = "POST";
+        var tipo = "POST";
         var message = "Registro completado con exito";
     }else{
         var url = "{{ route('Cosmetic.update',0) }}";
-        var marca = "PUT";
+        var tipo = "PUT";
         var message = "Edición completado con exito";
     }
 
@@ -73,20 +73,20 @@ $('#cosmetico2').val($('#cosmetico').val());
 
 @section('editar')
 
-$("#marca").removeAttr("disabled");
-$("#modelo").removeAttr("disabled");
-$("#tipo").removeAttr("disabled");
-$("#descripcion").removeAttr("readonly");
-$("#cosmetico").removeAttr("readonly");
+    $("#marca").removeAttr("disabled");
+    $("#modelo").removeAttr("disabled");
+    $("#tipo").removeAttr("disabled");
+    $("#descripcion").removeAttr("readonly");
+    $("#cosmetico").removeAttr("readonly");
 
 @endsection
 
 @section('mostrar')
 
-$("#marca").attr("disabled", "disabled");
-$("#modelo").attr("disabled", "disabled");
-$("#tipo").attr("disabled", "disabled");
-$("#descripcion").attr("readonly", "readonly");
-$("#modelo").attr("readonly", "readonly");
+    $("#marca").attr("disabled", "disabled");
+    $("#modelo").attr("disabled", "disabled");
+    $("#tipo").attr("disabled", "disabled");
+    $("#descripcion").attr("readonly", "readonly");
+    $("#cosmetico").attr("readonly", "readonly");
 
 @endsection

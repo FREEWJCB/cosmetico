@@ -22,11 +22,11 @@
 
     if ($("#pro").val() == "Registro") {
         var url = "{{ route('Cosmetico.store') }}";
-        var marca = "POST";
+        var tipo = "POST";
         var message = "Registro completado con exito";
     }else{
         var url = "{{ route('Cosmetico.update',0) }}";
-        var marca = "PUT";
+        var tipo = "PUT";
         var message = "Edición completado con exito";
     }
 
@@ -75,20 +75,20 @@ $('#cosmetico2').val($('#cosmetico').val());
 
 @section('editar')
 
-$("#marca").removeAttr("readonly");
-$("#modelo").removeAttr("readonly");
-$("#tipo").removeAttr("readonly");
-$("#descripcion").removeAttr("readonly");
-$("#cosmetico").removeAttr("readonly");
+    $("#marca").removeAttr("readonly");
+    $("#modelo").removeAttr("readonly");
+    $("#tipo").removeAttr("readonly");
+    $("#descripcion").removeAttr("readonly");
+    $("#cosmetico").removeAttr("readonly");
 
 @endsection
 
 @section('mostrar')
 
-$("#marca").attr("readonly", "readonly");
-$("#modelo").attr("readonly", "readonly");
-$("#tipo").attr("readonly", "readonly");
-$("#descripcion").attr("readonly", "readonly");
-$("#modelo").attr("readonly", "readonly");
+    $("#marca").attr("readonly", "readonly");
+    $("#modelo").attr("readonly", "readonly");
+    $("#tipo").attr("readonly", "readonly");
+    $("#descripcion").attr("readonly", "readonly");
+    $("#cosmetico").attr("readonly", "readonly");
 
 @endsection

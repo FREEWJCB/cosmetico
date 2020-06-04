@@ -85,14 +85,14 @@ class MarcaController extends Controller
                         <th scope='row'><center>$i</center></th>
                         <td><center>$marca</center></td>
                         <td>
-                            <center class='navbar navbar-light'>
-                                <a data-toggle='dropdown' onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
+                            <center data-turbolinks='false' class='navbar navbar-light'>
+                                <a onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
                                     <i class='fa fa-list-alt'></i>
                                 </a>
-                                <a data-toggle='dropdown' onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
+                                <a onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
                                     <i class='fa fa-edit'></i>
                                 </a>
-                                <a data-toggle='dropdown' onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
+                                <a onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
                                     <i class='fa fa-trash-alt'></i>
                                 </a>
                             </center>

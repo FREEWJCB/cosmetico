@@ -14,11 +14,11 @@
 
     if ($("#pro").val() == "Registro") {
         var url = "{{ route('Modelo.store') }}";
-        var marca = "POST";
+        var tipo = "POST";
         var message = "Registro completado con exito";
     }else{
         var url = "{{ route('Modelo.update',0) }}";
-        var marca = "PUT";
+        var tipo = "PUT";
         var message = "Edición completado con exito";
     }
 
