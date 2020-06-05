@@ -5,7 +5,11 @@
     });
 
     $("#bs_marca").on("change", function() {
+
         cargar();
+        var marca = $("#bs_marca").val();
+        combo("modelos", "marca", marca, "bs_modelo", 0, "modelo", "modelo", 0);
+
     });
 
     $("#bs_modelo").on("change", function() {
@@ -14,6 +18,11 @@
 
     $("#bs_cosmetico").on("keyup", function() {
         cargar();
+    });
+
+    $("#marca").on("change", function() {
+        var marca = $("#marca").val();
+        combo("modelos", "marca", marca, "modelo", 0, "modelo", "modelo", 2);
     });
 
 @endsection
@@ -36,7 +45,7 @@
 
     $('#tipo').val('null');
     $('#marca').val('null');
-    $('#modelo').val('null');
+    $('#modelo').html('<option value="null" disabled selected>Seleccione un modelo</option>');
     $('#descripcion').val('');
     $('#cosmetico').val('');
 
@@ -60,7 +69,7 @@ $('#cosmetico2').val($('#cosmetico').val());
 @section('rellenar')
 
     $("#marca").val(valores.marca);
-    $("#modelo").val(valores.modelo);
+    combo("modelos", "marca", valores.marca, "modelo", valores.modelo, "modelo", "modelo", 1);
     $("#modelo2").val(valores.modelo);
     $("#tipo").val(valores.tipo);
     $("#tipo2").val(valores.tipo);

@@ -8,7 +8,7 @@
 
     <label for="bs_tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" id="bs_tipo" name="bs_tipo">
-      <option value="" selected>Seleccione la tipo</option>
+      <option value="" selected>Seleccione un tipo</option>
       @if ($num_tipo>0)
         @foreach ($tipos as $tipos2)
             <option value="{{ $tipos2->id }}">{{ $tipos2->tipo }}</option>
@@ -18,7 +18,7 @@
 
     <label for="bs_marca">Marca: &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" id="bs_marca" name="bs_marca">
-      <option value="" selected>Seleccione la marca</option>
+      <option value="" selected>Seleccione una marca</option>
       @if ($num_marca>0)
         @foreach ($marcas as $marcas2)
             <option value="{{ $marcas2->id }}">{{ $marcas2->marca }}</option>
@@ -28,11 +28,11 @@
 
     <label for="bs_modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" id="bs_modelo" name="bs_modelo">
-      <option value="" selected>Seleccione la modelo</option>
+      <option value="" selected>Seleccione un modelo</option>
     </select>
 
     <label for="bs_cosmetico">Cosmetico: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_cosmetico" id="bs_cosmetico" class="form-control mr-sm-2" type="text" placeholder="Buscar por cosmetico" arialabel="Search" />
+    <input name="bs_cosmetico" id="bs_cosmetico" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por cosmetico" arialabel="Search" />
 
 @endsection
 
@@ -85,7 +85,7 @@
       <div class="form-group col-md-6">
         <label for="modelo">Modelo</label>
         <select class="form-control" required id="modelo" name="modelo">
-          <option value="null" disabled selected>Seleccione la modelo</option>
+          <option value="null" disabled selected>Seleccione un modelo</option>
         </select>
         <input type="hidden" id="modelo2" name="modelo2" />
       </div>
@@ -108,7 +108,7 @@
 
       <div class="form-group col-md-6">
         <label for="cosmetico">Cosmetico</label>
-        <input type="text" class="form-control" required id="cosmetico" name="cosmetico" />
+        <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="cosmetico" name="cosmetico" />
         <input type="hidden" id="cosmetico2" name="cosmetico2" />
       </div>
 

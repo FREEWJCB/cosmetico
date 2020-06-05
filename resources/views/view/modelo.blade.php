@@ -19,7 +19,7 @@
     </select>
 
     <label for="bs_modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_modelo" id="bs_modelo" class="form-control mr-sm-2" type="text" placeholder="Buscar por modelo" arialabel="Search" />
+    <input name="bs_modelo" id="bs_modelo" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por modelo" arialabel="Search" />
 
 @endsection
 
@@ -66,7 +66,7 @@
 
     <div class="form-group">
       <label for="modelo">Modelo</label>
-      <input type="text" class="form-control" required id="modelo" name="modelo" />
+      <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="modelo" name="modelo" />
       <input type="hidden" id="modelo2" name="modelo2" />
     </div>
 

@@ -8,7 +8,7 @@
 @section('busqueda')
 
     <label for="bs_tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_tipo" id="bs_tipo" class="form-control mr-sm-2" type="text" placeholder="Buscar por tipo" arialabel="Search" />
+    <input name="bs_tipo" id="bs_tipo" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por tipo" arialabel="Search" />
 
 @endsection
 
@@ -41,7 +41,7 @@
 
     <div class="form-group">
       <label for="tipo">Tipo</label>
-      <input type="text" required class="form-control" id="tipo" name="tipo" />
+      <input type="text" onkeyup="mayuscula(this)" required class="form-control" id="tipo" name="tipo" />
       <input type="hidden" id="tipo2" name="tipo2" />
     </div>
 

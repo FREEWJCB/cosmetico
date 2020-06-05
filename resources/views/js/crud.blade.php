@@ -1,21 +1,3 @@
-$.ajaxSetup({
-    headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-    }
-});
-
-function error(xhr, textStatus, errorMessage) {
-    console.log("Error:" + errorMessage + textStatus + xhr.status);
-    $.each(xhr.responseJSON, function(indice, valor) {
-        console.log(indice + " - " + valor);
-        //console.log(´%c${indice} - ${valor}´,'color:red;');
-    });
-    setDone();
-    $("body").overhang({
-        type: "error",
-        message: "error validacion!"
-    });
-}
 
 function cargar() {
     $.ajax({
@@ -24,6 +6,7 @@ function cargar() {
         data: $("#form").serialize(),
         success: function(registro) {
             $("#agrega-registros").html(registro.catalogo);
+            console.log("%cCargar catalogo realizado con éxito",'color:green;');
             return false;
         },
         error: function(xhr, textStatus, errorMessage) {
@@ -95,6 +78,7 @@ function agregaRegistro() {
                 callback: function() {
                     reiniciar();
                     cargar();
+                    console.log("%cProceso realizado con éxito",'color:green;');
                     return false;
                 }
             });
@@ -131,6 +115,7 @@ function desactivar(id) {
                             message: "Dato eliminado con exito",
                             callback: function() {
                                 cargar();
+                                console.log("%cEliminación realizado con éxito",'color:green;');
                             }
                         });
                         return false;
@@ -172,6 +157,7 @@ function mostrar(id, pro) {
                 show: true,
                 backdrop: "static"
             });
+            console.log("%cRellenar realizado con éxito",'color:green;');
             return false;
         },
         error: function(xhr, textStatus, errorMessage) {

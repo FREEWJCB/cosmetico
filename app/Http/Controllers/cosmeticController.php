@@ -96,9 +96,9 @@ class cosmeticController extends Controller
                 ->join('tipos', 'cosmetics.tipo', '=', 'tipos.id')
                 ->join('modelos', 'cosmetics.modelo', '=', 'modelos.id')
                 ->join('marcas', 'modelos.marca', '=', 'marcas.id')
-                ->where('tipo','like', "%$tipo%")
-                ->where('marca','like', "%$marca%")
-                ->where('modelo','like', "%$modelo%")
+                ->where('cosmetics.tipo','like', "%$tipo%")
+                ->where('modelos.marca','like', "%$marca%")
+                ->where('cosmetics.modelo','like', "%$modelo%")
                 ->where('cosmetico','like', "%$cosmetico%")
                 ->where('cosmetics.status', '1')
                 ->orderBy('cosmetico','asc');

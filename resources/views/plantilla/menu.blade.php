@@ -21,7 +21,7 @@
     <script src="{{ asset('js/turbolinks.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/nprogress.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/overhang2.min.js') }}" type="text/javascript"></script>
-    <script type="text/javascript"> @include('js.crud') </script>
+    <script type="text/javascript"> @include('js.combo') @include('js.crud') </script>
     <script src="{{ asset('js/progress.js') }}" type="text/javascript"></script>
   </head>
   <body >
