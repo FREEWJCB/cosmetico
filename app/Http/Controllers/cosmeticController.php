@@ -152,7 +152,8 @@ class cosmeticController extends Controller
         //
         $id=$request->id;
         $cons= DB::table('cosmetics')
-                 ->where('id', $id)->get();
+                 ->join('modelos', 'cosmetics.modelo', '=', 'modelos.id')
+                 ->where('cosmetics.id', $id)->get();
 
         foreach ($cons as $cons2) {
             # code...
