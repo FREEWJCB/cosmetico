@@ -12,6 +12,17 @@
 
 @endsection
 
+@section('maestro','tipo')
+
+@if ($js == 'axios')
+    @section('ajax','warning')
+    @section('axios','success')
+    @section('onsubmit','gestionar')
+    @section('mostrar','mostrar_axios')
+    @section('desactivar','desactivar_axios')
+@endif
+
+
 @section('thead')
 
     <th scope="col"><center>Tipo</center></th>
