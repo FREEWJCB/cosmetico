@@ -60,6 +60,49 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item dropdown">
+            <a title="proyecto" href="#" class='nav-link  dropdown-toggle @yield("proyecto","")' id="dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Proyecto
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown1">
+              <li class="dropdown-item">
+                <a title="Ocupación laboral" href="{{ route('Ocupacion_Laboral.index') }}">Ocupación laboral</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Tipo Usuario" href="{{ route('Tipo_Usuario.index') }}">Tipo Usuario</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Tipo Alergia" href="{{ route('Tipo_Alergia.index') }}">Tipo Alergia</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Tipo Discapacidad" href="{{ route('Tipo_Discapacidad.index') }}">Tipo Discapacidad</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Alergia" href="{{ route('Alergia.index') }}">Alergia</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Discapadidad" href="{{ route('Discapadidad.index') }}">Discapadidad</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Cargo" href="{{ route('Cargo.index') }}">Cargo</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Sección" href="{{ route('Seccion.index') }}">Sección</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Salon" href="{{ route('Salon.index') }}">Salon</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Grado" href="{{ route('Grado.index') }}">Grado</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Estado" href="{{ route('State.index') }}">Estado</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Municipio" href="{{ route('Municipality.index') }}">Municipio</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
