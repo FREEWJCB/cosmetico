@@ -12,13 +12,13 @@ class TipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($js="AJAX")
     {
         //
         $cons = DB::table('tipos')->where('status', '1')->orderBy('tipo','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
-        return view('view.tipo',['cons' => $cons2, 'num' => $num]);
+        return view('view.tipo',['cons' => $cons2, 'num' => $num, 'js' => $js]);
     }
 
     /**
@@ -55,7 +55,7 @@ class TipoController extends Controller
     public function destroy($id)
     {
         //
-        \Log::info("tabla = ".$id);
+
         DB::table('tipos')->where('id', $id)->delete();
 
 

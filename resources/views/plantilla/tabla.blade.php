@@ -4,6 +4,12 @@
     <br />
 
     <!-- busqueda -->
+    <a href="#" data-toggle="dropdown" id="ajax" class="btn btn-@yield('ajax','success') btncolorblanco">
+        <i class="fas fa-user-plus"></i> AJAX
+    </a>
+    <a href="#" data-toggle="dropdown" id="axios" class="btn btn-@yield('ajax','warning') btncolorblanco">
+        <i class="fas fa-user-plus"></i> AXIOS
+    </a>
     <nav class="navbar navbar-light">
         <h3>Buscar:</h3>
         <form name="form" id="form" class="form-inline">
