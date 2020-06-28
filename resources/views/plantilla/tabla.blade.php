@@ -47,6 +47,7 @@
                 @csrf
                 <input type="hidden" id="id" name="id" />
                 <input type="hidden" id="pro" name="pro" />
+                <input type="hidden" value="@yield('maestro')" id="maestro" name="maestro" />
                 <div class="modal-body">
                     @yield('form')
                 </div>
