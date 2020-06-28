@@ -43,7 +43,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="formulario" name="formulario" class="formulario"  onsubmit="return agregaRegistro();">
+            <form id="formulario" name="formulario" class="formulario"  onsubmit='return @yield("onsubmit","agregaRegistro")();'>
                 @csrf
                 <input type="hidden" id="id" name="id" />
                 <input type="hidden" id="pro" name="pro" />
