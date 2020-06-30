@@ -1,3 +1,14 @@
+<script>
+
+function reiniciar() {
+    $("#reg").val("Registrar");
+    $("#edi").val("Editar");
+    $("#lim").val("Limpiar");
+    $("#formulario input[type=reset]").removeAttr("disabled");
+    $("#formulario input[type=submit]").removeAttr("disabled");
+    $("#formulario input[type=text]").removeAttr("readonly");
+    $("#formulario textarea").removeAttr("readonly");
+}
 
 function cargar() {
     $.ajax({
@@ -16,15 +27,25 @@ function cargar() {
     return false;
 }
 
-function reiniciar() {
-    $("#reg").val("Registrar");
-    $("#edi").val("Editar");
-    $("#lim").val("Limpiar");
-    $("#formulario input[type=reset]").removeAttr("disabled");
-    $("#formulario input[type=submit]").removeAttr("disabled");
-    $("#formulario input[type=text]").removeAttr("readonly");
-    $("#formulario textarea").removeAttr("readonly");
-}
+// function cargar_axios() {
+//     axios({
+//         type: "POST",
+//         @yield('cargar')
+//         data: $("#form").serialize(),
+//     })
+//     .then(function (registro){
+//         $("#agrega-registros").html(registro.catalogo);
+//         console.log("%cCargar catalogo realizado con éxito",'color:green;');
+//         return false;
+//     })
+//     .catch(function (registro){
+//         $("#agrega-registros").html(registro.catalogo);
+//         console.log("%cCargar catalogo realizado con éxito",'color:green;');
+//         return false;
+//     });
+//     return false;
+// }
+
 
 $(document).ready(function() {
     $("#nuevo").on("click", function() {
@@ -167,3 +188,4 @@ function mostrar(id, pro) {
     return false;
 }
 
+</script>
