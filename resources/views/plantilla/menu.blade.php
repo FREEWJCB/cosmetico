@@ -47,10 +47,10 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdown1">
               <li class="dropdown-item">
-                <a title="Tipo" href="{{ url('Maestro/tipos') }}">Tipo</a>
+                <a title="Tipo" href="{{ route('Tipo.index') }}">Tipo</a>
               </li>
               <li class="dropdown-item">
-                <a title="Marca" href="{{ url('Maestro/marca') }}">Marca</a>
+                <a title="Marca" href="{{ route('Marca.index') }}">Marca</a>
               </li>
               <li class="dropdown-item">
                 <a title="Modelo" href="{{ route('Modelo.index') }}">Modelo</a>
@@ -66,16 +66,16 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdown1">
               <li class="dropdown-item">
-                <a title="Ocupación laboral" href="{{ route('Maestro.index','Ocupacion_Laboral') }}">Ocupación laboral</a>
+                <a title="Ocupación laboral" href="{{ route('Ocupacion_Laboral.index') }}">Ocupación laboral</a>
               </li>
               <li class="dropdown-item">
-                <a title="Tipo Usuario" href="{{ route('Maestro.index','Tipo_Usuario') }}">Tipo Usuario</a>
+                <a title="Tipo Usuario" href="{{ route('Tipo_Usuario.index') }}">Tipo Usuario</a>
               </li>
               <li class="dropdown-item">
-                <a title="Tipo Alergia" href="{{ route('Maestro.index','Tipo_Alergia') }}">Tipo Alergia</a>
+                <a title="Tipo Alergia" href="{{ route('Tipo_Alergia.index') }}">Tipo Alergia</a>
               </li>
               <li class="dropdown-item">
-                <a title="Tipo Discapacidad" href="{{ route('Maestro.index','Tipo_Discapacidad') }}">Tipo Discapacidad</a>
+                <a title="Tipo Discapacidad" href="{{ route('Tipo_Discapacidad.index') }}">Tipo Discapacidad</a>
               </li>
               <li class="dropdown-item">
                 <a title="Alergia" href="{{ route('Alergia.index') }}">Alergia</a>
@@ -84,19 +84,19 @@
                 <a title="Discapadidad" href="{{ route('Discapacidad.index') }}">Discapadidad</a>
               </li>
               <li class="dropdown-item">
-                <a title="Cargo" href="{{ route('Maestro.index','Cargo') }}">Cargo</a>
+                <a title="Cargo" href="{{ route('Cargo.index') }}">Cargo</a>
               </li>
               <li class="dropdown-item">
-                <a title="Sección" href="{{ route('Maestro.index','Seccion') }}">Sección</a>
+                <a title="Sección" href="{{ route('Seccion.index') }}">Sección</a>
               </li>
               <li class="dropdown-item">
-                <a title="Salon" href="{{ route('Maestro.index','Salon') }}">Salon</a>
+                <a title="Salon" href="{{ route('Salon.index') }}">Salon</a>
               </li>
               <li class="dropdown-item">
-                <a title="Grado" href="{{ route('Maestro.index','Grado') }}">Grado</a>
+                <a title="Grado" href="{{ route('Grado.index') }}">Grado</a>
               </li>
               <li class="dropdown-item">
-                <a title="Estado" href="{{ route('Maestro.index','State') }}">Estado</a>
+                <a title="Estado" href="{{ route('State.index') }}">Estado</a>
               </li>
               <li class="dropdown-item">
                 <a title="Municipio" href="{{ route('Municipality.index') }}">Municipio</a>
