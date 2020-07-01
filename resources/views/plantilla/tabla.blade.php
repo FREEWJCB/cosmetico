@@ -4,10 +4,10 @@
     <br />
 
     <!-- busqueda -->
-    <a href="{{ route('Tipo.index') }}" id="ajax" class="btn btn-@yield('ajax','success') btncolorblanco">
+    <a href="@yield('url_ajax')" id="ajax" class="btn btn-@yield('ajax','success') btncolorblanco">
         <i class="fas fa-user-plus"></i> AJAX
     </a>
-    <a href="{{ url('Tipo/axios') }}" id="axios" class="btn btn-@yield('axios','warning') btncolorblanco">
+    <a href="@yield('url_axios')" id="axios" class="btn btn-@yield('axios','warning') btncolorblanco">
         <i class="fas fa-user-plus"></i> AXIOS
     </a>
     <nav class="navbar navbar-light">
@@ -49,11 +49,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="formulario" name="formulario" class="formulario"  onsubmit='return @yield("onsubmit","agregaRegistro")();'>
+            <form id="formulario" name="formulario" class="formulario"  onsubmit='return agregaRegistro();'>
                 @csrf
                 <input type="hidden" id="id" name="id" />
                 <input type="hidden" id="pro" name="pro" />
                 <input type="hidden" value="@yield('maestro')" id="maestro" name="maestro" />
+                <input type="hidden" value="@yield('atributo')" id="atributo" name="atributo" />
                 <div class="modal-body">
                     @yield('form')
                 </div>
