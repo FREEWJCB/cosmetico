@@ -46,7 +46,7 @@ class cosmeticoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
         DB::table('cosmeticos')->where('id', $request->id)->update([
@@ -67,7 +67,6 @@ class cosmeticoController extends Controller
     public function destroy($id)
     {
         //
-         \Log::info("tabla = ".$id);
         DB::table('cosmeticos')->where('id', $id)->delete();
     }
 

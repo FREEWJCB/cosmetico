@@ -52,7 +52,7 @@ class ModeloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
         DB::table('modelos')->where('id', $request->id)->update([
@@ -70,7 +70,6 @@ class ModeloController extends Controller
     public function destroy($id)
     {
         //
-        \Log::info("tabla = ".$id);
         DB::table('modelos')->where('id', $id)->delete();
     }
 

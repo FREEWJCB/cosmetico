@@ -6,19 +6,9 @@
 
 @endsection
 
-@section('pro')
+@section('url_registro') var url = "{{ route('Marca.store') }}"; @endsection
 
-    if ($("#pro").val() == "Registro") {
-        var url = "{{ route('Marca.store') }}";
-        var tipo = "POST";
-        var message = "Registro completado con exito";
-    }else{
-        var url = "{{ route('Marca.update',0) }}";
-        var tipo = "PUT";
-        var message = "Edición completado con exito";
-    }
-
-@endsection
+@section('url_edicion') var url = "{{ route('Marca.update') }}"; @endsection
 
 @section('registro') $('#marca').val(''); @endsection
 

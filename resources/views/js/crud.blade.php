@@ -67,7 +67,15 @@ $(document).ready(function() {
 });
 
 function agregaRegistro() {
-    @yield('pro')
+    if ($("#pro").val() == "Registro") {
+        @yield('url_registro')
+        var tipo = "POST";
+        var message = "Registro completado con exito";
+    }else{
+        @yield('url_edicion')
+        var tipo = "PUT";
+        var message = "Edición completado con exito";
+    }
 
     $.ajax({
         type: tipo,

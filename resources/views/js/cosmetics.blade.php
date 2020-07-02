@@ -27,19 +27,9 @@
 
 @endsection
 
-@section('pro')
+@section('url_registro') var url = "{{ route('Cosmetic.store') }}"; @endsection
 
-    if ($("#pro").val() == "Registro") {
-        var url = "{{ route('Cosmetic.store') }}";
-        var tipo = "POST";
-        var message = "Registro completado con exito";
-    }else{
-        var url = "{{ route('Cosmetic.update',0) }}";
-        var tipo = "PUT";
-        var message = "Edición completado con exito";
-    }
-
-@endsection
+@section('url_edicion') var url = "{{ route('Cosmetic.update') }}"; @endsection
 
 @section('select')
 

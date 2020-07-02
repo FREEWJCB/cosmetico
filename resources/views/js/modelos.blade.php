@@ -10,19 +10,9 @@
 
 @endsection
 
-@section('pro')
+@section('url_registro') var url = "{{ route('Modelo.store') }}"; @endsection
 
-    if ($("#pro").val() == "Registro") {
-        var url = "{{ route('Modelo.store') }}";
-        var tipo = "POST";
-        var message = "Registro completado con exito";
-    }else{
-        var url = "{{ route('Modelo.update',0) }}";
-        var tipo = "PUT";
-        var message = "Edición completado con exito";
-    }
-
-@endsection
+@section('url_edicion') var url = "{{ route('Modelo.update') }}"; @endsection
 
 @section('registro')
 
