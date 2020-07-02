@@ -137,4 +137,30 @@ Route::POST('/Municipalitys', 'MunicipalityController@cargar')->name('Municipali
 Route::POST('/Municipality/rellenar', 'MunicipalityController@mostrar')->name('Municipality.mostrar');
 Route::GET('/Municipality/{js?}', 'MunicipalityController@index');
 
+Route::resource('Empleado', 'EmpleadoController')->except('show','edit','create','update');
+Route::PUT('/Empleado', 'EmpleadoController@update')->name('Empleado.update');
+Route::POST('/Empleados', 'EmpleadoController@cargar')->name('Empleado.cargar');
+Route::POST('/Empleado/rellenar', 'EmpleadoController@mostrar')->name('Empleado.mostrar');
+Route::GET('/Empleado/{js?}', 'EmpleadoController@index');
+
+Route::resource('Usuario', 'UsuarioController')->except('show','edit','create','update');
+Route::PUT('/Usuario', 'UsuarioController@update')->name('Usuario.update');
+Route::POST('/Usuarios', 'UsuarioController@cargar')->name('Usuario.cargar');
+Route::POST('/Usuario/rellenar', 'UsuarioController@mostrar')->name('Usuario.mostrar');
+Route::GET('/Usuario/{js?}', 'UsuarioController@index');
+
+Route::resource('Representante', 'RepresentanteController')->except('show','edit','create','update');
+Route::PUT('/Representante', 'RepresentanteController@update')->name('Representante.update');
+Route::POST('/Representantes', 'RepresentanteController@cargar')->name('Representante.cargar');
+Route::POST('/Representante/rellenar', 'RepresentanteController@mostrar')->name('Representante.mostrar');
+Route::GET('/Representante/{js?}', 'RepresentanteController@index');
+
+Route::resource('Estudiante', 'EstudianteController')->except('show','edit','create','update');
+Route::PUT('/Estudiante', 'EstudianteController@update')->name('Estudiante.update');
+Route::POST('/Estudiantes', 'EstudianteController@cargar')->name('Estudiante.cargar');
+Route::POST('/Estudiante/rellenar', 'EstudianteController@mostrar')->name('Estudiante.mostrar');
+Route::GET('/Estudiante/{js?}', 'EstudianteController@index');
+
+
+
 Route::resource('combobox', 'combo')->only('store');
