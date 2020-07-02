@@ -1,4 +1,4 @@
-<script>
+{{-- <script> --}}
 
 function reiniciar() {
     $("#reg").val("Registrar");
@@ -188,4 +188,4 @@ function mostrar(id, pro) {
     return false;
 }
 
-</script>
+{{-- </script> --}}

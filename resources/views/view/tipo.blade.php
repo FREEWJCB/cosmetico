@@ -7,19 +7,14 @@
 
 @section('busqueda')
 
-    <label for="bs_atributo">Tipo: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_atributo" id="bs_atributo" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por tipo" arialabel="Search" />
+    <label for="bs_tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_tipo" id="bs_tipo" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por tipo" arialabel="Search" />
 
 @endsection
-
-@section('maestro','tipo')
 
 @if ($js == 'axios')
     @section('ajax','warning')
     @section('axios','success')
-    @section('onsubmit','gestionar')
-    @section('mostrar','mostrar_axios')
-    @section('desactivar','desactivar_axios')
 @endif
 
 
@@ -51,9 +46,9 @@
 
 
     <div class="form-group">
-      <label for="atributo">Tipo</label>
-      <input type="text" onkeyup="mayuscula(this)" required class="form-control" id="atributo" name="atributo" />
-      <input type="hidden" id="atributo2" name="atributo2" />
+      <label for="tipo">Tipo</label>
+      <input type="text" onkeyup="mayuscula(this)" required class="form-control" id="tipo" name="tipo" />
+      <input type="hidden" id="tipo2" name="tipo2" />
     </div>
 
 
