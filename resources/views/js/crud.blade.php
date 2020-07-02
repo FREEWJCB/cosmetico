@@ -6,6 +6,7 @@ function reiniciar() {
     $("#lim").val("Limpiar");
     $("#formulario input[type=reset]").removeAttr("disabled");
     $("#formulario input[type=submit]").removeAttr("disabled");
+    $("#formulario select").removeAttr("disabled");
     $("#formulario input[type=text]").removeAttr("readonly");
     $("#formulario textarea").removeAttr("readonly");
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class MunicipalityController extends Controller
 {
     /**
@@ -15,6 +16,7 @@ class MunicipalityController extends Controller
     {
         //
         $cons = DB::table('municipality')
+                    ->select('municipality.*', 'state.states')
                     ->join('state', 'municipality.state', '=', 'state.id')
                     ->where('municipality.status', '1')
                     ->orderBy('municipalitys','asc');
@@ -23,9 +25,9 @@ class MunicipalityController extends Controller
 
         $state = DB::table('state')->where('status', '1')->orderBy('states','asc');
         $state2 = $state->get();
-        $num_states = $state->count();
+        $num_state = $state->count();
 
-        return view('view.municipality',['cons' => $cons2, 'num' => $num, 'num_states' => $num_states, 'state' => $state2, 'js' => $js]);
+        return view('view.municipality',['cons' => $cons2, 'num' => $num, 'num_state' => $num_state, 'state' => $state2, 'js' => $js]);
     }
 
     /**
@@ -77,6 +79,7 @@ class MunicipalityController extends Controller
         $state=$request->bs_state;
         $municipalitys=$request->bs_municipalitys;
         $cons = DB::table('municipality')
+                ->select('municipality.*', 'state.states')
                 ->join('state', 'municipality.state', '=', 'state.id')
                 ->where('state', 'like', "%$state%")
                 ->where('municipalitys','like', "%$municipalitys%")
@@ -126,8 +129,7 @@ class MunicipalityController extends Controller
     {
         //
         $id=$request->id;
-        $cons= DB::table('municipality')
-                 ->where('id', $id)->get();
+        $cons = DB::table('municipality')->where('id', $id)->get();
 
         foreach ($cons as $cons2) {
             # code...
@@ -136,7 +138,7 @@ class MunicipalityController extends Controller
 
         }
         return response()->json([
-            'state'=>$state,
+            'state'=> $state,
             'municipalitys'=>$municipalitys
         ]);
 

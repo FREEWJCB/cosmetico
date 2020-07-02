@@ -26,7 +26,7 @@ class DiscapacidadController extends Controller
         $tipo_discapacidad2 = $tipo_discapacidad->get();
         $num_tipo = $tipo_discapacidad->count();
 
-        return view('view.discapacidades',['cons' => $cons2, 'num' => $num, 'num_tipo' => $num_tipo, 'tipo_discapacidad' => $tipo_discapacidad2, 'js' => $js]);
+        return view('view.discapacidad',['cons' => $cons2, 'num' => $num, 'num_tipo' => $num_tipo, 'tipo_discapacidad' => $tipo_discapacidad2, 'js' => $js]);
     }
 
     /**
