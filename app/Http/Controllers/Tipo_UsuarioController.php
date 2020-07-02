@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Tipo_UsuarioController extends Controller
 {
@@ -11,19 +12,13 @@ class Tipo_UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($js="AJAX")
     {
         //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $cons = DB::table('tipo_usuario')->where('status', '1')->orderBy('tipo','asc');
+        $cons2 = $cons->get();
+        $num = $cons->count();
+        return view('view.tipo_usuario',['cons' => $cons2, 'num' => $num, 'js' => $js]);
     }
 
     /**
@@ -35,28 +30,7 @@ class Tipo_UsuarioController extends Controller
     public function store(Request $request)
     {
         //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        DB::table('tipo_usuario')->insert(['tipo' => $request->tipo]);
     }
 
     /**
@@ -66,9 +40,10 @@ class Tipo_UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        DB::table('tipo_usuario')->where('id', $request->id)->update(['tipo' => $request->tipo]);
     }
 
     /**
@@ -80,5 +55,71 @@ class Tipo_UsuarioController extends Controller
     public function destroy($id)
     {
         //
+        DB::table('tipo_usuario')->where('id', $id)->delete();
+    }
+
+    public function cargar(Request $request)
+    {
+        $cat="";
+        $tipo=$request->bs_tipo;
+        $cons= DB::table('tipo_usuario')
+                 ->where('tipo','like', "%$tipo%")
+                 ->where('status', '1')
+                 ->orderBy('tipo','asc');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+        if ($num>0) {
+            # code...
+            $i=0;
+            foreach ($cons1 as $cons2) {
+                # code...
+                $i++;
+                $id=$cons2->id;
+                $tipo=$cons2->tipo;
+                $cat.="<tr>
+                        <th scope='row'><center>$i</center></th>
+                        <td><center>$tipo</center></td>
+                        <td>
+                            <center data-turbolinks='false' class='navbar navbar-light'>
+                                <a onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
+                                    <i class='fa fa-list-alt'></i>
+                                </a>
+                                <a onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
+                                    <i class='fa fa-edit'></i>
+                                </a>
+                                <a onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
+                                    <i class='fa fa-trash-alt'></i>
+                                </a>
+                            </center>
+                        </td>
+                    </tr>";
+
+            }
+        }else{
+            $cat="<tr><td colspan='3'>No hay datos registrados</td></tr>";
+        }
+        return response()->json([
+            'catalogo'=>$cat
+        ]);
+
+    }
+
+    public function mostrar(Request $request)
+    {
+        //
+        $id=$request->id;
+        $cons= DB::table('tipo_usuario')
+                 ->where('id', $id)->get();
+
+        foreach ($cons as $cons2) {
+            # code...
+            $tipo=$cons2->tipo;
+
+        }
+        return response()->json([
+            'tipo'=>$tipo
+        ]);
+
+
     }
 }

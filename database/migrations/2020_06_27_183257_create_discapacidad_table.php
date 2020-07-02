@@ -15,7 +15,8 @@ class CreateDiscapacidadTable extends Migration
     {
         Schema::create('discapacidad', function (Blueprint $table) {
             $table->id();
-            $table->string('cosmetico',100)->unique();
+            $table->string('discapacidades',100)->unique();
+            $table->text('descripcion');
             $table->unsignedBigInteger('tipo');
             $table->decimal('status',1,0)->default(1);
             $table->timestamps();

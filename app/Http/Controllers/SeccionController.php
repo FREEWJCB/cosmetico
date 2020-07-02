@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SeccionController extends Controller
 {
@@ -11,19 +12,13 @@ class SeccionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($js="AJAX")
     {
         //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $cons = DB::table('seccion')->where('status', '1')->orderBy('secciones','asc');
+        $cons2 = $cons->get();
+        $num = $cons->count();
+        return view('view.seccion',['cons' => $cons2, 'num' => $num, 'js' => $js]);
     }
 
     /**
@@ -35,30 +30,8 @@ class SeccionController extends Controller
     public function store(Request $request)
     {
         //
+        DB::table('seccion')->insert(['secciones' => $request->secciones]);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -66,9 +39,10 @@ class SeccionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        DB::table('seccion')->where('id', $request->id)->update(['secciones' => $request->secciones]);
     }
 
     /**
@@ -80,5 +54,71 @@ class SeccionController extends Controller
     public function destroy($id)
     {
         //
+        DB::table('seccion')->where('id', $id)->delete();
+    }
+
+    public function cargar(Request $request)
+    {
+        $cat="";
+        $secciones=$request->bs_secciones;
+        $cons= DB::table('seccion')
+                 ->where('secciones','like', "%$secciones%")
+                 ->where('status', '1')
+                 ->orderBy('secciones','asc');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+        if ($num>0) {
+            # code...
+            $i=0;
+            foreach ($cons1 as $cons2) {
+                # code...
+                $i++;
+                $id=$cons2->id;
+                $secciones=$cons2->secciones;
+                $cat.="<tr>
+                        <th scope='row'><center>$i</center></th>
+                        <td><center>$secciones</center></td>
+                        <td>
+                            <center data-turbolinks='false' class='navbar navbar-light'>
+                                <a onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
+                                    <i class='fa fa-list-alt'></i>
+                                </a>
+                                <a onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
+                                    <i class='fa fa-edit'></i>
+                                </a>
+                                <a onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
+                                    <i class='fa fa-trash-alt'></i>
+                                </a>
+                            </center>
+                        </td>
+                    </tr>";
+
+            }
+        }else{
+            $cat="<tr><td colspan='3'>No hay datos registrados</td></tr>";
+        }
+        return response()->json([
+            'catalogo'=>$cat
+        ]);
+
+    }
+
+    public function mostrar(Request $request)
+    {
+        //
+        $id=$request->id;
+        $cons= DB::table('seccion')
+                 ->where('id', $id)->get();
+
+        foreach ($cons as $cons2) {
+            # code...
+            $secciones=$cons2->secciones;
+
+        }
+        return response()->json([
+            'secciones'=>$secciones
+        ]);
+
+
     }
 }
