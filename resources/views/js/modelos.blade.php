@@ -23,8 +23,8 @@
 
 @section('edicion')
 
-$('#marca2').val($('#marca').val());
-$('#modelo2').val($('#modelo').val());
+    $('#marca2').val($('#marca').val());
+    $('#modelo2').val($('#modelo').val());
 
  @endsection
 
@@ -45,14 +45,14 @@ $('#modelo2').val($('#modelo').val());
 
 @section('editar')
 
-$("#marca").removeAttr("disabled");
-$("#modelo").removeAttr("readonly");
+    $("#marca").removeAttr("disabled");
+    $("#modelo").removeAttr("readonly");
 
 @endsection
 
 @section('mostrar')
 
-$("#marca").attr("disabled", "disabled");
-$("#modelo").attr("readonly", "readonly");
+    $("#marca").attr("disabled", "disabled");
+    $("#modelo").attr("readonly", "readonly");
 
 @endsection
