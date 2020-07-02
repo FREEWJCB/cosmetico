@@ -55,6 +55,7 @@ $(document).ready(function() {
         $("#edi").hide();
         $("#lim").show();
         $("#reg").show();
+        @yield('select')
         reiniciar();
         $("#modal").modal({
             show: true,

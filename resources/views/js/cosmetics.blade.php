@@ -41,6 +41,14 @@
 
 @endsection
 
+@section('select')
+
+
+    $('#modelo').html('<option value="null" disabled selected>Seleccione un modelo</option>');
+
+
+@endsection
+
 @section('registro')
 
     $('#tipo').val('null');

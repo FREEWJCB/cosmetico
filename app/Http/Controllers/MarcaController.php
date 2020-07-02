@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\marca;
 
 class MarcaController extends Controller
 {
@@ -13,13 +12,13 @@ class MarcaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($js="AJAX")
     {
         //
         $cons = DB::table('marcas')->where('status', '1')->orderBy('marca','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
-        return view('view.marca',['cons' => $cons2, 'num' => $num]);
+        return view('view.marca',['cons' => $cons2, 'num' => $num, 'js' => $js]);
 
     }
 

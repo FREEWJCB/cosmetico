@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\cosmetic;
 
 class cosmeticController extends Controller
 {
@@ -13,7 +12,7 @@ class cosmeticController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($js="AJAX")
     {
         //
         $cons = DB::table('cosmetics')
@@ -34,7 +33,7 @@ class cosmeticController extends Controller
         $marcas2 = $marcas->get();
         $num_marca = $marcas->count();
 
-        return view('view.cosmetic',['cons' => $cons2, 'num' => $num, 'marcas' => $marcas2, 'num_marca' => $num_marca, 'tipos' => $tipos2, 'num_tipo' => $num_tipo]);
+        return view('view.cosmetic',['cons' => $cons2, 'num' => $num, 'marcas' => $marcas2, 'num_marca' => $num_marca, 'tipos' => $tipos2, 'num_tipo' => $num_tipo, 'js' => $js]);
     }
 
     /**

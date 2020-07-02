@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\modelo;
 
 class ModeloController extends Controller
 {
@@ -13,7 +12,7 @@ class ModeloController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($js="AJAX")
     {
         //
         $cons = DB::table('modelos')
@@ -28,7 +27,7 @@ class ModeloController extends Controller
         $marcas2 = $marcas->get();
         $num_marca = $marcas->count();
 
-        return view('view.modelo',['cons' => $cons2, 'num' => $num, 'num_marca' => $num_marca, 'marcas' => $marcas2]);
+        return view('view.modelo',['cons' => $cons2, 'num' => $num, 'num_marca' => $num_marca, 'marcas' => $marcas2, 'js' => $js]);
     }
 
     /**

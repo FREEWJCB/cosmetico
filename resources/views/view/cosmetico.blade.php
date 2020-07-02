@@ -20,6 +20,11 @@
 
 @endsection
 
+@if ($js == 'axios')
+    @section('ajax','warning')
+    @section('axios','success')
+@endif
+
 @section('thead')
 
     <th scope="col"><center>Tipo</center></th>
