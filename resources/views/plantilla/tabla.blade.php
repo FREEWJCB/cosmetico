@@ -26,6 +26,7 @@
 
     <table border="0" class="table table-striped">
         <thead class="thead-dark">
+            @yield('thead2','')
             <tr>
                 <th width="3%" scope="col"><center>#</center></th>
                 @yield('thead')
