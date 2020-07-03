@@ -141,6 +141,7 @@ Route::resource('Periodo_Escolar', 'Periodo_EscolarController')->except('show','
 Route::PUT('/Periodo_Escolar', 'Periodo_EscolarController@update')->name('Periodo_Escolar.update');
 Route::POST('/Periodos_Escolares', 'Periodo_EscolarController@cargar')->name('Periodo_Escolar.cargar');
 Route::POST('/Periodo_Escolar/rellenar', 'Periodo_EscolarController@mostrar')->name('Periodo_Escolar.mostrar');
+Route::POST('/Periodo_Escolar/empleado', 'Periodo_EscolarController@empleado')->name('Periodo_Escolar.empleado');
 Route::GET('/Periodo_Escolar/{js?}', 'Periodo_EscolarController@index');
 
 Route::resource('Empleado', 'EmpleadoController')->except('show','edit','create','update');

@@ -51,10 +51,10 @@
 
 @section('edicion')
 
-$('#modelo2').val($('#modelo').val());
-$('#tipo2').val($('#tipo').val());
-$('#descripcion2').val($('#descripcion').val());
-$('#cosmetico2').val($('#cosmetico').val());
+    $('#modelo2').val($('#modelo').val());
+    $('#tipo2').val($('#tipo').val());
+    $('#descripcion2').val($('#descripcion').val());
+    $('#cosmetico2').val($('#cosmetico').val());
 
  @endsection
 
