@@ -20,7 +20,7 @@ class CreatePersonaTable extends Migration
             $table->string('apellido',100);
             $table->string('sex',100);
             $table->string('telefono',11);
-            $table->text('direccion',11);
+            $table->text('direccion');
             $table->unsignedBigInteger('municipality');
             $table->decimal('status',1,0)->default(1);
             $table->timestamps();

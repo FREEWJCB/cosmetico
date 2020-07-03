@@ -137,6 +137,12 @@ Route::POST('/Municipalitys', 'MunicipalityController@cargar')->name('Municipali
 Route::POST('/Municipality/rellenar', 'MunicipalityController@mostrar')->name('Municipality.mostrar');
 Route::GET('/Municipality/{js?}', 'MunicipalityController@index');
 
+Route::resource('Periodo_Escolar', 'Periodo_EscolarController')->except('show','edit','create','update');
+Route::PUT('/Periodo_Escolar', 'Periodo_EscolarController@update')->name('Periodo_Escolar.update');
+Route::POST('/Periodos_Escolares', 'Periodo_EscolarController@cargar')->name('Periodo_Escolar.cargar');
+Route::POST('/Periodo_Escolar/rellenar', 'Periodo_EscolarController@mostrar')->name('Periodo_Escolar.mostrar');
+Route::GET('/Periodo_Escolar/{js?}', 'Periodo_EscolarController@index');
+
 Route::resource('Empleado', 'EmpleadoController')->except('show','edit','create','update');
 Route::PUT('/Empleado', 'EmpleadoController@update')->name('Empleado.update');
 Route::POST('/Empleados', 'EmpleadoController@cargar')->name('Empleado.cargar');
@@ -160,7 +166,5 @@ Route::PUT('/Estudiante', 'EstudianteController@update')->name('Estudiante.updat
 Route::POST('/Estudiantes', 'EstudianteController@cargar')->name('Estudiante.cargar');
 Route::POST('/Estudiante/rellenar', 'EstudianteController@mostrar')->name('Estudiante.mostrar');
 Route::GET('/Estudiante/{js?}', 'EstudianteController@index');
-
-
 
 Route::resource('combobox', 'combo')->only('store');
