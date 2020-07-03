@@ -74,9 +74,10 @@
 
     <div class="form-group">
         <label for="cedula">Cédula</label>
-        <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="cedula" name="cedula" />
+        <input type="text" class="form-control" required id="cedula" name="cedula" />
         <input type="text" style='display: none' required id="empleado" name="empleado" />
     </div>
+
     <div style='display: none' id="emp" class="form-row">
         <div class="form-group col-md-6">
             <label for="nombre">Nombre</label>
@@ -91,7 +92,7 @@
 
     <div class="form-group">
         <label for="tipo">Tipo Usuario</label>
-        <select class="form-control mr-sm-2" id="tipo" name="tipo">
+        <select class="form-control" id="tipo" name="tipo">
             <option value="" selected>Seleccione un tipo</option>
             @if ($num_tipo>0)
                 @foreach ($tipo as $tipo2)

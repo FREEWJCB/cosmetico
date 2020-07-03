@@ -97,7 +97,7 @@
 
         <div class="form-group col-md-6">
             <label for="sex">Sexo</label>
-            <select class="form-control mr-sm-2" id="sex" name="sex">
+            <select class="form-control" id="sex" name="sex">
                 <option value="null" disabled selected>Seleccione un sexo</option>
                 <option value="Femenino" selected>Femenino</option>
                 <option value="Masculino" selected>Masculino</option>
@@ -115,7 +115,7 @@
 
         <div class="form-group col-md-6">
             <label for="ocupacion_laboral">Ocupación Laboral</label>
-            <select class="form-control mr-sm-2" id="ocupacion_laboral" name="ocupacion_laboral">
+            <select class="form-control" id="ocupacion_laboral" name="ocupacion_laboral">
                 <option value="null" disabled selected>Seleccione un labor</option>
                 @if ($num_ocupacion_laboral>0)
                     @foreach ($ocupacion_laboral as $ocupacion_laboral2)
@@ -129,7 +129,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="state">Estado</label>
-            <select class="form-control mr-sm-2" id="state" name="state">
+            <select class="form-control" id="state" name="state">
                 <option value="null" disabled selected>Seleccione un estado</option>
                 @if ($num_state>0)
                     @foreach ($state as $state2)
@@ -141,7 +141,7 @@
 
         <div class="form-group col-md-6">
             <label for="municipality">Municipio</label>
-            <select class="form-control mr-sm-2" id="municipality" name="municipality">
+            <select class="form-control" id="municipality" name="municipality">
                 <option value="null" disabled selected>Seleccione un municipio</option>
                 @if ($num_municipality>0)
                     @foreach ($municipality as $municipality2)
