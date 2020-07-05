@@ -142,11 +142,6 @@
             <label for="municipality">Municipio</label>
             <select class="form-control" id="municipality" name="municipality">
                 <option value="null" disabled selected>Seleccione un municipio</option>
-                @if ($num_municipality>0)
-                    @foreach ($municipality as $municipality2)
-                        <option value="{{ $municipality2->id }}">{{ $municipality2->municipalitys }}</option>
-                    @endforeach
-                @endif
             </select>
             <input type="hidden" id="municipality2" name="municipality2" />
         </div>

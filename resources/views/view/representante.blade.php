@@ -1,6 +1,6 @@
 @extends('plantilla.menu')
 
-@include('js.estudiante')
+@include('js.representante')
 
 @section('proyecto','active')
 

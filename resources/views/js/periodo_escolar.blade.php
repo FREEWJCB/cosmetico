@@ -28,6 +28,24 @@
         cargar();
     });
 
+    $("#buscar").on("click", function() {
+        var cedula = $('#cedula').val();
+        $.ajax({
+            type: "POST",
+            url:"{{route('Periodo_Escolar.empleado')}}",
+            data: "id="+id,
+            success: function(valores) {
+                if(valores.num > 0){
+
+                }
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    });
+
 @endsection
 
 @section('url_registro') var url = "{{ route('Periodo_Escolar.store') }}"; @endsection
@@ -105,3 +123,4 @@
     $("#cedula").attr("readonly", "readonly");
 
 @endsection
+

@@ -202,19 +202,26 @@ class Periodo_EscolarController extends Controller
     public function empleado(Request $request)
     {
         //
+        $id="";
+        $nombre="";
         $cedula=$request->cedula;
         $cons= DB::table('empleado')
                  ->join('persona', 'empleado.persona', '=', 'persona.id')
                  ->where('cedula', $cedula)->get();
-
-        foreach ($cons as $cons2) {
+        $num = $cons->count();
+        if ($num>0) {
             # code...
-            $id=$cons2->id;
-            $nombre="$cons2->nombre $cons2->apellido";
+            foreach ($cons as $cons2) {
+                # code...
+                $id=$cons2->id;
+                $nombre="$cons2->nombre $cons2->apellido";
+            }
         }
+
         return response()->json([
             'id'=>$id,
-            'nombre'=>$nombre
+            'nombre'=>$nombre,
+            'num'=>$num
         ]);
 
 
