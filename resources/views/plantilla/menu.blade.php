@@ -108,7 +108,7 @@
                 <a title="Usuario" href="{{ route('Usuario.index') }}">Usuario</a>
               </li>
               <li class="dropdown-item">
-                <a title="Representante" href="{{ route('Represenante.index') }}">Representante</a>
+                <a title="Representante" href="{{ route('Representante.index') }}">Representante</a>
               </li>
               <li class="dropdown-item">
                 <a title="Estudiante" href="{{ route('Estudiante.index') }}">Estudiante</a>
