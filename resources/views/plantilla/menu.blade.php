@@ -101,6 +101,21 @@
               <li class="dropdown-item">
                 <a title="Municipio" href="{{ route('Municipality.index') }}">Municipio</a>
               </li>
+              <li class="dropdown-item">
+                <a title="Empleado" href="{{ route('Empleado.index') }}">Empleado</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Usuario" href="{{ route('Usuario.index') }}">Usuario</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Representante" href="{{ route('Represenante.index') }}">Representante</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Estudiante" href="{{ route('Estudiante.index') }}">Estudiante</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Periodo escolar" href="{{ route('Periodo_Escolar.index') }}">Periodo escolar</a>
+              </li>
             </ul>
           </li>
         </ul>
