@@ -38,7 +38,7 @@ class Periodo_EscolarController extends Controller
         $salon2 = $salon->get();
         $num_salon = $salon->count();
 
-        return view('view.cosmetic',['cons' => $cons2, 'num' => $num, 'grado' => $grado2, 'num_grado' => $num_grado, 'seccion' => $seccion2, 'num_seccion' => $num_seccion, 'salon' => $salon2, 'num_salon' => $num_salon, 'js' => $js]);
+        return view('view.periodo_escolar',['cons' => $cons2, 'num' => $num, 'grado' => $grado2, 'num_grado' => $num_grado, 'seccion' => $seccion2, 'num_seccion' => $num_seccion, 'salon' => $salon2, 'num_salon' => $num_salon, 'js' => $js]);
     }
 
     /**

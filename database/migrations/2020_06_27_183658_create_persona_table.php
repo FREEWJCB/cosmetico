@@ -22,7 +22,6 @@ class CreatePersonaTable extends Migration
             $table->string('telefono',11);
             $table->text('direccion');
             $table->unsignedBigInteger('municipality');
-            $table->decimal('status',1,0)->default(1);
             $table->timestamps();
             $table->foreign('municipality')->references('id')->on('municipality');
 

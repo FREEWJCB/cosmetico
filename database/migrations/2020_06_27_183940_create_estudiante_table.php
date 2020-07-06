@@ -19,6 +19,7 @@ class CreateEstudianteTable extends Migration
             $table->text('lugar_nacimiento');
             $table->text('descripcion');
             $table->unsignedBigInteger('persona')->unique();
+            $table->decimal('status',1,0)->default(1);
             $table->foreign('persona')->references('id')->on('persona');
             $table->timestamps();
         });

@@ -8,6 +8,9 @@ function reiniciar() {
     $("#formulario input[type=submit]").removeAttr("disabled");
     $("#formulario select").removeAttr("disabled");
     $("#formulario input[type=text]").removeAttr("readonly");
+    $("#formulario input[type=number]").removeAttr("readonly");
+    $("#formulario input[type=email]").removeAttr("readonly");
+    $("#formulario input[type=tel]").removeAttr("readonly");
     $("#formulario textarea").removeAttr("readonly");
 }
 

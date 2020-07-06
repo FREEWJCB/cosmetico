@@ -22,7 +22,7 @@ class combo extends Controller
         $combo = DB::table($tabla)
                 ->select("$dato as dato", 'id')
                 ->where('status', '1')
-                ->orderBy($columna,'asc');
+                ->orderBy($dato,'asc');
 
         if($id!="null"){
             $combo=$combo->where($columna, $id);

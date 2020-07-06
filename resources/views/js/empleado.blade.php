@@ -26,7 +26,7 @@
 
     $("#state").on("change", function() {
         var state = $("#state").val();
-        combo("municipality", "states", state, "municipality", 0, "municipio", "municipalitys", 2);
+        combo("municipality", "state", state, "municipality", 0, "municipio", "municipalitys", 2);
     });
 
 @endsection
@@ -91,12 +91,13 @@
     $("#email").val(valores.email);
     $("#email2").val(valores.email);
     $("#state").val(valores.state);
-    combo("municipality", "states", valores.state, "municipality", valores.municipality, "municipio", "municipalitys", 1);
+    combo("municipality", "state", valores.state, "municipality", valores.municipality, "municipio", "municipalitys", 1);
     $("#municipality2").val(valores.municipality);
     $("#direccion").val(valores.direccion);
     $("#direccion2").val(valores.direccion);
     $("#cargo").val(valores.cargo);
     $("#cargo2").val(valores.cargo);
+    $("#persona").val(valores.persona);
 
 @endsection
 

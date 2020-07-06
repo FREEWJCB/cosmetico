@@ -20,6 +20,7 @@ class CreateUsuarioTable extends Migration
             $table->string('respuesta',100);
             $table->unsignedBigInteger('tipo');
             $table->unsignedBigInteger('empleado')->unique();
+            $table->decimal('status',1,0)->default(1);
             $table->foreign('tipo')->references('id')->on('tipo_usuario');
             $table->foreign('empleado')->references('id')->on('empleado');
             $table->timestamps();

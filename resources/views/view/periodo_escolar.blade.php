@@ -2,6 +2,8 @@
 
 @include('js.periodo_escolar')
 
+@section('titulo','Periodo Escolar')
+
 @section('proyecto','active')
 
 @section('busqueda')
@@ -57,8 +59,8 @@
 
 @section('thead2')
     <tr>
-        <th scope="col" colspan="3">Profesor</th>
-        <th scope="col" colspan="4">Periodo Escolar</th>
+        <th scope="col" colspan="3"><center>Profesor</center></th>
+        <th scope="col" colspan="5"><center>Periodo Escolar</center></th>
     </tr>
 @endsection
 @section('thead')
@@ -96,7 +98,8 @@
 @endsection
 
 @section('form')
-
+    <input type="text" style='display: none' required id="empleado" name="empleado" />
+    <input type="hidden" id="empleado2" name="empleado2" />
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="grado">Grado</label>
@@ -147,20 +150,32 @@
         </div>
     </div>
 
-    <div class="form-row">
-        <div class="form-group">
-            <label for="cedula">Cédula</label>
-            <input type="text" class="form-control" required id="cedula" name="cedula" />
-            <input type="text" style='display: none' required id="empleado" name="empleado" />
-            <input type="hidden" id="empleado2" name="empleado2" />
+    <div class="form-group">
+        <label for="cedula">Profesor</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Buscar por cédula" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula" name="cedula" />
+            <div  class="input-group-append">
+                <a href="#" onclick = "return empleado();" class="btn btn-success btncolorblanco">
+                    <i class="fa fa-search"></i>
+                </a>
+            </div>
         </div>
 
-        <div style='display: none' id="profesor" class="form-group">
-            <label for="cedula">Profesor</label>
-            <input type="text" class="form-control" readonly id="nombre" name="nombre" />
-        </div>
     </div>
 
+    <div style='display: none' id="profesor" class="form-group">
+        <label for="profe">Nombre y apellido</label>
+        <input type="text" class="form-control" disabled id="profe" name="profe" />
+    </div>
+
+    <div style='display: none' id="noprofesor" class="form-group">
+        <div class="alert alert-danger" role="alert">
+            <center>
+                ¡La cédula introducida no existe! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{{route('Empleado.index')}}" class="btn btn-danger btncolorblanco" target="_blank" rel="noopener noreferrer"><i class="fa fa-user-plus"></i> Registrar</a>
+            </center>
+        </div>
+    </div>
 @endsection
 
 @section('contenido')

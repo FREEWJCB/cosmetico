@@ -34,7 +34,7 @@ class RepresentanteController extends Controller
         $state2 = $state->get();
         $num_state = $state->count();
 
-        return view('view.cosmetic',['cons' => $cons2, 'num' => $num, 'ocupacion_laboral' => $ocupacion_laboral2, 'num_ocupacion_laboral' => $num_ocupacion_laboral, 'state' => $state2, 'num_state' => $num_state, 'js' => $js]);
+        return view('view.representante',['cons' => $cons2, 'num' => $num, 'ocupacion_laboral' => $ocupacion_laboral2, 'num_ocupacion_laboral' => $num_ocupacion_laboral, 'state' => $state2, 'num_state' => $num_state, 'js' => $js]);
     }
 
     /**

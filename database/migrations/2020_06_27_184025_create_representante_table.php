@@ -17,6 +17,7 @@ class CreateRepresentanteTable extends Migration
             $table->id();
             $table->unsignedBigInteger('persona');
             $table->unsignedBigInteger('ocupacion_laboral');
+            $table->decimal('status',1,0)->default(1);
             $table->foreign('ocupacion_laboral')->references('id')->on('ocupacion_laboral');
             $table->foreign('persona')->references('id')->on('persona');
             $table->timestamps();

@@ -2,6 +2,7 @@
 
 @include('js.empleado')
 
+@section('titulo','Empleado')
 @section('proyecto','active')
 
 @section('busqueda')
@@ -18,8 +19,8 @@
     <label for="bs_sex">Sexo: &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" id="bs_sex" name="bs_sex">
         <option value="" selected>Seleccione un sexo</option>
-        <option value="Femenino" selected>Femenino</option>
-        <option value="Masculino" selected>Masculino</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Masculino">Masculino</option>
     </select>
 
     <label for="bs_email">Email: &nbsp;&nbsp;&nbsp;</label>
@@ -79,6 +80,7 @@
 
 @section('form')
 
+    <input type="hidden" id="persona" name="persona" />
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="cedula">Cedula</label>
@@ -104,8 +106,8 @@
             <label for="sex">Sexo</label>
             <select class="form-control" id="sex" name="sex">
                 <option value="null" disabled selected>Seleccione un sexo</option>
-                <option value="Femenino" selected>Femenino</option>
-                <option value="Masculino" selected>Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
             </select>
             <input type="hidden" id="sex2" name="sex2" />
         </div>

@@ -22,7 +22,7 @@
 
     $("#state").on("change", function() {
         var state = $("#state").val();
-        combo("municipality", "states", state, "municipality", 0, "municipio", "municipalitys", 2);
+        combo("municipality", "state", state, "municipality", 0, "municipio", "municipalitys", 2);
     });
 
 @endsection
@@ -86,10 +86,11 @@
     $("#ocupacion_laboral").val(valores.ocupacion_laboral);
     $("#ocupacion_laboral2").val(valores.ocupacion_laboral);
     $("#state").val(valores.state);
-    combo("municipality", "states", valores.state, "municipality", valores.municipality, "municipio", "municipalitys", 1);
+    combo("municipality", "state", valores.state, "municipality", valores.municipality, "municipio", "municipalitys", 1);
     $("#municipality2").val(valores.municipality);
     $("#direccion").val(valores.direccion);
     $("#direccion2").val(valores.direccion);
+    $("#persona").val(valores.persona);
 
 @endsection
 
