@@ -73,7 +73,7 @@
 
 @section('form')
 
-    <div class="form-group">
+    <div id="emple" class="form-group">
         <label for="cedula">Empleado</label>
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Buscar por cédula" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula" name="cedula" />
@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <div  id="empleado" class="form-row">
+    <div style='display: none' id="empleado" class="form-row">
 
         <div class="form-group col-md-6">
             <label for="profe">Nombre y apellido</label>
@@ -108,14 +108,14 @@
         </div>
     </div>
     <div class="form-row">
-        <div class="form-group col-md-6">
+        <div id="usu" class="form-group col-md-6">
             <label for="username">Usuario</label>
             <input type="text" class="form-control" required id="username" name="username" />
         </div>
         <div class="form-group col-md-6">
             <label for="tipo">Tipo Usuario</label>
             <select class="form-control" id="tipo" name="tipo">
-                <option value="" selected>Seleccione un tipo</option>
+                <option value="null" selected>Seleccione un tipo</option>
                 @if ($num_tipo>0)
                     @foreach ($tipo as $tipo2)
                         <option value="{{ $tipo2->id }}">{{ $tipo2->tipo }}</option>
@@ -126,19 +126,19 @@
         </div>
     </div>
 
-    <div class="form-row">
+    <div id="pregu" class="form-row">
       <div class="form-group col-md-6">
         <label for="pregunta">Pregunta de seguridad</label>
         <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="pregunta" name="pregunta" />
       </div>
 
-      <div class="form-group col-md-6">
+      <div id="resp" class="form-group col-md-6">
         <label for="respuesta">Respuesta de seguridad</label>
         <input type="password" class="form-control" required id="respuesta" name="respuesta" />
       </div>
     </div>
 
-    <div class="form-row">
+    <div id="passw" class="form-row">
         <div class="form-group col-md-6">
             <label for="password">Password</label>
             <input type="password" class="form-control" required id="password" name="password" />

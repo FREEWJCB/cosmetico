@@ -28,39 +28,6 @@
         cargar();
     });
 
-    $("#buscar").on("click", function() {
-        var cedula = $('#cedula').val();
-        $.ajax({
-            type: "POST",
-            url:"{{route('Periodo_Escolar.empleado')}}",
-            data: "cedula="+cedula,
-            beforeSend: function() {
-                setStart();
-                $("#cedula").attr("readonly", "readonly");
-                $("#profesor").slideUp();
-                $("#noprofesor").slideUp();
-                $("#empleado").val('');
-                $("#nombre").val('');
-            },
-            success: function(valores) {
-                setDone();
-                $("#cedula").removeAttr("readonly");
-                if(valores.num > 0){
-                    $("#empleado").val(valores.empleado);
-                    $("#nombre").val(valores.nombre);
-                    $("#profesor").slideDown();
-                }else{
-                    $("#noprofesor").slideDown();
-                }
-            },
-            error: function(xhr, textStatus, errorMessage) {
-                $("#cedula").removeAttr("readonly");
-                error(xhr, textStatus, errorMessage);
-            }
-        });
-        return false;
-    });
-
 @endsection
 
 @section('url_registro') var url = "{{ route('Periodo_Escolar.store') }}"; @endsection
@@ -136,6 +103,43 @@
     $("#salon").attr("disabled", "disabled");
     $("#ano").attr("readonly", "readonly");
     $("#cedula").attr("readonly", "readonly");
+
+@endsection
+
+@section('funciones')
+
+    function empleado() {
+        var cedula = $('#cedula').val();
+        $.ajax({
+            type: "POST",
+            url:"{{route('Periodo_Escolar.empleado')}}",
+            data: "cedula="+cedula,
+            beforeSend: function() {
+                setStart();
+                $("#cedula").attr("readonly", "readonly");
+                $("#profesor").slideUp();
+                $("#noprofesor").slideUp();
+                $("#empleado").val('');
+                $("#nombre").val('');
+            },
+            success: function(valores) {
+                setDone();
+                $("#cedula").removeAttr("readonly");
+                if(valores.num > 0){
+                    $("#empleado").val(valores.empleado);
+                    $("#nombre").val(valores.nombre);
+                    $("#profesor").slideDown();
+                }else{
+                    $("#noprofesor").slideDown();
+                }
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                $("#cedula").removeAttr("readonly");
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
 
 @endsection
 

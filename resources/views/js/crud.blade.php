@@ -201,4 +201,5 @@ function mostrar(id, pro) {
     return false;
 }
 
+@yield('funciones')
 {{-- </script> --}}
