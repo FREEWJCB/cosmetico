@@ -33,13 +33,28 @@
         $.ajax({
             type: "POST",
             url:"{{route('Periodo_Escolar.empleado')}}",
-            data: "id="+id,
+            data: "cedula="+cedula,
+            beforeSend: function() {
+                setStart();
+                $("#cedula").attr("readonly", "readonly");
+                $("#profesor").slideUp();
+                $("#noprofesor").slideUp();
+                $("#empleado").val('');
+                $("#nombre").val('');
+            },
             success: function(valores) {
+                setDone();
+                $("#cedula").removeAttr("readonly");
                 if(valores.num > 0){
-
+                    $("#empleado").val(valores.empleado);
+                    $("#nombre").val(valores.nombre);
+                    $("#profesor").slideDown();
+                }else{
+                    $("#noprofesor").slideDown();
                 }
             },
             error: function(xhr, textStatus, errorMessage) {
+                $("#cedula").removeAttr("readonly");
                 error(xhr, textStatus, errorMessage);
             }
         });
