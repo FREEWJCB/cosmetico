@@ -2,6 +2,7 @@
 
 @include('js.estudiante')
 
+@section('titulo','Estudiante')
 @section('proyecto','active')
 
 @section('busqueda')
@@ -18,8 +19,8 @@
     <label for="bs_sex">Sexo: &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" id="bs_sex" name="bs_sex">
         <option value="" selected>Seleccione un sexo</option>
-        <option value="Femenino" selected>Femenino</option>
-        <option value="Masculino" selected>Masculino</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Masculino">Masculino</option>
     </select>
 
     <label for="bs_email">Email: &nbsp;&nbsp;&nbsp;</label>
@@ -80,101 +81,226 @@
 @endsection
 
 @section('form')
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="cedula">Cedula</label>
-            <input type="number" class="form-control" required id="cedula" name="cedula" />
+    <input type="hidden" id="persona" name="persona" />
+    <input type="hidden" id="representante" name="representante" />
+    <input type="hidden" id="representante2" name="representante2" />
+    <div id="estudiante">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="cedula">Cedula</label>
+                <input type="number" class="form-control" required id="cedula" name="cedula" />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="nombre" name="nombre" />
+                <input type="hidden" id="nombre2" name="nombre2" />
+            </div>
+
         </div>
 
-        <div class="form-group col-md-6">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="nombre" name="nombre" />
-            <input type="hidden" id="nombre2" name="nombre2" />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="apellido">Apellido</label>
+                <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="apellido" name="apellido" />
+                <input type="hidden" id="apellido2" name="apellido2" />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="sex">Sexo</label>
+                <select class="form-control" id="sex" name="sex">
+                    <option value="null" disabled selected>Seleccione un sexo</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Masculino">Masculino</option>
+                </select>
+                <input type="hidden" id="sex2" name="sex2" />
+            </div>
         </div>
 
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="telefono">Telefono</label>
+                <input type="tel" class="form-control" required id="telefono" name="telefono" />
+                <input type="hidden" id="telefono2" name="telefono2" />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="state">Estado</label>
+                <select class="form-control" id="state" name="state">
+                    <option value="null" disabled selected>Seleccione un estado</option>
+                    @if ($num_state>0)
+                        @foreach ($state as $state2)
+                            <option value="{{ $state2->id }}">{{ $state2->states }}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
+                <label for="municipality">Municipio</label>
+                <select class="form-control" id="municipality" name="municipality">
+                    <option value="null" disabled selected>Seleccione un municipio</option>
+                    @if ($num_municipality>0)
+                        @foreach ($municipality as $municipality2)
+                            <option value="{{ $municipality2->id }}">{{ $municipality2->municipalitys }}</option>
+                        @endforeach
+                    @endif
+                </select>
+                <input type="hidden" id="municipality2" name="municipality2" />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="direccion">Dirección</label>
+                <textarea class="form-control" required id="direccion" name="direccion"></textarea>
+                <input type="hidden" id="direccion2" name="direccion2" />
+            </div>
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
+                <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                <input type="date" class="form-control" required id="fecha_nacimiento" name="fecha_nacimiento" />
+                <input type="hidden" id="fecha_nacimiento2" name="fecha_nacimiento2" />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="lugar_nacimiento">Lugar de nacimiento</label>
+                <textarea class="form-control" required id="lugar_nacimiento" name="lugar_nacimiento"></textarea>
+                <input type="hidden" id="lugar_nacimiento" name="lugar_nacimiento" />
+            </div>
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
+                <label for="alergia">Alergias</label>
+                <select required name="alergia[]" style="border-radius: 2px;" id="alergia" class="alergia full-width has-padding has-border" style="height: 22px"  multiple>
+                    @if ($num_alergia>0)
+                        @foreach ($alergia as $alergia2)
+                            <option value="{{ $alergia2->id }}">{{ $alergia2->alergias }}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="discapacidad">Discapacidades</label>
+                <select required name="discapacidad[]" style="border-radius: 2px;" id="discapacidad" class="discapacidad full-width has-padding has-border" style="height: 22px"  multiple>
+                    @if ($num_discapacidad>0)
+                        @foreach ($discapacidad as $discapacidad2)
+                            <option value="{{ $discapacidad2->id }}">{{ $discapacidad2->discapacidades }}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea class="form-control" required id="descripcion" name="descripcion"></textarea>
+            <input type="hidden" id="descripcion2" name="descripcion2" />
+        </div>
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="apellido">Apellido</label>
-            <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="apellido" name="apellido" />
-            <input type="hidden" id="apellido2" name="apellido2" />
+    <div id="representant">
+        <div class="form-group">
+            <label for="cedula_r">Representate</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Buscar por cédula" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula_r" name="cedula_r" />
+                <div  class="input-group-append">
+                    <a href="#" id="buscar" onclick = "return representante();" class="btn btn-success btncolorblanco">
+                        <i class="fa fa-search"></i>
+                    </a>
+                    <a href="#" id="cancelar" onclick = "return norepresentante();" class="btn btn-danger btncolorblanco">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+            </div>
         </div>
+        <div id="formu">
+            <div class="form-row">
 
-        <div class="form-group col-md-6">
-            <label for="sex">Sexo</label>
-            <select class="form-control" id="sex" name="sex">
-                <option value="null" disabled selected>Seleccione un sexo</option>
-                <option value="Femenino" selected>Femenino</option>
-                <option value="Masculino" selected>Masculino</option>
-            </select>
-            <input type="hidden" id="sex2" name="sex2" />
+                <div class="form-group col-md-6">
+                    <label for="nombre_2">Nombre</label>
+                    <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="nombre_2" name="nombre_2" />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="apellido_2">Apellido</label>
+                    <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="apellido_2" name="apellido_2" />
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="sex_2">Sexo</label>
+                    <select class="form-control" id="sex_2" name="sex_2">
+                        <option value="null" disabled selected>Seleccione un sexo</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Masculino">Masculino</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="telefono_2">Telefono</label>
+                    <input type="tel" class="form-control" required id="telefono_2" name="telefono_2" />
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="ocupacion_laboral">Ocupación Laboral</label>
+                    <select class="form-control" id="ocupacion_laboral" name="ocupacion_laboral">
+                        <option value="null" disabled selected>Seleccione un labor</option>
+                        @if ($num_ocupacion_laboral>0)
+                            @foreach ($ocupacion_laboral as $ocupacion_laboral2)
+                                <option value="{{ $ocupacion_laboral2->id }}">{{ $ocupacion_laboral2->labor }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="parentesco">Parentesco</label>
+                    <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="parentesco" name="parentesco" />
+                </div>
+                <input type="hidden" id="parentesco2" name="parentesco2" />
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="state_2">Estado</label>
+                    <select class="form-control" id="state_2" name="state_2">
+                        <option value="null" disabled selected>Seleccione un estado</option>
+                        @if ($num_state>0)
+                            @foreach ($state as $state2)
+                                <option value="{{ $state2->id }}">{{ $state2->states }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="municipality_2">Municipio</label>
+                    <select class="form-control" id="municipality_2" name="municipality_2">
+                        <option value="null" disabled selected>Seleccione un municipio</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion_2">Dirección</label>
+                <textarea class="form-control" required id="direccion_2" name="direccion_2"></textarea>
+            </div>
         </div>
     </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="telefono">Telefono</label>
-            <input type="tel" class="form-control" required id="telefono" name="telefono" />
-            <input type="hidden" id="telefono2" name="telefono2" />
-        </div>
-
-        <div class="form-group col-md-6">
-            <label for="state">Estado</label>
-            <select class="form-control" id="state" name="state">
-                <option value="null" disabled selected>Seleccione un estado</option>
-                @if ($num_state>0)
-                    @foreach ($state as $state2)
-                        <option value="{{ $state2->id }}">{{ $state2->states }}</option>
-                    @endforeach
-                @endif
-            </select>
-        </div>
-    </div>
-
-    <div class="form-row">
-
-        <div class="form-group col-md-6">
-            <label for="municipality">Municipio</label>
-            <select class="form-control" id="municipality" name="municipality">
-                <option value="null" disabled selected>Seleccione un municipio</option>
-                @if ($num_municipality>0)
-                    @foreach ($municipality as $municipality2)
-                        <option value="{{ $municipality2->id }}">{{ $municipality2->municipalitys }}</option>
-                    @endforeach
-                @endif
-            </select>
-            <input type="hidden" id="municipality2" name="municipality2" />
-        </div>
-
-        <div class="form-group col-md-6">
-            <label for="direccion">Dirección</label>
-            <textarea class="form-control" required id="direccion" name="direccion"></textarea>
-            <input type="hidden" id="direccion2" name="direccion2" />
-        </div>
-    </div>
-
-    <div class="form-row">
-
-        <div class="form-group col-md-6">
-            <label for="fecha_nacimiento">Fecha de nacimiento</label>
-            <input type="date" class="form-control" required id="fecha_nacimiento" name="fecha_nacimiento" />
-            <input type="hidden" id="fecha_nacimiento2" name="fecha_nacimiento2" />
-        </div>
-
-        <div class="form-group col-md-6">
-            <label for="lugar_nacimiento">Lugar de nacimiento</label>
-            <textarea class="form-control" required id="lugar_nacimiento" name="lugar_nacimiento"></textarea>
-            <input type="hidden" id="lugar_nacimiento" name="lugar_nacimiento" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <textarea class="form-control" required id="descripcion" name="descripcion"></textarea>
-        <input type="hidden" id="descripcion2" name="descripcion2" />
-    </div>
-
 @endsection
 
 @section('contenido')

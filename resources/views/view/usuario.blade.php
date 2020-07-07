@@ -2,6 +2,7 @@
 
 @include('js.usuario')
 
+@section('titulo','Usuario')
 @section('proyecto','active')
 
 @section('busqueda')
@@ -73,34 +74,56 @@
 @section('form')
 
     <div class="form-group">
-        <label for="cedula">Cédula</label>
-        <input type="text" class="form-control" required id="cedula" name="cedula" />
-        <input type="text" style='display: none' required id="empleado" name="empleado" />
+        <label for="cedula">Empleado</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Buscar por cédula" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula" name="cedula" />
+            <div  class="input-group-append">
+                <a href="#" onclick = "return empleado();" class="btn btn-success btncolorblanco">
+                    <i class="fa fa-search"></i>
+                </a>
+            </div>
+        </div>
     </div>
 
-    <div style='display: none' id="emp" class="form-row">
+    <div  id="empleado" class="form-row">
+
         <div class="form-group col-md-6">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" readonly id="nombre" name="nombre" />
+            <label for="profe">Nombre y apellido</label>
+            <input type="text" class="form-control" disabled id="nombre" name="nombre" />
         </div>
 
         <div class="form-group col-md-6">
             <label for="cargo">Cargo</label>
-            <input type="text" class="form-control" readonly id="cargo" name="cargo" />
+            <input type="text" class="form-control" disabled id="cargo" name="cargo" />
         </div>
+
     </div>
 
-    <div class="form-group">
-        <label for="tipo">Tipo Usuario</label>
-        <select class="form-control" id="tipo" name="tipo">
-            <option value="" selected>Seleccione un tipo</option>
-            @if ($num_tipo>0)
-                @foreach ($tipo as $tipo2)
-                    <option value="{{ $tipo2->id }}">{{ $tipo2->tipo }}</option>
-                @endforeach
-            @endif
-        </select>
-        <input type="hidden" id="tipo2" name="tipo2" />
+    <div style='display: none' id="noempleado" class="form-group">
+        <div class="alert alert-danger" role="alert">
+            <center>
+                ¡La cédula introducida no existe! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{{route('Empleado.index')}}" class="btn btn-danger btncolorblanco" target="_blank" rel="noopener noreferrer"><i class="fa fa-user-plus"></i> Registrar</a>
+            </center>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="username">Usuario</label>
+            <input type="text" class="form-control" required id="username" name="username" />
+        </div>
+        <div class="form-group col-md-6">
+            <label for="tipo">Tipo Usuario</label>
+            <select class="form-control" id="tipo" name="tipo">
+                <option value="" selected>Seleccione un tipo</option>
+                @if ($num_tipo>0)
+                    @foreach ($tipo as $tipo2)
+                        <option value="{{ $tipo2->id }}">{{ $tipo2->tipo }}</option>
+                    @endforeach
+                @endif
+            </select>
+            <input type="hidden" id="tipo2" name="tipo2" />
+        </div>
     </div>
 
     <div class="form-row">

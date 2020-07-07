@@ -164,8 +164,8 @@
     </div>
 
     <div style='display: none' id="profesor" class="form-group">
-        <label for="profe">Nombre y apellido</label>
-        <input type="text" class="form-control" disabled id="profe" name="profe" />
+        <label for="nombre">Nombre y apellido</label>
+        <input type="text" class="form-control" disabled id="nombre" name="nombre" />
     </div>
 
     <div style='display: none' id="noprofesor" class="form-group">
