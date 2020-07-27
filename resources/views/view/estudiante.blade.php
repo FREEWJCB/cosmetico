@@ -23,19 +23,6 @@
         <option value="Masculino">Masculino</option>
     </select>
 
-    <label for="bs_email">Email: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_email" id="bs_email" class="form-control mr-sm-2" type="email" placeholder="Buscar por email" arialabel="Search"/>
-
-    <label for="bs_cargo">Cargo: &nbsp;&nbsp;&nbsp;</label>
-    <select class="form-control mr-sm-2" id="bs_cargo" name="bs_cargo">
-        <option value="" selected>Seleccione un cargo</option>
-        @if ($num_cargo>0)
-            @foreach ($cargo as $cargo2)
-                <option value="{{ $cargo2->id }}">{{ $cargo2->cargos }}</option>
-            @endforeach
-        @endif
-    </select>
-
 @endsection
 
 @if ($js == 'axios')
@@ -143,11 +130,6 @@
                 <label for="municipality">Municipio</label>
                 <select class="form-control" id="municipality" name="municipality">
                     <option value="null" disabled selected>Seleccione un municipio</option>
-                    @if ($num_municipality>0)
-                        @foreach ($municipality as $municipality2)
-                            <option value="{{ $municipality2->id }}">{{ $municipality2->municipalitys }}</option>
-                        @endforeach
-                    @endif
                 </select>
                 <input type="hidden" id="municipality2" name="municipality2" />
             </div>
@@ -205,7 +187,7 @@
             <input type="hidden" id="descripcion2" name="descripcion2" />
         </div>
     </div>
-    <div id="representant">
+    <div style='display: none' id="representant">
         <div class="form-group">
             <label for="cedula_r">Representate</label>
             <div class="input-group mb-3">
@@ -214,23 +196,23 @@
                     <a href="#" id="buscar" onclick = "return representante();" class="btn btn-success btncolorblanco">
                         <i class="fa fa-search"></i>
                     </a>
-                    <a href="#" id="cancelar" onclick = "return norepresentante();" class="btn btn-danger btncolorblanco">
+                    <a href="#" style='display: none' id="cancelar" onclick = "return norepresentante();" class="btn btn-danger btncolorblanco">
                         <i class="fa fa-close"></i>
                     </a>
                 </div>
             </div>
         </div>
-        <div id="formu">
+        <div style='display: none' id="formu">
             <div class="form-row">
 
                 <div class="form-group col-md-6">
-                    <label for="nombre_2">Nombre</label>
-                    <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="nombre_2" name="nombre_2" />
+                    <label for="nombre_r">Nombre</label>
+                    <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="nombre_r" name="nombre_r" />
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="apellido_2">Apellido</label>
-                    <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="apellido_2" name="apellido_2" />
+                    <label for="apellido_r">Apellido</label>
+                    <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="apellido_r" name="apellido_r" />
                 </div>
 
             </div>
@@ -238,8 +220,8 @@
             <div class="form-row">
 
                 <div class="form-group col-md-6">
-                    <label for="sex_2">Sexo</label>
-                    <select class="form-control" id="sex_2" name="sex_2">
+                    <label for="sex_r">Sexo</label>
+                    <select class="form-control" id="sex_r" name="sex_r">
                         <option value="null" disabled selected>Seleccione un sexo</option>
                         <option value="Femenino">Femenino</option>
                         <option value="Masculino">Masculino</option>
@@ -247,8 +229,8 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="telefono_2">Telefono</label>
-                    <input type="tel" class="form-control" required id="telefono_2" name="telefono_2" />
+                    <label for="telefono_r">Telefono</label>
+                    <input type="tel" class="form-control" required id="telefono_r" name="telefono_r" />
                 </div>
 
             </div>
@@ -276,8 +258,8 @@
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="state_2">Estado</label>
-                    <select class="form-control" id="state_2" name="state_2">
+                    <label for="state_r">Estado</label>
+                    <select class="form-control" id="state_r" name="state_r">
                         <option value="null" disabled selected>Seleccione un estado</option>
                         @if ($num_state>0)
                             @foreach ($state as $state2)
@@ -288,16 +270,16 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="municipality_2">Municipio</label>
-                    <select class="form-control" id="municipality_2" name="municipality_2">
+                    <label for="municipality_r">Municipio</label>
+                    <select class="form-control" id="municipality_r" name="municipality_r">
                         <option value="null" disabled selected>Seleccione un municipio</option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="direccion_2">Dirección</label>
-                <textarea class="form-control" required id="direccion_2" name="direccion_2"></textarea>
+                <label for="direccion_r">Dirección</label>
+                <textarea class="form-control" required id="direccion_r" name="direccion_r"></textarea>
             </div>
         </div>
     </div>
