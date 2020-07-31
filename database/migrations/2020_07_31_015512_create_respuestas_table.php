@@ -15,7 +15,7 @@ class CreateRespuestasTable extends Migration
     {
         Schema::create('respuestas', function (Blueprint $table) {
             $table->id();
-            $table->string('respuesta',100);
+            $table->string('respuesta',100)->unique();
             $table->timestamps();
         });
     }

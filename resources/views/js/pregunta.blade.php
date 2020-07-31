@@ -68,7 +68,7 @@
                 }else{
                     $('#resp_num').val('');
                 }
-                $('#resp'+valores.id).slideDonw();
+                $('#resp'+valores.id).slideDown();
             },
             error: function(xhr, textStatus, errorMessage) {
                 error(xhr, textStatus, errorMessage);

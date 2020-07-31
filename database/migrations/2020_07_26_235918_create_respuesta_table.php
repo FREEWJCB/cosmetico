@@ -15,7 +15,7 @@ class CreateRespuestaTable extends Migration
     {
         Schema::create('respuesta', function (Blueprint $table) {
             $table->id();
-            $table->string('respuesta',100);
+            $table->string('respuestas',100);
             $table->decimal('puntos',2,0)->default(1);
             $table->unsignedBigInteger('pregunta');
             $table->foreign('pregunta')->references('id')->on('pregunta');

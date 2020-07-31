@@ -87,7 +87,7 @@ class PreguntaController extends Controller
         $preguntas=$request->bs_preguntas;
         $cons = DB::table('pregunta')
                 ->where('preguntas','like', "%$preguntas%")
-                ->where('preguntas.status', '1')
+                ->where('status', '1')
                 ->orderBy('preguntas','asc');
 
         $cons1 = $cons->get();
@@ -187,7 +187,7 @@ class PreguntaController extends Controller
                 # code...
                 $ocultar="style='display: none'";
             }
-            $respuestas="
+            $respuestas.="
             <div id='resp$id' $ocultar class='alert alert-primary alert-dismissible fade show form-row' role='alert'>
                 <div class='col-7'>$respuesta</div>
                 <div class='col'><label for='puntos$id'><strong>Puntos:</strong></label></div>
