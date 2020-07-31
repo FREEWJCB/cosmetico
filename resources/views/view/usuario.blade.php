@@ -59,7 +59,7 @@
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->cedula }}</center></td>
                 <td><center>{{ $cons2->username }}</center></td>
-                <td><center>{{ $cons2->nombre }}{{ $cons2->nombre }}</center></td>
+                <td><center>{{ $cons2->nombre }} {{ $cons2->nombre }}</center></td>
                 <td><center>{{ $cons2->email }}</center></td>
                 <td><center>{{ $cons2->tip }}</center></td>
                 @include('plantilla.catalogo')
@@ -72,20 +72,27 @@
 @endsection
 
 @section('form')
-
+    <input type="hidden" name="empleado" id="empleado">
     <div id="emple" class="form-group">
         <label for="cedula">Empleado</label>
         <div class="input-group mb-3">
+
             <input type="text" class="form-control" placeholder="Buscar por cédula" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula" name="cedula" />
-            <div  class="input-group-append">
-                <a href="#" onclick = "return empleado();" class="btn btn-success btncolorblanco">
+
+            <div data-turbolinks="false" class="input-group-append">
+
+                <a href="#" id="emplea" onclick = "return empleado();" class="btn btn-success btncolorblanco">
                     <i class="fa fa-search"></i>
+                </a>
+
+                <a href="#" style='display: none' id="cance" onclick = "return cancelar();" class="btn btn-danger btncolorblanco">
+                    <i class="fa fa-times-circle"></i>
                 </a>
             </div>
         </div>
     </div>
 
-    <div style='display: none' id="empleado" class="form-row">
+    <div style='display: none' id="siempleado" class="form-row">
 
         <div class="form-group col-md-6">
             <label for="profe">Nombre y apellido</label>

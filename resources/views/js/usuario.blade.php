@@ -24,6 +24,10 @@
         cargar();
     });
 
+    $("#lim").on("click", function() {
+        cancelar();
+    });
+
 @endsection
 
 @section('url_registro') var url = "{{ route('Usuario.store') }}"; @endsection
@@ -32,7 +36,8 @@
 
 @section('select')
 
-    $('#empleado').hide();
+    $('#cance').hide();
+    $('#siempleado').hide();
     $('#noempleado').hide();
     $("#empleado").val('');
     $("#nombre").val('');
@@ -40,6 +45,7 @@
     $("#respuesta").attr("required", "required");
     $("#password").attr("required", "required");
     $("#password2").attr("required", "required");
+    $("#emplea").show();
     $("#emple").show();
     $("#usu").show();
     $("#pregu").show();
@@ -53,7 +59,7 @@
     $('#cedula').val('');
     $('#nombre').val('');
     $('#cargo').val('');
-    $('#empleado').slideUp();
+    $('#siempleado').slideUp();
     $('#noempleado').slideUp();
     $('#username').val('');
     $('#tipo').val('null');
@@ -61,7 +67,6 @@
     $('#respuesta').val('');
     $('#password').val('');
     $('#password2').val('');
-    $('#profesor').slideUp();
 
 @endsection
 
@@ -86,6 +91,7 @@
     $("#tipo2").val(valores.tipo);
     $("#username").val(valores.username);
     $("#pregunta").val(valores.pregunta);
+    $("#empleado").val(valores.empleado);
 
 @endsection
 
@@ -103,7 +109,9 @@
     $("#salon").attr("disabled", "disabled");
     $("#ano").attr("readonly", "readonly");
     $("#cedula").attr("readonly", "readonly");
-
+    $("#username").attr("readonly", "readonly");
+    $("#pregunta").attr("readonly", "readonly");
+    desocultar();
 @endsection
 
 @section('funciones')
@@ -117,7 +125,7 @@
             beforeSend: function() {
                 setStart();
                 $("#cedula").attr("readonly", "readonly");
-                $("#empleado").slideUp();
+                $("#siempleado").slideUp();
                 $("#noempleado").slideUp();
                 $("#empleado").val('');
                 $("#nombre").val('');
@@ -125,14 +133,16 @@
             },
             success: function(valores) {
                 setDone();
-                $("#cedula").removeAttr("readonly");
                 if(valores.num > 0){
+                    $("#emplea").fadeOut();
+                    $("#cance").fadeIn();
                     $("#empleado").val(valores.empleado);
                     $("#nombre").val(valores.nombre);
                     $("#cargo").val(valores.cargo);
-                    $("#profesor").slideDown();
+                    $("#siempleado").slideDown();
                 }else{
-                    $("#noprofesor").slideDown();
+                    $("#cedula").removeAttr("readonly");
+                    $("#noempleado").slideDown();
                 }
             },
             error: function(xhr, textStatus, errorMessage) {
@@ -142,10 +152,21 @@
         });
         return false;
     }
+    function cancelar() {
+        $("#cance").fadeOut();
+        $("#emplea").fadeIn();
+        $("#siempleado").slideUp();
+        $("#noempleado").slideUp();
+        $("#cedula").removeAttr("readonly");
+        $('#cedula').val("");
+        $("#empleado").val('');
+        $("#nombre").val('');
+        $("#cargo").val('');
+    }
 
     function ocultar() {
         $("#emple").hide();
-        $("#empleado").hide();
+        $("#siempleado").hide();
         $("#noempleado").hide();
         $("#usu").hide();
         $("#pregu").hide();
@@ -157,12 +178,14 @@
 
     function desocultar() {
         $("#emple").show();
-        $("#empleado").show();
-        $("#noempleado").show();
+        $("#siempleado").show();
+        $("#noempleado").hide();
         $("#usu").show();
         $("#pregu").show();
         $("#resp").hide();
         $("#passw").hide();
+        $("#emplea").hide();
+        $("#cance").hide();
     }
 
 @endsection

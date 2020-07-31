@@ -154,6 +154,7 @@ Route::resource('Usuario', 'UsuarioController')->except('show','edit','create','
 Route::PUT('/Usuario', 'UsuarioController@update')->name('Usuario.update');
 Route::POST('/Usuarios', 'UsuarioController@cargar')->name('Usuario.cargar');
 Route::POST('/Usuario/rellenar', 'UsuarioController@mostrar')->name('Usuario.mostrar');
+Route::POST('/Usuario/empleado', 'UsuarioController@empleado')->name('Usuario.empleado');
 Route::GET('/Usuario/{js?}', 'UsuarioController@index');
 
 Route::resource('Representante', 'RepresentanteController')->except('show','edit','create','update');
