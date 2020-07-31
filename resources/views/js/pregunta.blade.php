@@ -43,7 +43,7 @@
     function clear() {
         $.ajax({
             type: "POST",
-            url:"{{route('Usuario.clear')}}",
+            url:"{{route('Pregunta.clear')}}",
             success: function(valores) {
                 $('#resp').html('');
                 $('#resp_num').val('');
@@ -59,7 +59,7 @@
         var respuestas = $('#respuestas').val();
         $.ajax({
             type: "POST",
-            url:"{{route('Usuario.respuestas')}}",
+            url:"{{route('Pregunta.respuestas')}}",
             data: "respuestas="+respuestas,
             success: function(valores) {
                 $('#resp').html(valores.respuestas);
@@ -80,7 +80,7 @@
     function quitar(id) {
         $.ajax({
             type: "POST",
-            url:"{{route('Usuario.quitar')}}",
+            url:"{{route('Pregunta.quitar')}}",
             data: "id="+id,
             success: function(valores) {
                 if(valores.num > 0){
