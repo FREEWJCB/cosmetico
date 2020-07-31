@@ -177,6 +177,6 @@ Route::POST('/Pregunta/clear', 'PreguntaController@clear')->name('Pregunta.clear
 Route::POST('/Pregunta/quitar', 'PreguntaController@quitar')->name('Pregunta.quitar');
 Route::POST('/Pregunta/respuestas', 'PreguntaController@respuestas')->name('Pregunta.respuestas');
 Route::GET('/Pregunta/{js?}', 'PreguntaController@index');
-Route::GET('/Pregunta/prueba', 'PreguntaController@prueba')->name('Pregunta.prueba');
+Route::GET('/Preguntas/prueba', 'PreguntaController@prueba')->name('Pregunta.prueba');
 
 Route::resource('combobox', 'combo')->only('store');

@@ -209,4 +209,16 @@ class PreguntaController extends Controller
 
 
     }
+
+    public function prueba()
+    {
+        //
+        $cons = DB::table('pregunta')
+                    ->where('status', '1')
+                    ->orderBy('preguntas','asc');
+        $cons2 = $cons->get();
+        $num = $cons->count();
+
+        return view('view.Prueba',['cons' => $cons2, 'num' => $num]);
+    }
 }

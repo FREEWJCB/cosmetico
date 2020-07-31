@@ -1,70 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Laravel 7 Ajax Request example - codechief.org </title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
-    <script src="{{ asset('js/jquery-3.5.1.min.js') }}" ></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-</head>
-<body>
+@extends('plantilla.menu')
+
+@include('js.pregunta')
+@section('titulo','Prueba')
+@section('pregunta','active')
+
+@section('contenido')
 
     <div class="container">
-        <h1>Laravel 7 Ajax Request example - codechief.org</h1>
+        <h1>Preguntas</h1>
 
-        <form >
+        <form id="formulario" name="formulario" class="formulario"  onsubmit='return prueba();'>
+            @if ($num > 0)
+                @php($i=0)
+                @foreach ($cons as $cons2)
+                    @php($i++)
+                    @php($preguntas=$cons2->preguntas)
+                    @php($id=$cons2->id)
+                    <label>{{ $preguntas }}</label>
+                    <script>cargar_resp({{$id}});</script>
+                    <div id="respu{{$id}}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                              Default radio
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                            <label class="form-check-label" for="exampleRadios2">
+                              Second default radio
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+                            <label class="form-check-label" for="exampleRadios3">
+                              Disabled radio
+                            </label>
+                          </div>
+                          <div class="form-group">
+                            <input type="submit" id="" class="btn btn-success btn-submit">Submit</input>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <div class="alert alert-danger" role="alert">
+                    No hay preguntas registradas!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{{route('Pregunta.index')}}" class="btn btn-danger btncolorblanco" rel="noopener noreferrer"><i class="fa fa-user-plus"></i> Registrar</a>
+                </div>
+            @endif
 
-            <div class="form-group">
-                <label>Name:</label>
-                <input type="text" name="name" class="form-control" placeholder="Name" required="">
-            </div>
 
-            <div class="form-group">
-                <label>Password:</label>
-                <input type="password" name="password" class="form-control" placeholder="Password" required="">
-            </div>
-
-            <div class="form-group">
-                <strong>Email:</strong>
-                <input type="email" name="email" class="form-control" placeholder="Email" required="">
-            </div>
-
-            <div class="form-group">
-                <button class="btn btn-success btn-submit">Submit</button>
-            </div>
-
+            <div id="resp"></div>
         </form>
     </div>
+@endsection
 
-</body>
-<script type="text/javascript">
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $(".btn-submit").click(function(e){
-
-        e.preventDefault();
-
-        var name = $("input[name=name]").val();
-        var password = $("input[name=password]").val();
-        var email = $("input[name=email]").val();
-
-        $.ajax({
-           type:'POST',
-           url:"{{ route('Tipo.cargar') }}",
-           data:{name:name, password:password, email:email},
-           success:function(data){
-              alert(data.success);
-           }
-        });
-
-	});
-</script>
-
-</html>
