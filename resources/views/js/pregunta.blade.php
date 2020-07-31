@@ -6,11 +6,18 @@
 
 @endsection
 
+@section('select')
+
+    $('#respu').show();
+    clear();
+
+@endsection
+
 @section('url_registro') var url = "{{ route('Pregunta.store') }}"; @endsection
 
 @section('url_edicion') var url = "{{ route('Pregunta.update') }}"; @endsection
 
-@section('registro') $('#preguntas').val(''); @endsection
+@section('registro') $('#preguntas').val(''); $('#resp_num').val(''); clear(); @endsection
 
 @section('edicion') $('#preguntas2').val($('#preguntas').val()); @endsection
 
@@ -30,3 +37,64 @@
 @section('editar') $("#preguntas").removeAttr("readonly"); @endsection
 
 @section('mostrar') $("#preguntas").attr("readonly", "readonly"); @endsection
+
+@section('funciones')
+
+    function clear() {
+        $.ajax({
+            type: "POST",
+            url:"{{route('Usuario.clear')}}",
+            success: function(valores) {
+                $('#resp').html('');
+                $('#resp_num').val('');
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
+    function agregar() {
+        var respuestas = $('#respuestas').val();
+        $.ajax({
+            type: "POST",
+            url:"{{route('Usuario.respuestas')}}",
+            data: "respuestas="+respuestas,
+            success: function(valores) {
+                $('#resp').html(valores.respuestas);
+                if(valores.num > 0){
+                    $('#resp_num').val('1');
+                }else{
+                    $('#resp_num').val('');
+                }
+                $('#resp'+valores.id).slideDonw();
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
+    function quitar(id) {
+        $.ajax({
+            type: "POST",
+            url:"{{route('Usuario.quitar')}}",
+            data: "id="+id,
+            success: function(valores) {
+                if(valores.num > 0){
+                    $('#resp_num').val('1');
+                }else{
+                    $('#resp_num').val('');
+                }
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
+
+@endsection

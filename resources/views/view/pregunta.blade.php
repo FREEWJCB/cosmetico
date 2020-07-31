@@ -42,14 +42,14 @@
 
 
 @section('form')
-    <input type="hidden" name="resp_num" id="resp_num" value="0">
+    <input style='display: none' required name="resp_num" id="resp_num">
     <div class="form-group">
         <label for="preguntas">Pregunta:</label>
         <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="preguntas" name="preguntas" />
         <input type="hidden" id="preguntas2" name="preguntas2" />
     </div>
 
-    <div class="form-group">
+    <div id="respu" class="form-group">
         <label for="respuestas">Respuesta:</label>
         <div class="input-group mb-3">
             <input type="text" class="form-control" aria-describedby="button-addon2" id="respuestas" name="respuestas" />
@@ -61,25 +61,7 @@
         </div>
     </div>
 
-    <div id="resp">
-        <div class="alert alert-primary alert-dismissible fade show form-row" role="alert">
-            <div class="col-7">
-                You should check in on some of those fields below.
-            </div>
-            <div class="col">
-                <label for="preguntas"><strong>Puntos:</strong></label>
-            </div>
-            <div class="col">
-                <input type="number" class="custom-select my-1 mr-sm-2" value="0" min="0" max="99" name="puntos" id="puntos">
-            </div>
-
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick = "return quitar();">
-                <span aria-hidden="true">&times;</span>
-            </button>
-
-        </div>
-
-    </div>
+    <div id="resp"></div>
 @endsection
 
 @section('contenido')

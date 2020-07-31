@@ -34,6 +34,26 @@ class PreguntaController extends Controller
     {
         //
         DB::table('pregunta')->insert(['preguntas' => $request->preguntas]);
+        $cons = DB::table('pregunta')->where('preguntas', $request->preguntas)->get();
+
+        foreach ($cons as $cons2) {
+            # code...
+            $pregunta=$cons2->id;
+        }
+
+        $cons = DB::table('respuestas')->get();
+
+        foreach ($cons as $cons2) {
+            # code...
+            $id=$cons2->id;
+            $respuestas=$cons2->respuesta;
+            $puntos=$request->puntos.$id;
+            DB::table('respuesta')->insert([
+                'pregunta' => $pregunta,
+                'puntos' => $puntos,
+                'respuestas' => $respuestas
+                ]);
+        }
     }
 
     /**
@@ -123,6 +143,68 @@ class PreguntaController extends Controller
         return response()->json([
             'preguntas'=>$preguntas,
             'resp'=>$resp
+        ]);
+
+
+    }
+
+    public function clear()
+    {
+        //
+        DB::table('respuestas')->delete();
+
+    }
+
+    public function quitar(Request $request)
+    {
+        //
+        $id=$request->id;
+        DB::table('respuestas')->where('id', $id)->delete();
+        $num = DB::table('respuestas')->count();
+        return response()->json([
+            'num'=>$num
+        ]);
+    }
+
+    public function respuestas(Request $request)
+    {
+        //
+
+        DB::table('respuestas')->insert(['respuesta' => $request->respuestas]);
+
+        $cons = DB::table('respuestas')->orderBy('id','asc');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+        $i=0;
+        $respuestas="";
+        $ocultar="";
+        foreach ($cons1 as $cons2) {
+            # code...
+            $i++;
+            $id=$cons2->id;
+            $respuesta=$cons2->respuesta;
+            if ($i==$num) {
+                # code...
+                $ocultar="style='display: none'";
+            }
+            $respuestas="
+            <div id='resp$id' $ocultar class='alert alert-primary alert-dismissible fade show form-row' role='alert'>
+                <div class='col-7'>$respuesta</div>
+                <div class='col'><label for='puntos$id'><strong>Puntos:</strong></label></div>
+                <div class='col'><input type='number' class='custom-select my-1 mr-sm-2' value='0' min='0' max='99' name='puntos$id' id='puntos$id'></div>
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar($id);'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>";
+
+
+
+        }
+
+        return response()->json([
+            'respuestas'=>$respuestas,
+            'num'=>$num,
+            'id'=>$id
         ]);
 
 
