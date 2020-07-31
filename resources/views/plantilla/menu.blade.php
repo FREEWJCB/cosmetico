@@ -118,6 +118,19 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item dropdown">
+            <a title="pregunta" href="#" class='nav-link  dropdown-toggle @yield("pregunta","")' id="dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Pregunta
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown1">
+              <li class="dropdown-item">
+                <a title="Pregunta" href="{{ route('Pregunta.index') }}">Pregunta</a>
+              </li>
+              <li class="dropdown-item">
+                <a title="Prueba" href="{{ route('Pregunta.prueba') }}">Prueba</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>

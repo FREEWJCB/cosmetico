@@ -169,4 +169,12 @@ Route::POST('/Estudiantes', 'EstudianteController@cargar')->name('Estudiante.car
 Route::POST('/Estudiante/rellenar', 'EstudianteController@mostrar')->name('Estudiante.mostrar');
 Route::GET('/Estudiante/{js?}', 'EstudianteController@index');
 
+Route::resource('Pregunta', 'PreguntaController')->except('show','edit','create','update');
+Route::PUT('/Pregunta', 'PreguntaController@update')->name('Pregunta.update');
+Route::POST('/Preguntas', 'PreguntaController@cargar')->name('Pregunta.cargar');
+Route::POST('/Pregunta/rellenar', 'PreguntaController@mostrar')->name('Pregunta.mostrar');
+Route::POST('/Pregunta/respuestas', 'PreguntaController@respuestas')->name('Pregunta.respuestas');
+Route::GET('/Pregunta/{js?}', 'PreguntaController@index');
+Route::GET('/Pregunta/prueba', 'PreguntaController@prueba');
+
 Route::resource('combobox', 'combo')->only('store');
