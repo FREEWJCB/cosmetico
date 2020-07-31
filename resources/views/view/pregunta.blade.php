@@ -1,7 +1,7 @@
 @extends('plantilla.menu')
 
 @include('js.pregunta')
-
+@section('titulo','Pregunta')
 @section('pregunta','active')
 
 @section('busqueda')
@@ -18,7 +18,7 @@
 
 @section('thead')
 
-    <th scope="col"><center>Preguna</center></th>
+    <th scope="col"><center>Pregunta</center></th>
 
 @endsection
 
@@ -55,19 +55,30 @@
             <input type="text" class="form-control" aria-describedby="button-addon2" id="respuestas" name="respuestas" />
             <div  class="input-group-append">
                 <a href="#" onclick = "return agregar();" class="btn btn-success btncolorblanco">
-                    <i class="fa fa-list"></i> Agregar
+                    <i class="fa fa-plus"></i> Agregar
                 </a>
             </div>
         </div>
     </div>
 
     <div id="resp">
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            You should check in on some of those fields below. <strong>Puntos:</strong> <input type="number" class="custom-select my-1 mr-sm-2" value="0" min="0" max="99" name="puntos" id="puntos">
+        <div class="alert alert-primary alert-dismissible fade show form-row" role="alert">
+            <div class="col-7">
+                You should check in on some of those fields below.
+            </div>
+            <div class="col">
+                <label for="preguntas"><strong>Puntos:</strong></label>
+            </div>
+            <div class="col">
+                <input type="number" class="custom-select my-1 mr-sm-2" value="0" min="0" max="99" name="puntos" id="puntos">
+            </div>
+
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick = "return quitar();">
                 <span aria-hidden="true">&times;</span>
             </button>
+
         </div>
+
     </div>
 @endsection
 
