@@ -96,5 +96,19 @@
         return false;
     }
 
+    function prueba() {
+        $.ajax({
+            type: "POST",
+            url:"{{route('Pregunta.calcular')}}",
+            data: $("#formulario").serialize(),
+            success: function(valores) {
+                $('#resp').html(valores.resp);
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
 
 @endsection

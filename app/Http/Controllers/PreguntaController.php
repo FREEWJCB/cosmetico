@@ -221,4 +221,36 @@ class PreguntaController extends Controller
 
         return view('view.Prueba',['cons' => $cons2, 'num' => $num]);
     }
+
+
+    public function calcular(Request $request)
+    {
+        //
+        $num=$request->num;
+        $puntos=0;
+        $resp="";
+        if ($num>0) {
+            # code...
+            for ($i=1; $i <= $num; $i++) {
+                # code...
+                $respuestas=$request['respuestas'.$i];
+                $puntos=$puntos+$respuestas;
+
+            }
+            $resp .="<div class='alert alert-success' role='alert'>
+                        La encuesta ha dado un total de <strong>$puntos</strong> puntos.
+                    </div>";
+        }else{
+            $resp .="<div class='alert alert-danger' role='alert'>
+                        error.
+                    </div>";
+        }
+
+
+        return response()->json([
+            'resp'=>$resp
+        ]);
+
+
+    }
 }
