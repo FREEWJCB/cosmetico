@@ -15,7 +15,8 @@ class CreateAlergiasTable extends Migration
     {
         Schema::create('alergias', function (Blueprint $table) {
             $table->id();
-            $table->decimal('alergia',100,0);
+            $table->unsignedBigInteger('alergia');
+            $table->foreign('alergia')->references('id')->on('alergia');
             $table->timestamps();
         });
     }

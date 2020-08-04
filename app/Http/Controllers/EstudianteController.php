@@ -165,9 +165,23 @@ class EstudianteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        DB::table('persona')->where('id', $request->persona)->update([
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'sex' => $request->sex,
+            'telefono' => $request->telefono,
+            'direccion' => $request->direccion,
+            'municipality' => $request->municipality
+            ]);
+
+        DB::table('estudiante')->where('id', $request->id)->update([
+            'fecha_nacimiento' => $request->fecha_nacimiento,
+            'lugar_nacimiento' => $request->lugar_nacimiento,
+            'descripcion' => $request->descripcion
+            ]);
     }
 
     /**
@@ -179,6 +193,201 @@ class EstudianteController extends Controller
     public function destroy($id)
     {
         //
+        DB::table('representante')->where('id', $id)->update(['status' => 0]);
+    }
+
+    public function cargar(Request $request)
+    {
+        $cat="";
+        $cedula=$request->bs_cedula;
+        $nombre=$request->bs_nombre;
+        $apellido=$request->bs_apellido;
+        $sex=$request->bs_sex;
+        $cons = DB::table('estudiante')
+                    ->select('estudiante.*','persona.cedula','persona.nombre','persona.apellido','persona.sex','municipality.municipalitys','state.states')
+                    ->join('persona', 'estudiante.persona', '=', 'persona.id')
+                    ->join('municipality', 'persona.municipality', '=', 'municipality.id')
+                    ->join('state', 'municipality.state', '=', 'state.id')
+                    ->where('cedula','like', "%$cedula%")
+                    ->where('nombre','like', "%$nombre%")
+                    ->where('apellido','like', "%$apellido%")
+                    ->where('sex','like', "%$sex%")
+                    ->where('estudiante.status', '1')
+                    ->orderBy('cedula','asc');
+
+        $cons1 = $cons->get();
+        $num = $cons->count();
+        if ($num>0) {
+            # code...
+            $i=0;
+            foreach ($cons1 as $cons2) {
+                # code...
+                $i++;
+                $id=$cons2->id;
+                $cedula=$cons2->cedula;
+                $nombre="$cons2->nombre $cons2->apellido";
+                $sex=$cons2->sex;
+                $fecha_nacimiento=$cons2->fecha_nacimiento;
+                $lugar_nacimiento=$cons2->lugar_nacimiento;
+                $states=$cons2->states;
+                $municipalitys=$cons2->municipalitys;
+                $cat.="<tr>
+                        <th scope='row'><center>$i</center></th>
+                        <td><center>$cedula</center></td>
+                        <td><center>$nombre</center></td>
+                        <td><center>$sex</center></td>
+                        <td><center>$fecha_nacimiento</center></td>
+                        <td><center>$lugar_nacimiento</center></td>
+                        <td><center>$states</center></td>
+                        <td><center>$municipalitys</center></td>
+                        <td>
+                            <center data-turbolinks='false' class='navbar navbar-light'>
+                                <a onclick = \"return mostrar($id,'Mostrar');\" class='btn btn-info btncolorblanco' href='#' >
+                                    <i class='fa fa-list-alt'></i>
+                                </a>
+                                <a onclick = \"return mostrar($id,'Edicion');\" class='btn btn-success btncolorblanco' href='#' >
+                                    <i class='fa fa-edit'></i>
+                                </a>
+                                <a onclick ='return desactivar($id)' class='btn btn-danger btncolorblanco' href='#' >
+                                    <i class='fa fa-trash-alt'></i>
+                                </a>
+                            </center>
+                        </td>
+                    </tr>";
+
+            }
+        }else{
+            $cat="<tr><td colspan='8'>No hay datos registrados</td></tr>";
+        }
+        return response()->json(['catalogo'=>$cat]);
+
+    }
+
+    public function mostrar(Request $request)
+    {
+        //
+        $id=$request->id;
+        $cons= DB::table('estudiante')
+                 ->join('persona', 'estudiante.persona', '=', 'persona.id')
+                 ->join('municipality', 'persona.municipality', '=', 'municipality.id')
+                 ->where('estudiante.id', $id)->get();
+
+        foreach ($cons as $cons2) {
+            # code...
+            $cedula=$cons2->cedula;
+            $nombre=$cons2->nombre;
+            $apellido=$cons2->apellido;
+            $sex=$cons2->sex;
+            $telefono=$cons2->telefono;
+            $state=$cons2->state;
+            $municipality=$cons2->municipality;
+            $direccion=$cons2->direccion;
+            $fecha_nacimiento=$cons2->fecha_nacimiento;
+            $lugar_nacimiento=$cons2->lugar_nacimiento;
+            $descripcion=$cons2->descripcion;
+            $persona=$cons2->persona;
+
+        }
+
+
+
+        $cons= DB::table('estudiante_representante')
+                 ->join('representante', 'representante.representante', '=', 'representante.id')
+                 ->join('persona', 'representante.persona', '=', 'persona.id')
+                 ->join('municipality', 'persona.municipality', '=', 'municipality.id')
+                 ->where('estudiante_representante.status', 1)
+                 ->where('estudiante', $id)->get();
+
+        foreach ($cons as $cons2) {
+            # code...
+            $representante=$cons2->representante;
+            $parentesco=$cons2->parentesco;
+            $cedula_r=$cons2->cedula;
+            $nombre_r=$cons2->nombre;
+            $apellido_r=$cons2->apellido;
+            $sex_r=$cons2->sex;
+            $telefono_r=$cons2->telefono;
+            $direccion_r=$cons2->direccion;
+            $state_r=$cons2->state;
+            $municipality_r=$cons2->municipality;
+            $ocupacion_laboral=$cons2->ocupacion_laboral;
+
+        }
+
+        $list_a="";
+        $list_d="";
+
+        $cons= DB::table('estudiante_alergia')
+                 ->select('estudiante_alergia.alergia','alergia.alergias','alergia.descripcion','tipo_alergia.tipo')
+                 ->join('alergia', 'estudiante_alergia.alergia', '=', 'alergia.id')
+                 ->join('tipo_alergia', 'alergia.tipo', '=', 'tipo_alergia.id')
+                 ->where('estudiante', $id);
+
+        $cons1 = $cons->get();
+        $num = $cons->count();
+
+        if ($num>0) {
+            # code...
+            foreach ($cons1 as $cons2) {
+                $alergia=$cons2->alergia;
+                $tipo=$cons2->tipo;
+                $alergias=$cons2->alergias;
+                $descripcion_a=$cons2->descripcion;
+                DB::table('alergias')->insert(['alergia' => $alergia]);
+                $list_a.="$alergia $tipo $alergias $descripcion_a";
+            }
+        }
+
+        $cons= DB::table('estudiante_discapacidad')
+                 ->select('estudiante_discapacidad.discapacidad','discapacidad.discapacidades','discapacidad.descripcion','tipo_discapacidad.tipo')
+                 ->join('discapacidad', 'estudiante_discapacidad.discapacidad', '=', 'discapacidad.id')
+                 ->join('tipo_discapacidad', 'discapacidad.tipo', '=', 'tipo_discapacidad.id')
+                 ->where('estudiante', $id);
+
+        $cons1 = $cons->get();
+        $num = $cons->count();
+
+        if ($num>0) {
+            # code...
+            foreach ($cons1 as $cons2) {
+                $discapacidad=$cons2->discapacidad;
+                $tipo=$cons2->tipo;
+                $discapacidades=$cons2->discapacidades;
+                $descripcion_d=$cons2->descripcion;
+                DB::table('discapacidades')->insert(['discapacidad' => $discapacidad]);
+                $list_d.="$discapacidad $tipo $discapacidades $descripcion_d";
+            }
+        }
+
+        return response()->json([
+            'cedula'=>$cedula,
+            'nombre'=>$nombre,
+            'apellido'=>$apellido,
+            'sex'=>$sex,
+            'telefono'=>$telefono,
+            'direccion'=>$direccion,
+            'fecha_nacimiento'=>$fecha_nacimiento,
+            'lugar_nacimiento'=>$lugar_nacimiento,
+            'descripcion'=>$descripcion,
+            'state'=>$state,
+            'municipality'=>$municipality,
+            'representante'=>$representante,
+            'parentesco'=>$parentesco,
+            'cedula_r'=>$cedula_r,
+            'nombre_r'=>$nombre_r,
+            'apellido_r'=>$apellido_r,
+            'sex_r'=>$sex_r,
+            'telefono_r'=>$telefono_r,
+            'direccion_r'=>$direccion_r,
+            'state_r'=>$state_r,
+            'municipality_r'=>$municipality_r,
+            'ocupacion_laboral'=>$ocupacion_laboral,
+            'list_a'=>$list_a,
+            'list_d'=>$list_d,
+            'persona'=>$persona
+        ]);
+
+
     }
 
     public function clear_a()
@@ -192,6 +401,128 @@ class EstudianteController extends Controller
     {
         //
         DB::table('discapacidades')->delete();
+
+    }
+
+    public function quitar_a(Request $request)
+    {
+        //
+        $id=$request->id;
+        DB::table('alergias')->where('id', $id)->delete();
+        $num = DB::table('alergias')->count();
+        return response()->json([
+            'num'=>$num
+        ]);
+    }
+    public function quitar_d(Request $request)
+    {
+        //
+        $id=$request->id;
+        DB::table('discapacidades')->where('id', $id)->delete();
+        $num = DB::table('discapacidades')->count();
+        return response()->json([
+            'num'=>$num
+        ]);
+    }
+
+    public function alergias(Request $request)
+    {
+        //
+
+        DB::table('alergias')->insert(['alergia' => $request->alergia]);
+
+        $cons = DB::table('alergias')
+                ->select('alergias.alergia','alergia.alergias','alergia.descripcion','tipo_alergia.tipo')
+                ->join('alergia', 'alergias.alergia', '=', 'alergia.id')
+                ->join('tipo_alergia', 'alergia.tipo', '=', 'tipo_alergia.id')
+                ->orderBy('id','asc');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+        $i=0;
+        $alergias="";
+        $ocultar="";
+        foreach ($cons1 as $cons2) {
+            # code...
+            $i++;
+            $id=$cons2->id;
+            $alergia=$cons2->alergia;
+            $alergias=$cons2->alergias;
+            $descripcion=$cons2->descripcion;
+            $tipo=$cons2->tipo;
+            if ($i==$num) {
+                # code...
+                $ocultar="style='display: none'";
+            }
+            $alergias.="
+            <div id='resp$id' $ocultar class='alert alert-primary alert-dismissible fade show form-row' role='alert'>
+                <div class='col-7'>$alergia $descripcion $tipo</div>
+                <div class='col'><label for='puntos$id'><strong>Puntos:</strong></label></div>
+                <div class='col'><input type='number' class='custom-select my-1 mr-sm-2' value='0' min='0' max='99' name='puntos$id' id='puntos$id'></div>
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar($id);'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>";
+
+
+
+        }
+
+        return response()->json([
+            'alergias'=>$alergias,
+            'num'=>$num,
+            'id'=>$id
+        ]);
+
+
+    }
+    public function discapacidades(Request $request)
+    {
+        //
+
+        DB::table('discapacidades')->insert(['discapacidad' => $request->discapacidad]);
+
+        $cons = DB::table('discapacidades')
+                ->select('discapacidades.discapacidad','discapacidad.discapacidades','discapacidad.descripcion','tipo_discapacidad.tipo')
+                ->join('discapacidad', 'discapacidades.discapacidad', '=', 'discapacidad.id')
+                ->join('tipo_discapacidad', 'discapacidad.tipo', '=', 'tipo_discapacidad.id')
+                ->orderBy('id','asc');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+        $i=0;
+        $discapacidades="";
+        $ocultar="";
+        foreach ($cons1 as $cons2) {
+            # code...
+            $i++;
+            $id=$cons2->id;
+            $discapacidad=$cons2->discapacidad;
+            $discapacidades=$cons2->discapacidades;
+            $descripcion=$cons2->descripcion;
+            $tipo=$cons2->tipo;
+            if ($i==$num) {
+                # code...
+                $ocultar="style='display: none'";
+            }
+            $discapacidades.="
+            <div id='resp$id' $ocultar class='alert alert-primary alert-dismissible fade show form-row' role='alert'>
+                <div class='col-7'>$discapacidad $descripcion $tipo</div>
+                <div class='col'><label for='puntos$id'><strong>Puntos:</strong></label></div>
+                <div class='col'><input type='number' class='custom-select my-1 mr-sm-2' value='0' min='0' max='99' name='puntos$id' id='puntos$id'></div>
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar($id);'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>";
+
+
+
+        }
+
+        return response()->json([
+            'discapacidades'=>$discapacidades,
+            'num'=>$num,
+            'id'=>$id
+        ]);
+
 
     }
 }

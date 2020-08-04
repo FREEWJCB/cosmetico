@@ -15,7 +15,8 @@ class CreateDiscapacidadesTable extends Migration
     {
         Schema::create('discapacidades', function (Blueprint $table) {
             $table->id();
-            $table->decimal('discapacidad',100,0);
+            $table->unsignedBigInteger('discapacidad');
+            $table->foreign('discapacidad')->references('id')->on('discapacidad');
             $table->timestamps();
         });
     }
