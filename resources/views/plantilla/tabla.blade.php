@@ -45,11 +45,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="titulo"></h5>
+                <h5 class="modal-title" id="titulo"></h5> <br>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            @yield('ventanas')
             <form id="formulario" name="formulario" class="formulario"  onsubmit='return agregaRegistro();'>
                 @csrf
                 <input type="hidden" id="id" name="id" />

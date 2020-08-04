@@ -25,6 +25,16 @@
 
 @endsection
 
+@section('ventana')
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary">Estudiante</button>
+        <button type="button" class="btn btn-secondary">Salud</button>
+        <button type="button" class="btn btn-secondary">Representante</button>
+    </div>
+
+@endsection
+
 @if ($js == 'axios')
     @section('ajax','warning')
     @section('axios','success')
