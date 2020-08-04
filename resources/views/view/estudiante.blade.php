@@ -25,13 +25,21 @@
 
 @endsection
 
-@section('ventana')
+@section('ventanas')
 
     <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary">Estudiante</button>
-        <button type="button" class="btn btn-secondary">Salud</button>
-        <button type="button" class="btn btn-secondary">Representante</button>
+        <button type="button" onclick = "return estudiante();" class="btn btn-secondary">Estudiante</button>
+        <button type="button" onclick = "return salud();" class="btn btn-secondary">Salud</button>
+        <button type="button" onclick = "return representantes();" class="btn btn-secondary">Representante</button>
     </div>
+
+@endsection
+
+@section('botones')
+
+
+
+
 
 @endsection
 
@@ -77,6 +85,7 @@
 @endsection
 
 @section('form')
+    <input type="hidden" id="ventana" name="ventana" />
     <input type="hidden" id="persona" name="persona" />
     <input type="hidden" id="representante" name="representante" />
     <input type="hidden" id="representante2" name="representante2" />
@@ -350,6 +359,12 @@
             </div>
         </div>
     </div>
+    <center>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" onclick = "return anterior();" disabled class="btn btn-secondary">Anterior</button>
+            <button type="button" onclick = "return siguiente();" disabled class="btn btn-secondary">Siguiente</button>
+        </div>
+    </center>
 @endsection
 
 @section('contenido')
