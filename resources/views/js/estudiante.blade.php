@@ -16,24 +16,110 @@
         cargar();
     });
 
+    {{-- formulario de estudiante --}}
+
+    $("#cedula").on("keyup", function() {
+        val_estudiante();
+    });
+
+    $("#nombre").on("keyup", function() {
+        val_estudiante();
+    });
+
+    $("#apellido").on("keyup", function() {
+        val_estudiante();
+    });
+
+    $("#sex").on("change", function() {
+        val_estudiante();
+    });
+
+    $("#telefono").on("keyup", function() {
+        val_estudiante();
+    });
+
     $("#state").on("change", function() {
         var state = $("#state").val();
         combo("municipality", "state", state, "municipality", 0, "municipio", "municipalitys", 2);
+        val_estudiante();
     });
 
-    $("#state_r").on("change", function() {
-        var state = $("#state_r").val();
-        combo("municipality", "state", state, "municipality_r", 0, "municipio", "municipalitys", 2);
+    $("#municipality").on("change", function() {
+        val_estudiante();
     });
+
+    $("#direccion").on("keyup", function() {
+        val_estudiante();
+    });
+
+    $("#fecha_nacimiento").on("change", function() {
+        val_estudiante();
+    });
+
+    $("#lugar_nacimiento").on("keyup", function() {
+        val_estudiante();
+    });
+
+    $("#descripcion").on("keyup", function() {
+        val_estudiante();
+    });
+
+    {{-- formulario de salud --}}
 
     $("#tipoa").on("change", function() {
         var tipo = $("#tipoa").val();
         combo("alergia", "tipo", tipo, "alergia", 0, "alergia", "alergias", 2);
+        val_salud();
     });
 
     $("#tipod").on("change", function() {
         var tipo = $("#tipod").val();
         combo("discapacidad", "tipo", tipo, "discapacidad", 0, "discapacidad", "discapacidades", 2);
+        val_salud();
+    });
+
+    {{-- formulario de representante --}}
+
+    $("#cedula_r").on("keyup", function() {
+        val_representante();
+    });
+
+    $("#nombre_r").on("keyup", function() {
+        val_representante();
+    });
+
+    $("#apellido_r").on("keyup", function() {
+        val_representante();
+    });
+
+    $("#sex_r").on("change", function() {
+        val_representante();
+    });
+
+    $("#telefono_r").on("keyup", function() {
+        val_representante();
+    });
+
+    $("#ocupacion_laboral").on("change", function() {
+        val_representante();
+    });
+
+    $("#parentesco").on("keyup", function() {
+        val_representante();
+    });
+
+    $("#state_r").on("change", function() {
+        var state = $("#state_r").val();
+        combo("municipality", "state", state, "municipality_r", 0, "municipio", "municipalitys", 2);
+        val_representante();
+    });
+
+    $("#municipality_r").on("change", function() {
+        val_representante();
+    });
+
+    $("#direccion_r").on("keyup", function() {
+        val_representante();
     });
 
 @endsection

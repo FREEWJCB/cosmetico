@@ -44,16 +44,6 @@ class EstudianteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -61,29 +51,111 @@ class EstudianteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        //estudiante
+        DB::table('persona')->insert([
+            'cedula' => $request->cedula,
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'sex' => $request->sex,
+            'telefono' => $request->telefono,
+            'direccion' => $request->direccion,
+            'municipality' => $request->municipality
+            ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $cons = DB::table('persona')->where('cedula', $request->cedula)->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        foreach ($cons as $cons2) {
+            # code...
+            $persona=$cons2->id;
+        }
+        DB::table('estudiante')->insert([
+            'fecha_nacimiento' => $request->fecha_nacimiento,
+            'lugar_nacimiento' => $request->lugar_nacimiento,
+            'descripcion' => $request->descripcion,
+            'persona' => $persona
+            ]);
+
+        $cons = DB::table('estudiante')->where('persona', $persona)->get();
+
+        foreach ($cons as $cons2) {
+            # code...
+            $estudiante=$cons2->id;
+        }
+
+        $cons = DB::table('alergias');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+
+        if ($num>0) {
+            # code...
+            foreach ($cons1 as $cons2) {
+                # code...
+                $alergia=$cons2->alergia;
+                DB::table('estudiante_alergia')->insert([
+                    'estudiante' => $estudiante,
+                    'alergia' => $alergia
+                    ]);
+            }
+        }
+
+        $cons = DB::table('discapacidades');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+
+        if ($num>0) {
+            # code...
+            foreach ($cons1 as $cons2) {
+                # code...
+                $discapacidad=$cons2->discapacidad;
+                DB::table('estudiante_discapacidad')->insert([
+                    'estudiante' => $estudiante,
+                    'discapacidad' => $discapacidad
+                    ]);
+            }
+        }
+        $repre=$request->representante_regis;
+
+        if ($repre==0) {
+            # code...
+            DB::table('persona')->insert([
+                'cedula' => $request->cedula_r,
+                'nombre' => $request->nombre_r,
+                'apellido' => $request->apellido_r,
+                'sex' => $request->sex_r,
+                'telefono' => $request->telefono_r,
+                'direccion' => $request->direccion_r,
+                'municipality' => $request->municipality_r
+                ]);
+
+            $cons = DB::table('persona')->where('cedula', $request->cedula_r)->get();
+
+            foreach ($cons as $cons2) {
+                # code...
+                $persona=$cons2->id;
+            }
+
+            DB::table('representante')->insert([
+                'ocupacion_laboral' => $request->ocupacion_laboral,
+                'persona' => $persona
+                ]);
+
+            $cons = DB::table('representante')->where('persona', $persona)->get();
+
+            foreach ($cons as $cons2) {
+                # code...
+                $representante=$cons2->id;
+            }
+        } else {
+            # code...
+            $representante=$request->representante;
+        }
+
+        DB::table('estudiante_representante')->insert([
+            'parentesco' => $request->parentesco,
+            'estudiante' => $estudiante,
+            'representante' => $representante
+            ]);
+
     }
 
     /**
@@ -107,5 +179,19 @@ class EstudianteController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function clear_a()
+    {
+        //
+        DB::table('alergias')->delete();
+
+    }
+
+    public function clear_d()
+    {
+        //
+        DB::table('discapacidades')->delete();
+
     }
 }
