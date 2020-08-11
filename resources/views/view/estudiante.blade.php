@@ -28,18 +28,10 @@
 @section('ventanas')
 
     <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" onclick = "return estudiante();" class="btn btn-secondary">Estudiante</button>
-        <button type="button" onclick = "return salud();" class="btn btn-secondary">Salud</button>
-        <button type="button" onclick = "return representantes();" class="btn btn-secondary">Representante</button>
+        <button type="button" id="button_estudiante" onclick = "return estudiante();" class="btn btn-secondary">Estudiante</button>
+        <button type="button" id="button_salud" onclick = "return salud();" class="btn btn-secondary">Salud</button>
+        <button type="button" id="button_representante" onclick = "return representantes();" class="btn btn-secondary">Representante</button>
     </div>
-
-@endsection
-
-@section('botones')
-
-
-
-
 
 @endsection
 
@@ -224,7 +216,7 @@
                             <i class="fa fa-search"></i>
                         </a>
 
-                        <a href="#" id="cance" onclick = "return limpiar_a();" class="btn btn-danger btncolorblanco">
+                        <a href="#" style='display: none' id="clear_a" onclick = "return clear_a();" class="btn btn-danger btncolorblanco">
                             <i class="fa fa-times-circle"></i>
                         </a>
                     </div>
@@ -244,7 +236,7 @@
                             <i class="fa fa-search"></i>
                         </a>
 
-                        <a href="#" onclick = "return limpiar_d();" class="btn btn-danger btncolorblanco">
+                        <a href="#" style='display: none' id="clear_d" onclick = "return clear_d();" class="btn btn-danger btncolorblanco">
                             <i class="fa fa-times-circle"></i>
                         </a>
                     </div>

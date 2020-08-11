@@ -129,7 +129,8 @@
 @section('url_edicion') var url = "{{ route('Estudiante.update') }}"; @endsection
 
 @section('select')
-
+    clear();
+    estudiante();
     $('#estudiante').show();
     $('#salud').hide();
     $('#representant').hide();
@@ -144,7 +145,7 @@
     $('#municipality_r').html('<option value="null" disabled selected>Seleccione un municipio</option>');
     $('#alergia').html('<option value="null" disabled selected>Seleccione una alergia</option>');
     $('#discapacidad').html('<option value="null" disabled selected>Seleccione una discapacidad</option>');
-    clear();
+
 
 @endsection
 
@@ -171,6 +172,7 @@
     $('#list_a').html('');
     $('#list_d').html('');
     clear();
+    estudiante();
     $('#cedula_r').val('');
     $('#nombre_r').val('');
     $('#apellido_r').val('');
@@ -187,6 +189,7 @@
     $('#repre').show();
     $('#cance').hide();
     $('#estudiante').fadeIn();
+    $("#respuesta").removeAttr("required");
 
 
 @endsection
@@ -284,6 +287,7 @@
             url:"{{route('Estudiante.clear_a')}}",
             success: function(valores) {
                 $('#list_a').html('');
+                $('#clear_a').hide();
             },
             error: function(xhr, textStatus, errorMessage) {
                 error(xhr, textStatus, errorMessage);
@@ -298,6 +302,7 @@
             url:"{{route('Estudiante.clear_d')}}",
             success: function(valores) {
                 $('#list_d').html('');
+                $('#clear_d').hide();
             },
             error: function(xhr, textStatus, errorMessage) {
                 error(xhr, textStatus, errorMessage);
@@ -324,7 +329,6 @@
             success: function(valores) {
                 setDone();
                 if(valores.num > 0){
-                    $("#emplea").fadeOut();
                     $("#cance").fadeIn();
                     $("#empleado").val(valores.empleado);
                     $("#nombre").val(valores.nombre);
@@ -377,6 +381,33 @@
         $("#passw").hide();
         $("#emplea").hide();
         $("#cance").hide();
+    }
+
+    function estudiante() {
+        $("#button_estudiante").attr("class", "btn btn-success");
+        $("#button_salud").attr("class", "btn btn-secondary");
+        $("#button_representante").attr("class", "btn btn-secondary");
+        $('#salud').fadeOut();
+        $('#representant').fadeOut();
+        $('#estudiante').fadeIn();
+    }
+
+    function salud() {
+        $("#button_estudiante").attr("class", "btn btn-secondary");
+        $("#button_salud").attr("class", "btn btn-success");
+        $("#button_representante").attr("class", "btn btn-secondary");
+        $('#representant').fadeOut();
+        $('#estudiante').fadeOut();
+        $('#salud').fadeIn();
+    }
+
+    function representantes() {
+        $("#button_estudiante").attr("class", "btn btn-secondary");
+        $("#button_salud").attr("class", "btn btn-secondary");
+        $("#button_representante").attr("class", "btn btn-success");
+        $('#salud').fadeOut();
+        $('#estudiante').fadeOut();
+        $('#representant').fadeIn();
     }
 
 @endsection
