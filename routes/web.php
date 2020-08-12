@@ -169,6 +169,8 @@ Route::POST('/Estudiantes', 'EstudianteController@cargar')->name('Estudiante.car
 Route::POST('/Estudiante/rellenar', 'EstudianteController@mostrar')->name('Estudiante.mostrar');
 Route::POST('/Estudiante/clear_a', 'EstudianteController@clear_a')->name('Estudiante.clear_a');
 Route::POST('/Estudiante/clear_d', 'EstudianteController@clear_d')->name('Estudiante.clear_d');
+Route::POST('/Estudiante/alergias', 'EstudianteController@alergias')->name('Estudiante.alergias');
+Route::POST('/Estudiante/discapacidades', 'EstudianteController@discapacidades')->name('Estudiante.discapacidades');
 Route::POST('/Estudiante/representante', 'EstudianteController@representante')->name('Estudiante.representante');
 Route::GET('/Estudiante/{js?}', 'EstudianteController@index');
 

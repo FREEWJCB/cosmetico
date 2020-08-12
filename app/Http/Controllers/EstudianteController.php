@@ -439,42 +439,44 @@ class EstudianteController extends Controller
         $cons1 = $cons->get();
         $num = $cons->count();
         $i=0;
-        $alergias="";
+        $alergia="";
         $ocultar="";
-        foreach ($cons1 as $cons2) {
+        $id="";
+        if ($num>0) {
             # code...
-            $i++;
-            $id=$cons2->id;
-            $alergia=$cons2->alergia;
-            $alergias=$cons2->alergias;
-            $descripcion=$cons2->descripcion;
-            $tipo=$cons2->tipo;
-            if ($i==$num) {
+            foreach ($cons1 as $cons2) {
                 # code...
-                $ocultar="style='display: none'";
+                $i++;
+                $id=$cons2->id;
+                $alergias=$cons2->alergias;
+                $descripcion=$cons2->descripcion;
+                $tipo=$cons2->tipo;
+                if ($i==$num) {
+                    # code...
+                    $ocultar="style='display: none'";
+                }
+                $alergia.="
+                <div id='aler$id' $ocultar class='alert alert-primary alert-dismissible fade show' role='alert'>
+                    <p> <strong>Tipo:</strong> $tipo.</p>
+                    <p><strong>Alergia:</strong> $alergias.</p>
+                    <p><strong>Descripcion:</strong> $descripcion.</p>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar_a($id);'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>";
             }
-            $alergias.="
-            <div id='resp$id' $ocultar class='alert alert-primary alert-dismissible fade show form-row' role='alert'>
-                <div class='col-7'>$alergia $descripcion $tipo</div>
-                <div class='col'><label for='puntos$id'><strong>Puntos:</strong></label></div>
-                <div class='col'><input type='number' class='custom-select my-1 mr-sm-2' value='0' min='0' max='99' name='puntos$id' id='puntos$id'></div>
-                <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar($id);'>
-                    <span aria-hidden='true'>&times;</span>
-                </button>
-            </div>";
-
-
 
         }
 
         return response()->json([
-            'alergias'=>$alergias,
+            'alergias'=>$alergia,
             'num'=>$num,
             'id'=>$id
         ]);
 
 
     }
+
     public function discapacidades(Request $request)
     {
         //
@@ -489,40 +491,83 @@ class EstudianteController extends Controller
         $cons1 = $cons->get();
         $num = $cons->count();
         $i=0;
-        $discapacidades="";
+        $discapacidad="";
         $ocultar="";
-        foreach ($cons1 as $cons2) {
+        $id="";
+        if ($num>0) {
             # code...
-            $i++;
-            $id=$cons2->id;
-            $discapacidad=$cons2->discapacidad;
-            $discapacidades=$cons2->discapacidades;
-            $descripcion=$cons2->descripcion;
-            $tipo=$cons2->tipo;
-            if ($i==$num) {
+            foreach ($cons1 as $cons2) {
                 # code...
-                $ocultar="style='display: none'";
+                $i++;
+                $id=$cons2->id;
+                $discapacidades=$cons2->discapacidades;
+                $descripcion=$cons2->descripcion;
+                $tipo=$cons2->tipo;
+                if ($i==$num) {
+                    # code...
+                    $ocultar="style='display: none'";
+                }
+                $discapacidad.="
+                <div id='dis$id' $ocultar class='alert alert-primary alert-dismissible fade show' role='alert'>
+                    <p> <strong>Tipo:</strong> $tipo.</p>
+                    <p><strong>Discapacidad:</strong> $discapacidades.</p>
+                    <p><strong>Descripcion:</strong> $descripcion.</p>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar_d($id);'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>";
+
             }
-            $discapacidades.="
-            <div id='resp$id' $ocultar class='alert alert-primary alert-dismissible fade show form-row' role='alert'>
-                <div class='col-7'>$discapacidad $descripcion $tipo</div>
-                <div class='col'><label for='puntos$id'><strong>Puntos:</strong></label></div>
-                <div class='col'><input type='number' class='custom-select my-1 mr-sm-2' value='0' min='0' max='99' name='puntos$id' id='puntos$id'></div>
-                <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar($id);'>
-                    <span aria-hidden='true'>&times;</span>
-                </button>
-            </div>";
-
-
-
         }
 
+
         return response()->json([
-            'discapacidades'=>$discapacidades,
+            'discapacidades'=>$discapacidad,
             'num'=>$num,
             'id'=>$id
         ]);
 
 
     }
+
+    public function combobox(Request $request)
+    {
+        //
+        $tabla=$request['tabla'];
+        $atributo=$request['atributo'];
+        $tipo=$request['tipo'];
+
+        $cons = DB::table($atributo)->orderBy('id','asc');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+
+        $consu = DB::table($tabla)->where('tipo', $tipo)->orderBy('id','asc');
+        if ($num>0) {
+            # code...
+            $i=0;
+            foreach ($cons1 as $cons2) {
+                # code...
+                $i++;
+                $id=$cons2[$tabla];
+                $consu.=$consu->where('id','!=', $id);
+            }
+        }
+        $cons = $consu->get();
+        $num = $consu->count();
+        $select="<option disabled selected value='null'>Seleccione una $tabla</option>";
+        if ($num>0) {
+            # code...
+            foreach ($cons as $cons2) {
+                # code...
+                $id=$cons2['id'];
+                $atri=$cons2[$atributo];
+                $select.="<option value='$id'>$atri</option>";
+            }
+        }
+
+        return response()->json([
+            'select'=>$select
+        ]);
+    }
+
 }
