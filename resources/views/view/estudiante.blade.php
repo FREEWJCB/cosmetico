@@ -213,7 +213,7 @@
                     <div data-turbolinks="false" class="input-group-append">
 
                         <a href="#" onclick = "return alergia();" class="btn btn-success btncolorblanco">
-                            <i class="fa fa-search"></i>
+                            <i class="fa fa-plus"></i>
                         </a>
 
                         <a href="#" style='display: none' id="clear_a" onclick = "return clear_a();" class="btn btn-danger btncolorblanco">
@@ -233,7 +233,7 @@
                     <div data-turbolinks="false" class="input-group-append">
 
                         <a href="#" onclick = "return discapacidad();" class="btn btn-success btncolorblanco">
-                            <i class="fa fa-search"></i>
+                            <i class="fa fa-plus"></i>
                         </a>
 
                         <a href="#" style='display: none' id="clear_d" onclick = "return clear_d();" class="btn btn-danger btncolorblanco">

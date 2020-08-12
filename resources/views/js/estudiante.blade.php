@@ -67,14 +67,12 @@
     {{-- formulario de salud --}}
 
     $("#tipoa").on("change", function() {
-        var tipo = $("#tipoa").val();
-        combobox("alergia", "alergias",tipo);
+        combo_aler();
         {{-- val_salud(); --}}
     });
 
     $("#tipod").on("change", function() {
-        var tipo = $("#tipod").val();
-        combobox("discapacidad", "discapacidades",tipo);
+        combo_dis();
         {{-- val_salud(); --}}
     });
 
@@ -274,43 +272,6 @@
 
 @section('funciones')
 
-
-
-    function clear() {
-        clear_a();
-        clear_d();
-    }
-
-    function clear_a() {
-        $.ajax({
-            type: "POST",
-            url:"{{route('Estudiante.clear_a')}}",
-            success: function(valores) {
-                $('#list_a').html('');
-                $('#clear_a').hide();
-            },
-            error: function(xhr, textStatus, errorMessage) {
-                error(xhr, textStatus, errorMessage);
-            }
-        });
-        return false;
-    }
-
-    function clear_d() {
-        $.ajax({
-            type: "POST",
-            url:"{{route('Estudiante.clear_d')}}",
-            success: function(valores) {
-                $('#list_d').html('');
-                $('#clear_d').hide();
-            },
-            error: function(xhr, textStatus, errorMessage) {
-                error(xhr, textStatus, errorMessage);
-            }
-        });
-        return false;
-    }
-
     function representante() {
         var cedula = $('#cedula_r').val();
         $.ajax({
@@ -347,42 +308,6 @@
         return false;
     }
 
-    function cancelar() {
-        $("#cance").fadeOut();
-        $("#emplea").fadeIn();
-        $("#siempleado").slideUp();
-        $("#noempleado").slideUp();
-        $("#cedula").removeAttr("readonly");
-        $('#cedula').val("");
-        $("#empleado").val('');
-        $("#nombre").val('');
-        $("#cargo").val('');
-    }
-
-    function ocultar() {
-        $("#emple").hide();
-        $("#siempleado").hide();
-        $("#noempleado").hide();
-        $("#usu").hide();
-        $("#pregu").hide();
-        $("#passw").hide();
-        $("#respuesta").removeAttr("required");
-        $("#password").removeAttr("required");
-        $("#password2").removeAttr("required");
-    }
-
-    function desocultar() {
-        $("#emple").show();
-        $("#siempleado").show();
-        $("#noempleado").hide();
-        $("#usu").show();
-        $("#pregu").show();
-        $("#resp").hide();
-        $("#passw").hide();
-        $("#emplea").hide();
-        $("#cance").hide();
-    }
-
     function estudiante() {
         $("#button_estudiante").attr("class", "btn btn-success");
         $("#button_salud").attr("class", "btn btn-secondary");
@@ -410,6 +335,73 @@
         $('#representant').fadeIn();
     }
 
+    function clear() {
+        clear_a();
+        clear_d();
+    }
+
+    function clear_a() {
+        $.ajax({
+            type: "POST",
+            url:"{{route('Estudiante.clear_a')}}",
+            success: function(valores) {
+                $('#list_a').html('');
+                $('#clear_a').fadeOut();
+                combo_aler();
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
+    function clear_d() {
+        $.ajax({
+            type: "POST",
+            url:"{{route('Estudiante.clear_d')}}",
+            success: function(valores) {
+                $('#list_d').html('');
+                $('#clear_d').fadeOut();
+                combo_dis();
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
+    function quitar_a(id) {
+        $.ajax({
+            type: "POST",
+            url:"{{route('Estudiante.quitar_a')}}",
+            data: "id="+id,
+            success: function(valores) {
+                combo_aler();
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
+    function quitar_d(id) {
+        $.ajax({
+            type: "POST",
+            url:"{{route('Estudiante.quitar_d')}}",
+            data: "id="+id,
+            success: function(valores) {
+                combo_dis();
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
     function alergia() {
         var alergia = $('#alergia').val();
         $.ajax({
@@ -428,11 +420,43 @@
                     $("#list_a").html(valores.alergias);
                     $("#aler"+valores.id).slideDown();
                 }else{
+                    $("#clear_a").fadeOut();
                     $("#list_a").html("");
                 }
+                combo_aler();
             },
             error: function(xhr, textStatus, errorMessage) {
                 $("#alergia").removeAttr("readonly");
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
+    function discapacidad() {
+        var discapacidad = $('#discapacidad').val();
+        $.ajax({
+            type: "POST",
+            url:"{{route('Estudiante.discapacidades')}}",
+            data: "discapacidad="+discapacidad,
+            beforeSend: function() {
+                setStart();
+                $("#discapacidad").attr("readonly", "readonly");
+            },
+            success: function(valores) {
+                setDone();
+                $("#discapacidad").removeAttr("readonly");
+                if(valores.num > 0){
+                    $("#clear_d").fadeIn();
+                    $("#list_d").html(valores.discapacidades);
+                    $("#dis"+valores.id).slideDown();
+                }else{
+                    $("#list_d").html("");
+                }
+                combo_dis();
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                $("#discapacidad").removeAttr("readonly");
                 error(xhr, textStatus, errorMessage);
             }
         });
@@ -440,39 +464,49 @@
     }
 
     function combobox(tabla,atributo,tipo) {
-
-        $.ajax({
-            type: "POST",
-            url:"{{route('Estudiante.combobox')}}",
-            data: "tabla="+tabla+"&atributo="+atributo+"&tipo="+tipo,
-            beforeSend: function() {
-                setStart();
-                $("#alergia").attr("readonly", "readonly");
-                $("#discapacidad").attr("readonly", "readonly");
-                $("#tipoa").attr("disabled", "disabled");
-                $("#tipod").attr("disabled", "disabled");
-            },
-            success: function(valores) {
-                setDone();
-                $("#alergia").removeAttr("readonly");
-                $("#discapacidad").removeAttr("readonly");
-                $("#tipoa").removeAttr("disabled");
-                $("#tipod").removeAttr("disabled");
-                if(tabla == "alergia"){
-                    $("#alergia").html(valores.select);
-                }else{
-                    $("#discapacidad").html(valores.select);
+        if(tipo!=null){
+            $.ajax({
+                type: "POST",
+                url:"{{route('Estudiante.combobox')}}",
+                data: "tabla="+tabla+"&atributo="+atributo+"&tipo="+tipo,
+                beforeSend: function() {
+                    setStart();
+                    $("#alergia").attr("readonly", "readonly");
+                    $("#discapacidad").attr("readonly", "readonly");
+                    $("#tipoa").attr("disabled", "disabled");
+                    $("#tipod").attr("disabled", "disabled");
+                },
+                success: function(valores) {
+                    setDone();
+                    $("#alergia").removeAttr("readonly");
+                    $("#discapacidad").removeAttr("readonly");
+                    $("#tipoa").removeAttr("disabled");
+                    $("#tipod").removeAttr("disabled");
+                    if(tabla == "alergia"){
+                        $("#alergia").html(valores.select);
+                    }else{
+                        $("#discapacidad").html(valores.select);
+                    }
+                },
+                error: function(xhr, textStatus, errorMessage) {
+                    $("#alergia").removeAttr("readonly");
+                    $("#discapacidad").removeAttr("readonly");
+                    $("#tipoa").removeAttr("disabled");
+                    $("#tipod").removeAttr("disabled");
+                    error(xhr, textStatus, errorMessage);
                 }
-            },
-            error: function(xhr, textStatus, errorMessage) {
-                $("#alergia").removeAttr("readonly");
-                $("#discapacidad").removeAttr("readonly");
-                $("#tipoa").removeAttr("disabled");
-                $("#tipod").removeAttr("disabled");
-                error(xhr, textStatus, errorMessage);
-            }
-        });
+            });
+        }
         return false;
     }
 
+    function combo_aler(){
+        var tipo = $("#tipoa").val();
+        combobox("alergia", "alergias",tipo);
+    }
+
+    function combo_dis(){
+        var tipo = $("#tipod").val();
+        combobox("discapacidad", "discapacidades",tipo);
+    }
 @endsection

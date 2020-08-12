@@ -172,6 +172,8 @@ Route::POST('/Estudiante/clear_d', 'EstudianteController@clear_d')->name('Estudi
 Route::POST('/Estudiante/alergias', 'EstudianteController@alergias')->name('Estudiante.alergias');
 Route::POST('/Estudiante/discapacidades', 'EstudianteController@discapacidades')->name('Estudiante.discapacidades');
 Route::POST('/Estudiante/representante', 'EstudianteController@representante')->name('Estudiante.representante');
+Route::POST('/Estudiante/quitar_a', 'EstudianteController@quitar_a')->name('Estudiante.quitar_a');
+Route::POST('/Estudiante/quitar_d', 'EstudianteController@quitar_d')->name('Estudiante.quitar_d');
 Route::POST('/Estudiante/combobox', 'EstudianteController@combobox')->name('Estudiante.combobox');
 Route::GET('/Estudiante/{js?}', 'EstudianteController@index');
 

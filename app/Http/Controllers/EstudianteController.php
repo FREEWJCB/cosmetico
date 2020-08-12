@@ -409,20 +409,14 @@ class EstudianteController extends Controller
         //
         $id=$request->id;
         DB::table('alergias')->where('id', $id)->delete();
-        $num = DB::table('alergias')->count();
-        return response()->json([
-            'num'=>$num
-        ]);
+
     }
     public function quitar_d(Request $request)
     {
         //
         $id=$request->id;
         DB::table('discapacidades')->where('id', $id)->delete();
-        $num = DB::table('discapacidades')->count();
-        return response()->json([
-            'num'=>$num
-        ]);
+
     }
 
     public function alergias(Request $request)
@@ -432,10 +426,10 @@ class EstudianteController extends Controller
         DB::table('alergias')->insert(['alergia' => $request->alergia]);
 
         $cons = DB::table('alergias')
-                ->select('alergias.alergia','alergia.alergias','alergia.descripcion','tipo_alergia.tipo')
+                ->select('alergias.id as ida','alergias.alergia','alergia.alergias','alergia.descripcion','tipo_alergia.tipo')
                 ->join('alergia', 'alergias.alergia', '=', 'alergia.id')
                 ->join('tipo_alergia', 'alergia.tipo', '=', 'tipo_alergia.id')
-                ->orderBy('id','asc');
+                ->orderBy('ida','asc');
         $cons1 = $cons->get();
         $num = $cons->count();
         $i=0;
@@ -447,7 +441,7 @@ class EstudianteController extends Controller
             foreach ($cons1 as $cons2) {
                 # code...
                 $i++;
-                $id=$cons2->id;
+                $id=$cons2->ida;
                 $alergias=$cons2->alergias;
                 $descripcion=$cons2->descripcion;
                 $tipo=$cons2->tipo;
@@ -484,10 +478,10 @@ class EstudianteController extends Controller
         DB::table('discapacidades')->insert(['discapacidad' => $request->discapacidad]);
 
         $cons = DB::table('discapacidades')
-                ->select('discapacidades.discapacidad','discapacidad.discapacidades','discapacidad.descripcion','tipo_discapacidad.tipo')
+                ->select('discapacidades.id as ida','discapacidades.discapacidad','discapacidad.discapacidades','discapacidad.descripcion','tipo_discapacidad.tipo')
                 ->join('discapacidad', 'discapacidades.discapacidad', '=', 'discapacidad.id')
                 ->join('tipo_discapacidad', 'discapacidad.tipo', '=', 'tipo_discapacidad.id')
-                ->orderBy('id','asc');
+                ->orderBy('ida','asc');
         $cons1 = $cons->get();
         $num = $cons->count();
         $i=0;
@@ -499,7 +493,7 @@ class EstudianteController extends Controller
             foreach ($cons1 as $cons2) {
                 # code...
                 $i++;
-                $id=$cons2->id;
+                $id=$cons2->ida;
                 $discapacidades=$cons2->discapacidades;
                 $descripcion=$cons2->descripcion;
                 $tipo=$cons2->tipo;
@@ -549,7 +543,7 @@ class EstudianteController extends Controller
                 # code...
                 $i++;
                 $id=$cons2->$tabla;
-                $consu.=$consu->where('id','!=', $id);
+                $consu=$consu->where('id','!=', $id);
             }
         }
         $cons = $consu->get();
