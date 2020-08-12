@@ -564,4 +564,59 @@ class EstudianteController extends Controller
         ]);
     }
 
+    public function representante(Request $request)
+    {
+        //
+        $cedula=$request->cedula;
+        $id="";
+        $nombre="";
+        $apellido="";
+        $sex="";
+        $telefono="";
+        $ocupacion_laboral="";
+        $state="";
+        $municipality="";
+        $direccion="";
+        $cons= DB::table('representante')
+                ->select('representante.*', 'ocupacion_laboral.labor', 'municipality.state', 'persona.cedula', 'persona.nombre', 'persona.apellido', 'persona.sex', 'persona.telefono', 'persona.municipality', 'persona.direccion')
+                ->join('ocupacion_laboral', 'representante.ocupacion_laboral', '=', 'ocupacion_laboral.id')
+                ->join('persona', 'representante.persona', '=', 'persona.id')
+                ->join('municipality', 'persona.municipality', '=', 'municipality.id')
+                ->where('cedula', $cedula);
+
+        $cons1 = $cons->get();
+        $num = $cons->count();
+        if ($num>0) {
+            # code...
+            foreach ($cons1 as $cons2) {
+                # code...
+                $id=$cons2->id;
+                $nombre=$cons2->nombre;
+                $apellido=$cons2->apellido;
+                $sex=$cons2->sex;
+                $telefono=$cons2->telefono;
+                $ocupacion_laboral=$cons2->ocupacion_laboral;
+                $state=$cons2->state;
+                $municipality=$cons2->municipality;
+                $direccion=$cons2->direccion;
+
+            }
+        }
+
+        return response()->json([
+            'id'=>$id,
+            'nombre'=>$nombre,
+            'apellido'=>$apellido,
+            'sex'=>$sex,
+            'telefono'=>$telefono,
+            'ocupacion_laboral'=>$ocupacion_laboral,
+            'state'=>$state,
+            'municipality'=>$municipality,
+            'direccion'=>$direccion,
+            'num'=>$num
+        ]);
+
+
+    }
+
 }

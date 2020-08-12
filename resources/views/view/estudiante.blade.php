@@ -81,7 +81,6 @@
     <input type="hidden" id="persona" name="persona" />
     <input type="hidden" id="representante" name="representante" />
     <input type="hidden" id="representante2" name="representante2" />
-    <input type="text" style='display: none' required id="representante_regis" name="representante_regis" />
     <div id="estudiante">
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -259,7 +258,7 @@
             <label for="cedula_r">Representate</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Buscar por cédula" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula_r" name="cedula_r" />
-                <div  class="input-group-append">
+                <div  data-turbolinks="false" class="input-group-append">
                     <a href="#" id="repre" onclick = "return representante();" class="btn btn-success btncolorblanco">
                         <i class="fa fa-search"></i>
                     </a>
