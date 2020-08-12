@@ -548,7 +548,7 @@ class EstudianteController extends Controller
             foreach ($cons1 as $cons2) {
                 # code...
                 $i++;
-                $id=$cons2[$tabla];
+                $id=$cons2->$tabla;
                 $consu.=$consu->where('id','!=', $id);
             }
         }
@@ -559,8 +559,8 @@ class EstudianteController extends Controller
             # code...
             foreach ($cons as $cons2) {
                 # code...
-                $id=$cons2['id'];
-                $atri=$cons2[$atributo];
+                $id=$cons2->id;
+                $atri=$cons2->$atributo;
                 $select.="<option value='$id'>$atri</option>";
             }
         }

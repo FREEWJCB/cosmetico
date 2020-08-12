@@ -172,6 +172,7 @@ Route::POST('/Estudiante/clear_d', 'EstudianteController@clear_d')->name('Estudi
 Route::POST('/Estudiante/alergias', 'EstudianteController@alergias')->name('Estudiante.alergias');
 Route::POST('/Estudiante/discapacidades', 'EstudianteController@discapacidades')->name('Estudiante.discapacidades');
 Route::POST('/Estudiante/representante', 'EstudianteController@representante')->name('Estudiante.representante');
+Route::POST('/Estudiante/combobox', 'EstudianteController@combobox')->name('Estudiante.combobox');
 Route::GET('/Estudiante/{js?}', 'EstudianteController@index');
 
 Route::resource('Pregunta', 'PreguntaController')->except('show','edit','create','update');
