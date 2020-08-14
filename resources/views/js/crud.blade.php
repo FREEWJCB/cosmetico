@@ -100,6 +100,7 @@ function agregaRegistro() {
             var type = "success";
             if ($("#pro").val() == "Registro") {
                  var message = "Registro completado con exito";
+                 $("#formulario")[0].reset();
                 @yield('registro')
             }else{
                 var message = "Edición completado con exito";

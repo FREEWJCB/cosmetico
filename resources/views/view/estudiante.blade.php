@@ -352,8 +352,8 @@
     </div>
     <center>
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" onclick = "return anterior();" disabled class="btn btn-secondary">Anterior</button>
-            <button type="button" onclick = "return siguiente();" disabled class="btn btn-secondary">Siguiente</button>
+            <button type="button" id="anterior" onclick = "return ante();" class="btn btn-secondary">Anterior</button>
+            <button type="button" id="siguiente" onclick = "return sigui();" class="btn btn-secondary">Siguiente</button>
         </div>
     </center>
 @endsection

@@ -1,5 +1,9 @@
-{{-- <script> --}}
+<script>
 @section('document')
+
+    $("#lim").on("click", function() {
+        limpiar();
+    });
 
     $("#bs_cedula").on("keyup", function() {
         cargar();
@@ -127,71 +131,9 @@
 
 @section('url_edicion') var url = "{{ route('Estudiante.update') }}"; @endsection
 
-@section('select')
-    clear();
-    estudiante();
-    $('#estudiante').show();
-    $('#salud').hide();
-    $('#representant').hide();
-    $('#formu').hide();
-    $('#cance').hide();
-    $('#repre').show();
-    $("#persona").val('');
-    $("#representate").val('');
-    $("#list_a").html('');
-    $("#list_d").html('');
-    $('#municipality').html('<option value="null" disabled selected>Seleccione un municipio</option>');
-    $('#municipality_r').html('<option value="null" disabled selected>Seleccione un municipio</option>');
-    $('#alergia').html('<option value="null" disabled selected>Seleccione una alergia</option>');
-    $('#discapacidad').html('<option value="null" disabled selected>Seleccione una discapacidad</option>');
+@section('select') limpiar(); @endsection
 
-
-@endsection
-
-@section('registro')
-
-    $('#persona').val('');
-    $('#representante').val('');
-    $('#representante_regis').val('');
-    $('#cedula').val('');
-    $('#nombre').val('');
-    $('#apellido').val('');
-    $('#sex').val('null');
-    $('#telefono').val('');
-    $('#state').val('null');
-    $('#municipality').html('<option value="null" disabled selected>Seleccione un municipio</option>');
-    $('#direccion').val('');
-    $('#fecha_nacimiento').val('');
-    $('#lugar_nacimiento').val('');
-    $('#descripcion').val('');
-    $('#tipoa').val('null');
-    $('#tipod').val('null');
-    $('#alergia').val('');
-    $('#discapacidad').val('');
-    $('#list_a').html('');
-    $('#list_d').html('');
-    clear();
-    estudiante();
-    $('#cedula_r').val('');
-    $('#nombre_r').val('');
-    $('#apellido_r').val('');
-    $('#sex_r').val('null');
-    $('#telefono_r').val('');
-    $('#state_r').val('null');
-    $('#municipality_r').html('<option value="null" disabled selected>Seleccione un municipio</option>');
-    $('#direccion_r').val('');
-    $('#ocupacion_laboral').val('null');
-    $('#parentesco').val('');
-    $('#salud').fadeOut();
-    $('#representant').fadeOut();
-    $('#formu').fadeOut();
-    $('#repre').show();
-    $('#cance').hide();
-    $('#estudiante').fadeIn();
-    $("#respuesta").removeAttr("required");
-
-
-@endsection
+@section('registro') limpiar(); @endsection
 
 @section('edicion')
 
@@ -273,90 +215,6 @@
 
 @section('funciones')
 
-    function representante() {
-        var cedula = $('#cedula_r').val();
-        $.ajax({
-            type: "POST",
-            url:"{{route('Estudiante.representante')}}",
-            data: "cedula="+cedula,
-            beforeSend: function() {
-                setStart();
-                $("#cedula_r").attr("readonly", "readonly");
-                $("#representante").val('');
-                $("#nombre_r").val('');
-                $("#apellido_r").val('');
-                $("#sex_r").val('null');
-                $("#telefono_r").val('');
-                $("#ocupacion_laboral").val('null');
-                $("#parentesco").val('');
-                $("#state_r").val('null');
-                $("#municipality_r").html('<option value="null" disabled selected>Seleccione un municipio</option>');
-                $("#direccion_r").val('');
-            },
-            success: function(valores) {
-                setDone();
-
-                if(valores.num > 0){
-                    $("#repre").fadeOut();
-                    $("#representante").val(valores.id);
-                    $("#nombre_r").val(valores.nombre);
-                    $("#apellido_r").val(valores.apellido);
-                    $("#sex_r").val(valores.sex);
-                    $("#telefono_r").val(valores.telefono);
-                    $("#ocupacion_laboral").val(valores.ocupacion_laboral);
-                    $("#state_r").val(valores.state);
-                    combo("municipality","state",valores.state,"municipality_r",valores.municipality,"municipio","municipalitys",1);
-                    $("#direccion_r").val(valores.direccion);
-                    $("#nombre_r").attr("readonly", "readonly");
-                    $("#apellido_r").attr("readonly", "readonly");
-                    $("#sex_r").attr("disabled", "disabled");
-                    $("#telefono_r").attr("readonly", "readonly");
-                    $("#ocupacion_laboral").attr("disabled", "disabled");
-                    $("#state_r").attr("disabled", "disabled");
-                    $("#municipality_r").attr("disabled", "disabled");
-                    $("#direccion_r").attr("readonly", "readonly");
-                    $("#cance").fadeIn();
-                }else{
-                    $("#cance").fadeOut();
-                    $("#cedula_r").removeAttr("readonly");
-                    $("#nombre_r").removeAttr("readonly");
-                    $("#apellido_r").removeAttr("readonly");
-                    $("#sex_r").removeAttr("disabled");
-                    $("#telefono_r").removeAttr("readonly");
-                    $("#ocupacion_laboral").removeAttr("disabled");
-                    $("#state_r").removeAttr("disabled");
-                    $("#municipality_r").removeAttr("disabled");
-                    $("#direccion_r").removeAttr("readonly");
-                    $("#repre").fadeIn();
-                }
-                $("#parentesco").removeAttr("readonly");
-                $("#formu").slideDown();
-            },
-            error: function(xhr, textStatus, errorMessage) {
-                $("#cedula_r").removeAttr("readonly");
-                error(xhr, textStatus, errorMessage);
-            }
-        });
-        return false;
-    }
-
-    function cancelar() {
-        $("#cance").fadeOut();
-        $("#repre").fadeIn();
-        $("#formu").slideUp();
-        $("#cedula_r").removeAttr("readonly");
-        $("#representante").val('');
-        $("#nombre_r").val('');
-        $("#apellido_r").val('');
-        $("#sex_r").val('null');
-        $("#telefono_r").val('');
-        $("#ocupacion_laboral").val('null');
-        $("#parentesco").val('');
-        $("#state_r").val('null');
-        $("#municipality_r").html('<option value="null" disabled selected>Seleccione un municipio</option>');
-        $("#direccion_r").val('');
-    }
-
     function estudiante() {
         $("#button_estudiante").attr("class", "btn btn-success");
         $("#button_salud").attr("class", "btn btn-secondary");
@@ -364,6 +222,11 @@
         $('#salud').fadeOut();
         $('#representant').fadeOut();
         $('#estudiante').fadeIn();
+        $("#anterior").attr("class", "btn btn-secondary");
+        $("#anterior").attr("disabled", "disabled");
+        $("#siguiente").attr("class", "btn btn-primary");
+        $("#siguiente").removeAttr("disabled");
+        $("#ventana").val('1');
     }
 
     function salud() {
@@ -373,6 +236,11 @@
         $('#representant').fadeOut();
         $('#estudiante').fadeOut();
         $('#salud').fadeIn();
+        $("#anterior").attr("class", "btn btn-primary");
+        $("#anterior").removeAttr("disabled");
+        $("#siguiente").attr("class", "btn btn-primary");
+        $("#siguiente").removeAttr("disabled");
+        $("#ventana").val('2');
     }
 
     function representantes() {
@@ -382,6 +250,41 @@
         $('#salud').fadeOut();
         $('#estudiante').fadeOut();
         $('#representant').fadeIn();
+        $("#anterior").attr("class", "btn btn-primary");
+        $("#anterior").removeAttr("disabled");
+        $("#siguiente").attr("class", "btn btn-secondary");
+        $("#siguiente").attr("disabled", "disabled");
+        $("#ventana").val('3');
+    }
+
+    function ante() {
+        var ventana = $('#ventana').val();
+
+        if (ventana == 2) {
+
+            estudiante();
+
+        }else if(ventana == 3){
+
+            salud();
+
+        }
+
+    }
+
+    function sigui() {
+        var ventana = $('#ventana').val();
+
+        if (ventana == 1) {
+
+            salud();
+
+        }else if(ventana == 2){
+
+            representantes();
+
+        }
+
     }
 
     function clear() {
@@ -558,5 +461,118 @@
         var tipo = $("#tipod").val();
         combobox("discapacidad", "discapacidades",tipo);
     }
+
+    function representante() {
+        var cedula = $('#cedula_r').val();
+        $.ajax({
+            type: "POST",
+            url:"{{route('Estudiante.representante')}}",
+            data: "cedula="+cedula,
+            beforeSend: function() {
+                setStart();
+                $("#cedula_r").attr("readonly", "readonly");
+                $("#representante").val('');
+                $("#nombre_r").val('');
+                $("#apellido_r").val('');
+                $("#sex_r").val('null');
+                $("#telefono_r").val('');
+                $("#ocupacion_laboral").val('null');
+                $("#parentesco").val('');
+                $("#state_r").val('null');
+                $("#municipality_r").html('<option value="null" disabled selected>Seleccione un municipio</option>');
+                $("#direccion_r").val('');
+            },
+            success: function(valores) {
+                setDone();
+                if(valores.num > 0){
+                    $("#repre").fadeOut();
+                    $("#representante").val(valores.id);
+                    $("#nombre_r").val(valores.nombre);
+                    $("#apellido_r").val(valores.apellido);
+                    $("#sex_r").val(valores.sex);
+                    $("#telefono_r").val(valores.telefono);
+                    $("#ocupacion_laboral").val(valores.ocupacion_laboral);
+                    $("#state_r").val(valores.state);
+                    combo("municipality","state",valores.state,"municipality_r",valores.municipality,"municipio","municipalitys",1);
+                    $("#direccion_r").val(valores.direccion);
+                    $("#nombre_r").attr("readonly", "readonly");
+                    $("#apellido_r").attr("readonly", "readonly");
+                    $("#sex_r").attr("disabled", "disabled");
+                    $("#telefono_r").attr("readonly", "readonly");
+                    $("#ocupacion_laboral").attr("disabled", "disabled");
+                    $("#state_r").attr("disabled", "disabled");
+                    $("#municipality_r").attr("disabled", "disabled");
+                    $("#direccion_r").attr("readonly", "readonly");
+                    $("#cance").fadeIn();
+                }else{
+                    $("#cance").fadeOut();
+                    $("#cedula_r").removeAttr("readonly");
+                    $("#nombre_r").removeAttr("readonly");
+                    $("#apellido_r").removeAttr("readonly");
+                    $("#sex_r").removeAttr("disabled");
+                    $("#telefono_r").removeAttr("readonly");
+                    $("#ocupacion_laboral").removeAttr("disabled");
+                    $("#state_r").removeAttr("disabled");
+                    $("#municipality_r").removeAttr("disabled");
+                    $("#direccion_r").removeAttr("readonly");
+                    $("#repre").fadeIn();
+                }
+                $("#parentesco").removeAttr("readonly");
+                $("#formu").slideDown();
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                $("#cedula_r").removeAttr("readonly");
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
+    function cancelar() {
+        $("#cance").fadeOut();
+        $("#repre").fadeIn();
+        $("#formu").slideUp();
+        $("#cedula_r").removeAttr("readonly");
+        $("#representante").val('');
+        $("#nombre_r").val('');
+        $("#apellido_r").val('');
+        $("#sex_r").val('null');
+        $("#telefono_r").val('');
+        $("#ocupacion_laboral").val('null');
+        $("#parentesco").val('');
+        $("#state_r").val('null');
+        $("#municipality_r").html('<option value="null" disabled selected>Seleccione un municipio</option>');
+        $("#direccion_r").val('');
+    }
+
+    function limpiar() {
+        clear();
+        estudiante();
+        $('#municipality').html('<option value="null" disabled selected>Seleccione un municipio</option>');
+        $('#municipality_r').html('<option value="null" disabled selected>Seleccione un municipio</option>');
+        $('#alergia').html('<option value="null" disabled selected>Seleccione una alergia</option>');
+        $('#discapacidad').html('<option value="null" disabled selected>Seleccione una discapacidad</option>');
+        $('#list_a').html('');
+        $('#list_d').html('');
+        $('#formu').fadeOut();
+        $('#cance').fadeOut();
+        $('#repre').fadeIn();
+        $("#cedula_r").removeAttr("readonly");
+        $("#nombre_r").removeAttr("readonly");
+        $("#apellido_r").removeAttr("readonly");
+        $("#sex_r").removeAttr("disabled");
+        $("#telefono_r").removeAttr("readonly");
+        $("#ocupacion_laboral").removeAttr("disabled");
+        $("#state_r").removeAttr("disabled");
+        $("#municipality_r").removeAttr("disabled");
+        $("#direccion_r").removeAttr("readonly");
+        $("#tipoa").removeAttr("readonly");
+        $("#tipod").removeAttr("readonly");
+        $("#alergia").removeAttr("readonly");
+        $("#discapacidad").removeAttr("readonly");
+        $("#discapacidad").removeAttr("readonly");
+
+    }
+
 @endsection
-{{-- </script> --}}
+</script>
