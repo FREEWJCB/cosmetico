@@ -449,14 +449,13 @@
             },
             success: function(valores) {
                 setDone();
-                if(valores.num > 0){
+                if(valores.num_p > 0){
                     $("#repre").fadeOut();
-                    $("#representante").val(valores.id);
+                    $("#persona").val(valores.persona);
                     $("#nombre_r").val(valores.nombre);
                     $("#apellido_r").val(valores.apellido);
                     $("#sex_r").val(valores.sex);
                     $("#telefono_r").val(valores.telefono);
-                    $("#ocupacion_laboral").val(valores.ocupacion_laboral);
                     $("#state_r").val(valores.state);
                     combo("municipality","state",valores.state,"municipality_r",valores.municipality,"municipio","municipalitys",1);
                     $("#direccion_r").val(valores.direccion);
@@ -464,10 +463,16 @@
                     $("#apellido_r").attr("readonly", "readonly");
                     $("#sex_r").attr("disabled", "disabled");
                     $("#telefono_r").attr("readonly", "readonly");
-                    $("#ocupacion_laboral").attr("disabled", "disabled");
                     $("#state_r").attr("disabled", "disabled");
                     $("#municipality_r").attr("disabled", "disabled");
                     $("#direccion_r").attr("readonly", "readonly");
+
+                    if(valores.num_p > 0){
+                        $("#representante").val(valores.id);
+                        $("#ocupacion_laboral").val(valores.ocupacion_laboral);
+                        $("#ocupacion_laboral").attr("disabled", "disabled");
+                    }
+
                     $("#cance").fadeIn();
                 }else{
                     $("#cance").fadeOut();

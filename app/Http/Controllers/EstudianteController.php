@@ -52,30 +52,52 @@ class EstudianteController extends Controller
     public function store(Request $request)
     {
         //estudiante
+        $cedula=$request->cedula;
+        $nombre=$request->nombre;
+        $apellido=$request->apellido;
+        $sex=$request->sex;
+        $telefono=$request->telefono;
+        $direccion=$request->direccion;
+        $municipality=$request->municipality;
+        $fecha_nacimiento=$request->fecha_nacimiento;
+        $lugar_nacimiento=$request->lugar_nacimiento;
+        $descripcion=$request->descripcion;
+        $persona=$request->persona;
+        $representante=$request->representante;
+        $cedula_r=$request->cedula_r;
+        $nombre_r=$request->nombre_r;
+        $apellido_r=$request->apellido_r;
+        $sex_r=$request->sex_r;
+        $telefono_r=$request->telefono_r;
+        $direccion_r=$request->direccion_r;
+        $municipality_r=$request->municipality_r;
+        $ocupacion_laboral=$request->ocupacion_laboral;
+        $parentesco=$request->parentesco;
+
         DB::table('persona')->insert([
-            'cedula' => $request->cedula,
-            'nombre' => $request->nombre,
-            'apellido' => $request->apellido,
-            'sex' => $request->sex,
-            'telefono' => $request->telefono,
-            'direccion' => $request->direccion,
-            'municipality' => $request->municipality
+            'cedula' => $cedula,
+            'nombre' => $nombre,
+            'apellido' => $apellido,
+            'sex' => $sex,
+            'telefono' => $telefono,
+            'direccion' => $direccion,
+            'municipality' => $municipality
             ]);
 
-        $cons = DB::table('persona')->where('cedula', $request->cedula)->get();
+        $cons = DB::table('persona')->where('cedula', $cedula)->get();
 
         foreach ($cons as $cons2) {
             # code...
-            $persona=$cons2->id;
+            $persona_es=$cons2->id;
         }
         DB::table('estudiante')->insert([
-            'fecha_nacimiento' => $request->fecha_nacimiento,
-            'lugar_nacimiento' => $request->lugar_nacimiento,
-            'descripcion' => $request->descripcion,
-            'persona' => $persona
+            'fecha_nacimiento' => $fecha_nacimiento,
+            'lugar_nacimiento' => $lugar_nacimiento,
+            'descripcion' => $descripcion,
+            'persona' => $persona_es
             ]);
 
-        $cons = DB::table('estudiante')->where('persona', $persona)->get();
+        $cons = DB::table('estudiante')->where('persona', $persona_es)->get();
 
         foreach ($cons as $cons2) {
             # code...
@@ -113,29 +135,30 @@ class EstudianteController extends Controller
                     ]);
             }
         }
-        $repre=$request->representante_regis;
-
-        if ($repre==0) {
+        if ($persona == null) {
             # code...
             DB::table('persona')->insert([
-                'cedula' => $request->cedula_r,
-                'nombre' => $request->nombre_r,
-                'apellido' => $request->apellido_r,
-                'sex' => $request->sex_r,
-                'telefono' => $request->telefono_r,
-                'direccion' => $request->direccion_r,
-                'municipality' => $request->municipality_r
+                'cedula' => $cedula_r,
+                'nombre' => $nombre_r,
+                'apellido' => $apellido_r,
+                'sex' => $sex_r,
+                'telefono' => $telefono_r,
+                'direccion' => $direccion_r,
+                'municipality' => $municipality_r
                 ]);
 
-            $cons = DB::table('persona')->where('cedula', $request->cedula_r)->get();
+            $cons = DB::table('persona')->where('cedula', $cedula_r)->get();
 
             foreach ($cons as $cons2) {
                 # code...
                 $persona=$cons2->id;
             }
+        }
 
+        if ($representante == null) {
+            # code...
             DB::table('representante')->insert([
-                'ocupacion_laboral' => $request->ocupacion_laboral,
+                'ocupacion_laboral' => $ocupacion_laboral,
                 'persona' => $persona
                 ]);
 
@@ -145,13 +168,10 @@ class EstudianteController extends Controller
                 # code...
                 $representante=$cons2->id;
             }
-        } else {
-            # code...
-            $representante=$request->representante;
         }
 
         DB::table('estudiante_representante')->insert([
-            'parentesco' => $request->parentesco,
+            'parentesco' => $parentesco,
             'estudiante' => $estudiante,
             'representante' => $representante
             ]);
@@ -193,7 +213,7 @@ class EstudianteController extends Controller
     public function destroy($id)
     {
         //
-        DB::table('representante')->where('id', $id)->update(['status' => 0]);
+        DB::table('estudiante')->where('id', $id)->update(['status' => 0]);
     }
 
     public function cargar(Request $request)
@@ -267,7 +287,9 @@ class EstudianteController extends Controller
     {
         //
         $id=$request->id;
+
         $cons= DB::table('estudiante')
+                 ->select('estudiante.*','persona.cedula','persona.nombre','persona.apellido','persona.sex','persona.telefono','persona.municipality','persona.direccion','municipality.state')
                  ->join('persona', 'estudiante.persona', '=', 'persona.id')
                  ->join('municipality', 'persona.municipality', '=', 'municipality.id')
                  ->where('estudiante.id', $id)->get();
@@ -292,7 +314,7 @@ class EstudianteController extends Controller
 
 
         $cons= DB::table('estudiante_representante')
-                 ->join('representante', 'representante.representante', '=', 'representante.id')
+                 ->join('representante', 'estudiante_representante.representante', '=', 'representante.id')
                  ->join('persona', 'representante.persona', '=', 'persona.id')
                  ->join('municipality', 'persona.municipality', '=', 'municipality.id')
                  ->where('estudiante_representante.status', 1)
@@ -328,13 +350,26 @@ class EstudianteController extends Controller
 
         if ($num>0) {
             # code...
+            DB::table('alergias')->delete();
             foreach ($cons1 as $cons2) {
                 $alergia=$cons2->alergia;
                 $tipo=$cons2->tipo;
                 $alergias=$cons2->alergias;
-                $descripcion_a=$cons2->descripcion;
+                $descripcion=$cons2->descripcion;
                 DB::table('alergias')->insert(['alergia' => $alergia]);
-                $list_a.="$alergia $tipo $alergias $descripcion_a";
+                $consu= DB::table('alergias')->where('alergia', $alergia)->get();
+                foreach ($consu as $consu2) {
+                    $ida=$consu2->id;
+                }
+                $list_a.="
+                <div id='aler$ida' class='alert alert-primary alert-dismissible fade show' role='alert'>
+                    <p> <strong>Tipo:</strong> $tipo.</p>
+                    <p><strong>Alergia:</strong> $alergias.</p>
+                    <p><strong>Descripcion:</strong> $descripcion.</p>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar_a($ida);'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>";
             }
         }
 
@@ -349,13 +384,26 @@ class EstudianteController extends Controller
 
         if ($num>0) {
             # code...
+            DB::table('discapacidades')->delete();
             foreach ($cons1 as $cons2) {
                 $discapacidad=$cons2->discapacidad;
                 $tipo=$cons2->tipo;
                 $discapacidades=$cons2->discapacidades;
-                $descripcion_d=$cons2->descripcion;
+                $descripcion=$cons2->descripcion;
                 DB::table('discapacidades')->insert(['discapacidad' => $discapacidad]);
-                $list_d.="$discapacidad $tipo $discapacidades $descripcion_d";
+                $consu= DB::table('discapacidades')->where('discapacidad', $discapacidad)->get();
+                foreach ($consu as $consu2) {
+                    $idd=$consu2->id;
+                }
+                $list_d.="
+                <div id='dis$idd' class='alert alert-primary alert-dismissible fade show' role='alert'>
+                    <p> <strong>Tipo:</strong> $tipo.</p>
+                    <p><strong>Discapacidad:</strong> $discapacidades.</p>
+                    <p><strong>Descripcion:</strong> $descripcion.</p>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar_d($idd);'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>";
             }
         }
 
@@ -577,31 +625,45 @@ class EstudianteController extends Controller
         $state="";
         $municipality="";
         $direccion="";
-        $cons= DB::table('representante')
-                ->select('representante.*', 'ocupacion_laboral.labor', 'municipality.state', 'persona.cedula', 'persona.nombre', 'persona.apellido', 'persona.sex', 'persona.telefono', 'persona.municipality', 'persona.direccion')
-                ->join('ocupacion_laboral', 'representante.ocupacion_laboral', '=', 'ocupacion_laboral.id')
-                ->join('persona', 'representante.persona', '=', 'persona.id')
+        $persona="";
+        $cons= DB::table('persona')
+                ->select('persona.*', 'municipality.state')
                 ->join('municipality', 'persona.municipality', '=', 'municipality.id')
                 ->where('cedula', $cedula);
-
         $cons1 = $cons->get();
-        $num = $cons->count();
-        if ($num>0) {
-            # code...
+        $num_p = $cons->count();
+
+        if ($num_p>0) {
+
             foreach ($cons1 as $cons2) {
                 # code...
-                $id=$cons2->id;
+                $persona=$cons2->id;
                 $nombre=$cons2->nombre;
                 $apellido=$cons2->apellido;
                 $sex=$cons2->sex;
                 $telefono=$cons2->telefono;
-                $ocupacion_laboral=$cons2->ocupacion_laboral;
                 $state=$cons2->state;
                 $municipality=$cons2->municipality;
                 $direccion=$cons2->direccion;
+            }
 
+            $cons= DB::table('representante')->where('persona', $persona);
+
+            $cons1 = $cons->get();
+            $num_r = $cons->count();
+
+            if ($num_r>0) {
+                # code...
+                foreach ($cons1 as $cons2) {
+                    # code...
+                    $id=$cons2->id;
+                    $ocupacion_laboral=$cons2->ocupacion_laboral;
+                }
             }
         }
+
+
+
 
         return response()->json([
             'id'=>$id,
@@ -613,7 +675,8 @@ class EstudianteController extends Controller
             'state'=>$state,
             'municipality'=>$municipality,
             'direccion'=>$direccion,
-            'num'=>$num
+            'num_p'=>$num_p,
+            'num_r'=>$num_r
         ]);
 
 
