@@ -123,7 +123,7 @@
 
             <div class="form-group col-md-6">
                 <label for="state">Estado</label>
-                <select class="form-control" id="state" name="state">
+                <select class="form-control" required id="state" name="state">
                     <option value="null" disabled selected>Seleccione un estado</option>
                     @if ($num_state>0)
                         @foreach ($state as $state2)
@@ -138,7 +138,7 @@
 
             <div class="form-group col-md-6">
                 <label for="municipality">Municipio</label>
-                <select class="form-control" id="municipality" name="municipality">
+                <select class="form-control" required id="municipality" name="municipality">
                     <option value="null" disabled selected>Seleccione un municipio</option>
                 </select>
                 <input type="hidden" id="municipality2" name="municipality2" />

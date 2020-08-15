@@ -1,4 +1,4 @@
-<script>
+{{-- <script> --}}
 @section('document')
 
     $("#lim").on("click", function() {
@@ -24,104 +24,66 @@
     {{-- formulario de estudiante --}}
 
     $("#cedula").on("keyup", function() {
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     $("#nombre").on("keyup", function() {
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     $("#apellido").on("keyup", function() {
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     $("#sex").on("change", function() {
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     $("#telefono").on("keyup", function() {
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     $("#state").on("change", function() {
         var state = $("#state").val();
         combo("municipality", "state", state, "municipality", 0, "municipio", "municipalitys", 2);
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     $("#municipality").on("change", function() {
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     $("#direccion").on("keyup", function() {
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     $("#fecha_nacimiento").on("change", function() {
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     $("#lugar_nacimiento").on("keyup", function() {
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     $("#descripcion").on("keyup", function() {
-        {{-- val_estudiante(); --}}
+        val_estudiante();
     });
 
     {{-- formulario de salud --}}
 
     $("#tipoa").on("change", function() {
         combo_aler();
-        {{-- val_salud(); --}}
     });
 
     $("#tipod").on("change", function() {
         combo_dis();
-        {{-- val_salud(); --}}
     });
 
     {{-- formulario de representante --}}
 
-    $("#cedula_r").on("keyup", function() {
-        {{-- val_representante(); --}}
-    });
-
-    $("#nombre_r").on("keyup", function() {
-        {{-- val_representante(); --}}
-    });
-
-    $("#apellido_r").on("keyup", function() {
-        {{-- val_representante(); --}}
-    });
-
-    $("#sex_r").on("change", function() {
-        {{-- val_representante(); --}}
-    });
-
-    $("#telefono_r").on("keyup", function() {
-        {{-- val_representante(); --}}
-    });
-
-    $("#ocupacion_laboral").on("change", function() {
-        {{-- val_representante(); --}}
-    });
-
-    $("#parentesco").on("keyup", function() {
-        {{-- val_representante(); --}}
-    });
-
     $("#state_r").on("change", function() {
         var state = $("#state_r").val();
         combo("municipality", "state", state, "municipality_r", 0, "municipio", "municipalitys", 2);
-        {{-- val_representante(); --}}
-    });
-
-    $("#municipality_r").on("change", function() {
-        {{-- val_representante(); --}}
-    });
-
-    $("#direccion_r").on("keyup", function() {
         {{-- val_representante(); --}}
     });
 
@@ -227,12 +189,13 @@
         $("#siguiente").attr("class", "btn btn-primary");
         $("#siguiente").removeAttr("disabled");
         $("#ventana").val('1');
+        val_estudiante();
     }
 
     function salud() {
-        $("#button_estudiante").attr("class", "btn btn-secondary");
+        $("#button_estudiante").attr("class", "btn btn-primary");
         $("#button_salud").attr("class", "btn btn-success");
-        $("#button_representante").attr("class", "btn btn-secondary");
+        $("#button_representante").attr("class", "btn btn-primary");
         $('#representant').fadeOut();
         $('#estudiante').fadeOut();
         $('#salud').fadeIn();
@@ -241,11 +204,12 @@
         $("#siguiente").attr("class", "btn btn-primary");
         $("#siguiente").removeAttr("disabled");
         $("#ventana").val('2');
+        val_estudiante();
     }
 
     function representantes() {
-        $("#button_estudiante").attr("class", "btn btn-secondary");
-        $("#button_salud").attr("class", "btn btn-secondary");
+        $("#button_estudiante").attr("class", "btn btn-primary");
+        $("#button_salud").attr("class", "btn btn-primary");
         $("#button_representante").attr("class", "btn btn-success");
         $('#salud').fadeOut();
         $('#estudiante').fadeOut();
@@ -255,6 +219,7 @@
         $("#siguiente").attr("class", "btn btn-secondary");
         $("#siguiente").attr("disabled", "disabled");
         $("#ventana").val('3');
+        val_estudiante();
     }
 
     function ante() {
@@ -548,6 +513,12 @@
     function limpiar() {
         clear();
         estudiante();
+        $("#siguiente").attr("class", "btn btn-secondary");
+        $("#siguiente").attr("disabled", "disabled");
+        $("#button_salud").attr("class", "btn btn-secondary");
+        $("#button_salud").attr("disabled", "disabled");
+        $("#button_representante").attr("class", "btn btn-secondary");
+        $("#button_representante").attr("disabled", "disabled");
         $('#municipality').html('<option value="null" disabled selected>Seleccione un municipio</option>');
         $('#municipality_r').html('<option value="null" disabled selected>Seleccione un municipio</option>');
         $('#alergia').html('<option value="null" disabled selected>Seleccione una alergia</option>');
@@ -571,8 +542,53 @@
         $("#alergia").removeAttr("readonly");
         $("#discapacidad").removeAttr("readonly");
         $("#discapacidad").removeAttr("readonly");
+        val_estudiante();
+
+    }
+
+
+    function val_estudiante() {
+        var ventana = $('#ventana').val();
+        var cedula = $('#cedula').val();
+        var nombre = $('#nombre').val();
+        var apellido = $('#apellido').val();
+        var sex = $('#sex').val();
+        var telefono = $('#telefono').val();
+        var state = $('#state').val();
+        var municipality = $('#municipality').val();
+        var direccion = $('#direccion').val();
+        var fecha_nacimiento = $('#fecha_nacimiento').val();
+        var lugar_nacimiento = $('#lugar_nacimiento').val();
+        var descripcion = $('#descripcion').val();
+        if (cedula != "" && nombre != "" && apellido != "" && sex != "null" && sex != null && telefono != "" && state != "null" && state != null && municipality != "null" && municipality != null && direccion != "" && fecha_nacimiento != "" && lugar_nacimiento != "" && descripcion != "") {
+            if(ventana == 1){
+                $("#button_estudiante").attr("class", "btn btn-success");
+                $("#siguiente").attr("class", "btn btn-primary");
+                $("#siguiente").removeAttr("disabled");
+                $("#button_salud").attr("class", "btn btn-primary");
+                $("#button_salud").removeAttr("disabled");
+                $("#button_representante").attr("class", "btn btn-primary");
+                $("#button_representante").removeAttr("disabled");
+            }
+
+
+        }else{
+            $("#anterior").attr("class", "btn btn-secondary");
+            $("#anterior").attr("disabled", "disabled");
+            $("#siguiente").attr("class", "btn btn-secondary");
+            $("#siguiente").attr("disabled", "disabled");
+            $("#button_estudiante").attr("class", "btn btn-success");
+            $("#button_salud").attr("class", "btn btn-secondary");
+            $("#button_salud").attr("disabled", "disabled");
+            $("#button_representante").attr("class", "btn btn-secondary");
+            $("#button_representante").attr("disabled", "disabled");
+            $('#salud').fadeOut();
+            $('#representant').fadeOut();
+            $('#estudiante').fadeIn();
+            $("#ventana").val('1');
+        }
 
     }
 
 @endsection
-</script>
+{{-- </script> --}}
