@@ -168,6 +168,7 @@ function desactivar(id) {
 }
 
 function mostrar(id, pro) {
+    @yield('mostra')
     $.ajax({
         type: "POST",
         @yield('rellenar_url')

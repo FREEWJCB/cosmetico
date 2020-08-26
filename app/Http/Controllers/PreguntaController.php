@@ -41,13 +41,13 @@ class PreguntaController extends Controller
             $pregunta=$cons2->id;
         }
 
-        $cons = DB::table('respuestas')->get();
+        $cons = DB::table('respuestas')->orderBy('id','asc')->get();
 
         foreach ($cons as $cons2) {
             # code...
             $id=$cons2->id;
             $respuestas=$cons2->respuesta;
-            $puntos=$request->puntos.$id;
+            $puntos=$request['puntos'.$id];
             DB::table('respuesta')->insert([
                 'pregunta' => $pregunta,
                 'puntos' => $puntos,
@@ -66,7 +66,24 @@ class PreguntaController extends Controller
     public function update(Request $request)
     {
         //
-        DB::table('pregunta')->where('id', $request->id)->update(['preguntas' => $request->preguntas]);
+        $id=$request['id'];
+        $preguntas=$request['preguntas'];
+        DB::table('pregunta')->where('id', $id)->update(['preguntas' => $preguntas]);
+        DB::table('respuesta')->where('pregunta', $id)->delete();
+
+        $cons = DB::table('respuestas')->orderBy('id','asc')->get();
+
+        foreach ($cons as $cons2) {
+            # code...
+            $ids=$cons2->id;
+            $respuestas=$cons2->respuesta;
+            $puntos=$request['puntos'.$ids];
+            DB::table('respuesta')->insert([
+                'pregunta' => $id,
+                'puntos' => $puntos,
+                'respuestas' => $respuestas
+                ]);
+        }
     }
 
     /**
@@ -78,7 +95,8 @@ class PreguntaController extends Controller
     public function destroy($id)
     {
         //
-        DB::table('preguntas')->where('id', $id)->delete();
+        DB::table('respuesta')->where('pregunta', $id)->delete();
+        DB::table('pregunta')->where('id', $id)->delete();
     }
 
     public function cargar(Request $request)
@@ -137,12 +155,40 @@ class PreguntaController extends Controller
         foreach ($cons as $cons2) {
             # code...
             $preguntas=$cons2->preguntas;
-
+            $consu= DB::table('respuesta')->where('pregunta', $id)->orderBy('id','asc')->get();
+            foreach ($consu as $consu2) {
+                # code...
+                $respuestas=$consu2->respuestas;
+                $puntos=$consu2->puntos;
+                DB::table('respuestas')->insert([
+                    'respuesta' => $respuestas,
+                    'puntos' => $puntos
+                    ]);
+            }
         }
-        $resp="";
+        $cons = DB::table('respuestas')->orderBy('id','asc')->get();
+        $respuestas="";
+        $i=0;
+        foreach ($cons as $cons2) {
+            $i++;
+            $id=$cons2->id;
+            $respuesta=$cons2->respuesta;
+            $puntos=$cons2->puntos;
+            $respuestas.="
+            <div id='resp$id' class='alert alert-primary alert-dismissible fade show form-row' role='alert'>
+                <div class='col-7'>$respuesta</div>
+                <div class='col'><label for='puntos$id'><strong>Puntos:</strong></label></div>
+                <div class='col'><input type='number' class='my-1 mr-sm-2' value='$puntos' min='1' max='99' name='puntos$id' id='puntos$id'></div>
+                <button type='button' id='respu$i' class='close' data-dismiss='alert' aria-label='Close' onclick='return quitar($id);'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>";
+        }
+
         return response()->json([
             'preguntas'=>$preguntas,
-            'resp'=>$resp
+            'respuestas'=>$respuestas,
+            'i'=>$i
         ]);
 
 
@@ -198,8 +244,8 @@ class PreguntaController extends Controller
             <div id='resp$id' $ocultar class='alert alert-primary alert-dismissible fade show form-row' role='alert'>
                 <div class='col-7'>$respuesta</div>
                 <div class='col'><label for='puntos$id'><strong>Puntos:</strong></label></div>
-                <div class='col'><input type='number' class='custom-select my-1 mr-sm-2' value='$puntos' min='1' max='99' name='puntos$id' id='puntos$id'></div>
-                <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar($id);'>
+                <div class='col'><input type='number' class='my-1 mr-sm-2' value='$puntos' min='1' max='99' name='puntos$id' id='puntos$id'></div>
+                <button type='button' class='close' id='respu$i' data-dismiss='alert' aria-label='Close' onclick='return quitar($id);'>
                     <span aria-hidden='true'>&times;</span>
                 </button>
             </div>";

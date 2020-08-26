@@ -28,16 +28,31 @@
 
 @section('rellenar_url') url: "{{route('Pregunta.mostrar')}}", @endsection
 
+@section('mostra') $('#respuestas').val(''); clear(); @endsection
+
 @section('rellenar')
 
     $("#preguntas").val(valores.preguntas);
     $("#preguntas2").val(valores.preguntas);
+    $("#resp").html(valores.respuestas);
 
 @endsection
 
-@section('editar') $("#preguntas").removeAttr("readonly"); @endsection
+@section('editar')  $('#respu').show(); $("#preguntas").removeAttr("readonly"); @endsection
 
-@section('mostrar') $("#preguntas").attr("readonly", "readonly"); @endsection
+@section('mostrar')
+    $('#respu').hide();
+    $("#preguntas").attr("readonly", "readonly");
+    $("#formulario input[type=number]").attr("readonly", "readonly");
+    if(valores.i > 0){
+        $('#resp_num').val('1');
+        for (let i = 1; i <= valores.i; i++) {
+            $('#respu'+i).hide();
+
+        }
+    }
+
+@endsection
 
 @section('funciones')
 
@@ -62,6 +77,7 @@
             url:"{{route('Pregunta.respuestas')}}",
             data: $("#formulario").serialize(),
             success: function(valores) {
+                $('#respuestas').val('');
                 $('#resp').html(valores.respuestas);
                 if(valores.num > 0){
                     $('#resp_num').val('1');
