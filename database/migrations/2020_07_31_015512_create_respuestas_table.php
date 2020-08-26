@@ -16,6 +16,7 @@ class CreateRespuestasTable extends Migration
         Schema::create('respuestas', function (Blueprint $table) {
             $table->id();
             $table->string('respuesta',100)->unique();
+            $table->decimal('puntos',2,0)->default(1);
             $table->timestamps();
         });
     }

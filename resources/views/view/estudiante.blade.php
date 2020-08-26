@@ -62,6 +62,7 @@
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->cedula }}</center></td>
                 <td><center>{{ $cons2->nombre }} {{ $cons2->apellido }}</center></td>
+                <td><center>{{ $cons2->sex }}</center></td>
                 <td><center>{{ $cons2->fecha_nacimiento }}</center></td>
                 <td><center>{{ $cons2->lugar_nacimiento }}</center></td>
                 <td><center>{{ $cons2->states }}</center></td>

@@ -169,7 +169,6 @@ class PreguntaController extends Controller
     public function respuestas(Request $request)
     {
         //
-
         DB::table('respuestas')->insert(['respuesta' => $request->respuestas]);
 
         $cons = DB::table('respuestas')->orderBy('id','asc');
@@ -183,15 +182,23 @@ class PreguntaController extends Controller
             $i++;
             $id=$cons2->id;
             $respuesta=$cons2->respuesta;
+            $puntos=$cons2->puntos;
+            $request['puntos'.$id];
             if ($i==$num) {
                 # code...
                 $ocultar="style='display: none'";
+            }else{
+
+                $puntos=$request['puntos'.$id];
+                DB::table('respuestas')->where('id', $id)->update(['puntos' => $puntos]);
+
             }
+
             $respuestas.="
             <div id='resp$id' $ocultar class='alert alert-primary alert-dismissible fade show form-row' role='alert'>
                 <div class='col-7'>$respuesta</div>
                 <div class='col'><label for='puntos$id'><strong>Puntos:</strong></label></div>
-                <div class='col'><input type='number' class='custom-select my-1 mr-sm-2' value='0' min='0' max='99' name='puntos$id' id='puntos$id'></div>
+                <div class='col'><input type='number' class='custom-select my-1 mr-sm-2' value='$puntos' min='1' max='99' name='puntos$id' id='puntos$id'></div>
                 <button type='button' class='close' data-dismiss='alert' aria-label='Close' onclick ='return quitar($id);'>
                     <span aria-hidden='true'>&times;</span>
                 </button>

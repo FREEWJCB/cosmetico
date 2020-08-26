@@ -1,3 +1,4 @@
+{{-- <script> --}}
 @section('document')
 
     $("#bs_preguntas").on("keyup", function() {
@@ -56,11 +57,10 @@
     }
 
     function agregar() {
-        var respuestas = $('#respuestas').val();
         $.ajax({
             type: "POST",
             url:"{{route('Pregunta.respuestas')}}",
-            data: "respuestas="+respuestas,
+            data: $("#formulario").serialize(),
             success: function(valores) {
                 $('#resp').html(valores.respuestas);
                 if(valores.num > 0){
@@ -112,3 +112,5 @@
     }
 
 @endsection
+
+{{-- </script> --}}

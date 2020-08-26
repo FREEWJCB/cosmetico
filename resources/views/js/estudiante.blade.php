@@ -467,15 +467,20 @@
                     $("#municipality_r").attr("disabled", "disabled");
                     $("#direccion_r").attr("readonly", "readonly");
 
-                    if(valores.num_p > 0){
+                    if(valores.num_r > 0){
                         $("#representante").val(valores.id);
                         $("#ocupacion_laboral").val(valores.ocupacion_laboral);
                         $("#ocupacion_laboral").attr("disabled", "disabled");
+                    }else{
+                        $("#representante").val("");
+                        $("#ocupacion_laboral").val("null");
+                        $("#ocupacion_laboral").removeAttr("disabled");
                     }
 
                     $("#cance").fadeIn();
                 }else{
                     $("#cance").fadeOut();
+                    $("#cedula_r").removeAttr("readonly");
                     $("#cedula_r").removeAttr("readonly");
                     $("#nombre_r").removeAttr("readonly");
                     $("#apellido_r").removeAttr("readonly");
@@ -485,6 +490,8 @@
                     $("#state_r").removeAttr("disabled");
                     $("#municipality_r").removeAttr("disabled");
                     $("#direccion_r").removeAttr("readonly");
+                    $("#persona").val("");
+                    $("#representante").val("");
                     $("#repre").fadeIn();
                 }
                 $("#parentesco").removeAttr("readonly");

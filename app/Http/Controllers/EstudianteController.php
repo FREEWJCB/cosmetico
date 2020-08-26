@@ -626,6 +626,8 @@ class EstudianteController extends Controller
         $municipality="";
         $direccion="";
         $persona="";
+        $num_p="0";
+        $num_r="0";
         $cons= DB::table('persona')
                 ->select('persona.*', 'municipality.state')
                 ->join('municipality', 'persona.municipality', '=', 'municipality.id')
