@@ -124,6 +124,9 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdown1">
               <li class="dropdown-item">
+                <a title="Curso" href="{{ route('Curso.index') }}">Curso</a>
+              </li>
+              <li class="dropdown-item">
                 <a title="Pregunta" href="{{ route('Pregunta.index') }}">Pregunta</a>
               </li>
               <li class="dropdown-item">

@@ -188,4 +188,10 @@ Route::POST('/Pregunta/calcular', 'PreguntaController@calcular')->name('Pregunta
 Route::GET('/Pregunta/{js?}', 'PreguntaController@index');
 Route::GET('/Preguntas/prueba', 'PreguntaController@prueba')->name('Pregunta.prueba');
 
+Route::resource('Curso', 'CursoController')->except('show','edit','create','update');
+Route::PUT('/Curso', 'CursoController@update')->name('Curso.update');
+Route::POST('/Cursos', 'CursoController@cargar')->name('Curso.cargar');
+Route::POST('/Curso/rellenar', 'CursoController@mostrar')->name('Curso.mostrar');
+Route::GET('/Curso/{js?}', 'CursoController@index');
+
 Route::resource('combobox', 'combo')->only('store');
