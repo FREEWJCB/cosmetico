@@ -195,3 +195,7 @@ Route::POST('/Curso/rellenar', 'CursoController@mostrar')->name('Curso.mostrar')
 Route::GET('/Curso/{js?}', 'CursoController@index');
 
 Route::resource('combobox', 'combo')->only('store');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return Inertia\Inertia::render('Dashboard');
+})->name('dashboard');
