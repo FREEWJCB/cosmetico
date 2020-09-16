@@ -42,7 +42,7 @@
             @php($i++)
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
-                <td><center>{{ $cons2->curso }}</center></td>
+                <td><center>{{ $cons2->curs }}</center></td>
                 <td><center>{{ $cons2->preguntas }}</center></td>
                 @include('plantilla.catalogo')
             </tr>

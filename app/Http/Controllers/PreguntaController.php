@@ -16,12 +16,17 @@ class PreguntaController extends Controller
     {
         //
         $cons = DB::table('pregunta')
+                    ->select('pregunta.*', 'cursos.curso as curs')
+                    ->join('cursos', 'pregunta.curso', '=', 'cursos.id')
                     ->where('status', '1')
                     ->orderBy('preguntas','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
 
-        return view('view.Pregunta',['cons' => $cons2, 'num' => $num, 'js' => $js]);
+        $cursos = DB::table('cursos')->where('status', '1')->orderBy('curso','asc');
+        $cursos2 = $cursos->get();
+        $num_curso = $cursos->count();
+        return view('view.Pregunta',['cons' => $cons2, 'num' => $num,'cursos' => $cursos2, 'num_curso' => $num_curso, 'js' => $js]);
     }
 
     /**
@@ -33,7 +38,10 @@ class PreguntaController extends Controller
     public function store(Request $request)
     {
         //
-        DB::table('pregunta')->insert(['preguntas' => $request->preguntas]);
+        DB::table('pregunta')->insert([
+            'preguntas' => $request->preguntas,
+            'cursos' => $request->curso
+            ]);
         $cons = DB::table('pregunta')->where('preguntas', $request->preguntas)->get();
 
         foreach ($cons as $cons2) {
@@ -103,8 +111,12 @@ class PreguntaController extends Controller
     {
         $cat="";
         $preguntas=$request->bs_preguntas;
+        $curs=$request->bs_curs;
         $cons = DB::table('pregunta')
+                ->select('pregunta.*', 'cursos.curso as curs')
+                ->join('cursos', 'pregunta.curso', '=', 'cursos.id')
                 ->where('preguntas','like', "%$preguntas%")
+                ->where('curs','like', "%$curs%")
                 ->where('status', '1')
                 ->orderBy('preguntas','asc');
 
@@ -118,8 +130,10 @@ class PreguntaController extends Controller
                 $i++;
                 $id=$cons2->id;
                 $preguntas=$cons2->preguntas;
+                $curs=$cons2->curs;
                 $cat.="<tr>
                         <th scope='row'><center>$i</center></th>
+                        <td><center>$curs</center></td>
                         <td><center>$preguntas</center></td>
                         <td>
                             <center data-turbolinks='false' class='navbar navbar-light'>
@@ -155,6 +169,7 @@ class PreguntaController extends Controller
         foreach ($cons as $cons2) {
             # code...
             $preguntas=$cons2->preguntas;
+            $cursos=$cons2->cursos;
             $consu= DB::table('respuesta')->where('pregunta', $id)->orderBy('id','asc')->get();
             foreach ($consu as $consu2) {
                 # code...
@@ -188,6 +203,7 @@ class PreguntaController extends Controller
         return response()->json([
             'preguntas'=>$preguntas,
             'respuestas'=>$respuestas,
+            'curso'=>$cursos,
             'i'=>$i
         ]);
 
