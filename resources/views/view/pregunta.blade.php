@@ -6,6 +6,17 @@
 
 @section('busqueda')
 
+    <label for="bs_curso">Curso: &nbsp;&nbsp;&nbsp;</label>
+    <select class="form-control mr-sm-2" required id="bs_curso" name="bs_curso">
+        <option class="form-control mr-sm-2" value="" selected>Seleccione el curso</option>
+        @if ($num_curso>0)
+            @foreach ($cursos as $cursos2)
+                <option value="{{ $cursos2->id }}">{{ $cursos2->curso }}</option>
+            @endforeach
+        @endif
+
+    </select>
+
     <label for="bs_pregunta">Pregunta: &nbsp;&nbsp;&nbsp;</label>
     <input name="bs_pregunta" id="bs_pregunta" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por pregunta" arialabel="Search" />
 
@@ -18,6 +29,7 @@
 
 @section('thead')
 
+    <th scope="col"><center>Curso</center></th>
     <th scope="col"><center>Pregunta</center></th>
 
 @endsection
@@ -30,6 +42,7 @@
             @php($i++)
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
+                <td><center>{{ $cons2->curso }}</center></td>
                 <td><center>{{ $cons2->preguntas }}</center></td>
                 @include('plantilla.catalogo')
             </tr>
@@ -43,6 +56,18 @@
 
 @section('form')
     <input style='display: none' required name="resp_num" id="resp_num">
+    <div class="form-group">
+        <label for="curso">Marca</label>
+        <select class="form-control" required id="curso" name="curso">
+            <option value="null" disabled selected>Seleccione el curso</option>
+            @if ($num_curso>0)
+                @foreach ($cursos as $cursos2)
+                    <option value="{{ $cursos2->id }}">{{ $cursos2->curso }}</option>
+                @endforeach
+            @endif
+        </select>
+    </div>
+
     <div class="form-group">
         <label for="preguntas">Pregunta:</label>
         <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="preguntas" name="preguntas" />
