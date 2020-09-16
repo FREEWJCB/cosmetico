@@ -17,9 +17,9 @@
                         @endforeach
                     @endif
                 </select>
-                <button type="button" id="prueba" class="btn btn-primary mb-2">Prueba</button>
+                <button type="button" id="exam" class="btn btn-primary mb-2">Prueba</button>
             </div>
-            <div id="exam"></div>
+            <div id="exam2"></div>
             <div id="resp"></div>
         </form>
     </center>
