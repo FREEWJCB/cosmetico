@@ -1,6 +1,10 @@
 {{-- <script> --}}
 @section('document')
 
+    $("#bs_curso").on("keyup", function() {
+        cargar();
+    });
+
     $("#bs_preguntas").on("keyup", function() {
         cargar();
     });
@@ -18,7 +22,7 @@
 
 @section('url_edicion') var url = "{{ route('Pregunta.update') }}"; @endsection
 
-@section('registro') $('#preguntas').val(''); $('#resp_num').val(''); clear(); @endsection
+@section('registro') $('#curso').val('null'); $('#preguntas').val(''); $('#resp_num').val(''); clear(); @endsection
 
 @section('edicion') $('#preguntas2').val($('#preguntas').val()); @endsection
 
@@ -32,6 +36,8 @@
 
 @section('rellenar')
 
+    $("#curso").attr("disabled", "disabled");
+    $("#curso").val(valores.curso);
     $("#preguntas").val(valores.preguntas);
     $("#preguntas2").val(valores.preguntas);
     $("#resp").html(valores.respuestas);
