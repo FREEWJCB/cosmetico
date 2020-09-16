@@ -282,13 +282,64 @@ class PreguntaController extends Controller
     public function prueba()
     {
         //
-        $cons = DB::table('pregunta')
-                    ->where('status', '1')
-                    ->orderBy('preguntas','asc');
+
+        $cons = DB::table('cursos')->where('status', '1')->orderBy('curso','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
 
         return view('view.Prueba',['cons' => $cons2, 'num' => $num]);
+    }
+
+
+    public function exam(Request $request)
+    {
+        //
+        $cursos=$request['curso'];
+        $cons = DB::table('pregunta')->where('cursos', $cursos)->orderBy('preguntas','asc');
+        $cons2 = $cons->get();
+        $num = $cons->count();
+        $exam="";
+        if ($num>0) {
+            # code...
+            $i=0;
+            $exam.="<h2>Preguntas</h2>";
+            foreach ($cons as $cons2) {
+                # code...
+                $i++;
+                $id=$cons2->id;
+                $preguntas=$cons2->preguntas;
+
+                $exam.="<div class='form-group'>
+
+                            <br><br> <label>$preguntas</label> <br><br>";
+                $consu = DB::table('respuesta')->where('pregunta', $id)->orderBy('respuestas','asc')->get();
+                $u=0;
+                foreach ($consu as $consu2) {
+                    $u++;
+                    $respuestas=$consu2->respuestas;
+                    $puntos=$consu2->puntos;
+                    $exam.="
+                        <div class='form-check form-check-inline'>
+                            <input class='form-check-input' type='radio' name='respuestas$i' id='respuestas$u$i' value='$puntos'>
+                            <label class='form-check-label' for='respuestas$u$i'>$respuestas</label>
+                        </div>";
+                }
+                $exam.="</div>
+                        <br><br><input type='submit' class='btn btn-primary' id='reg' value='Examinar' />
+                        <div id='resp'></div>";
+            }
+        }else{
+            $exam.="<div class='alert alert-danger' role='alert'>
+                        No hay preguntas registradas!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href='{{route('Pregunta.index')}}' class='btn btn-danger btncolorblanco' rel='noopener noreferrer'><i class='fa fa-user-plus'></i> Registrar</a>
+                    </div>";
+        }
+
+        return response()->json([
+            'exam'=>$exam,
+            'num'=>$num
+        ]);
+
     }
 
 

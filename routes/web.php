@@ -184,6 +184,7 @@ Route::POST('/Pregunta/rellenar', 'PreguntaController@mostrar')->name('Pregunta.
 Route::POST('/Pregunta/clear', 'PreguntaController@clear')->name('Pregunta.clear');
 Route::POST('/Pregunta/quitar', 'PreguntaController@quitar')->name('Pregunta.quitar');
 Route::POST('/Pregunta/respuestas', 'PreguntaController@respuestas')->name('Pregunta.respuestas');
+Route::POST('/Pregunta/exam', 'PreguntaController@exam')->name('Pregunta.exam');
 Route::POST('/Pregunta/calcular', 'PreguntaController@calcular')->name('Pregunta.calcular');
 Route::GET('/Pregunta/{js?}', 'PreguntaController@index');
 Route::GET('/Preguntas/prueba', 'PreguntaController@prueba')->name('Pregunta.prueba');

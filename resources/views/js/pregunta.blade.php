@@ -9,6 +9,10 @@
         cargar();
     });
 
+    $("#exam").on("click", function() {
+        exam();
+    });
+
 @endsection
 
 @section('select')
@@ -110,6 +114,22 @@
                 }else{
                     $('#resp_num').val('');
                 }
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
+    function exam() {
+        $.ajax({
+            type: "POST",
+            url:"{{route('Pregunta.exam')}}",
+            data: $("#formulario").serialize(),
+            success: function(valores) {
+                $('#exam2').html(valores.exam);
+                $('#num').val(valores.num);
             },
             error: function(xhr, textStatus, errorMessage) {
                 error(xhr, textStatus, errorMessage);
