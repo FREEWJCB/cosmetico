@@ -16,7 +16,9 @@ class CreatePreguntaTable extends Migration
         Schema::create('pregunta', function (Blueprint $table) {
             $table->id();
             $table->string('preguntas',100);
+            $table->unsignedBigInteger('curso');
             $table->decimal('status',1,0)->default(1);
+            $table->foreign('curso')->references('id')->on('curso');
             $table->timestamps();
         });
     }
