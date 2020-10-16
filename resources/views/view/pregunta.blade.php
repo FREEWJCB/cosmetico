@@ -35,11 +35,10 @@
 @endsection
 
 @section('tbody')
-
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0; @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++; @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->curs }}</center></td>
@@ -57,7 +56,7 @@
 @section('form')
     <input style='display: none' required name="resp_num" id="resp_num">
     <div class="form-group">
-        <label for="curso">Marca</label>
+        <label for="curso">Curso</label>
         <select class="form-control" required id="curso" name="curso">
             <option value="null" disabled selected>Seleccione el curso</option>
             @if ($num_curso>0)

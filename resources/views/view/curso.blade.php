@@ -12,6 +12,15 @@
 
 @endsection
 
+@section('ventanas')
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" id="button_curso" onclick = "return curso();" class="btn btn-secondary">Curso</button>
+        <button type="button" id="button_pregunta" onclick = "return pregunta();" class="btn btn-secondary">Pregunta</button>
+    </div>
+
+@endsection
+
 @if ($js == 'axios')
     @section('ajax','warning')
     @section('axios','success')
@@ -26,9 +35,9 @@
 @section('tbody')
 
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0; @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++; @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->curso }}</center></td>
@@ -43,14 +52,72 @@
 
 @section('form')
 
-
-    <div class="form-group">
-      <label for="curso">Curso</label>
-      <input type="text" required onkeyup="mayuscula(this)" class="form-control" id="curso" name="curso" />
-      <input type="hidden" id="curso2" name="curso2" />
+    <input type="hidden" id="preg_num" name="preg_num" />
+    <input type="hidden" value="1" id="ventana" name="ventana" />
+    <div id="curso_ventana">
+        <div class="form-group">
+          <label for="curso">Curso</label>
+          <input type="text" required onkeyup="mayuscula(this)" class="form-control" id="curso" name="curso" />
+          <input type="hidden" id="curso2" name="curso2" />
+        </div>
+        <center><h2><b>Niveles</b></h2></center>
+        <div class="form-row">
+            <table class="table table-bordered" >
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nivel</th>
+                        <th scope="col">Punto inicial</th>
+                        <th scope="col">Punto final</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Básico</th>
+                        <td scope="row"><center id='basico_i'>1</center></td>
+                        <td><input type='number' required value='1' min='1' max='100' name='basico_f' id='basico_f'></td>
+                    </tr>
+                    <tr>
+                        <th>Intermedio</th>
+                        <td scope="row"><center id='intermedio_i'>1</center></td>
+                        <td><input type='number' required value='1' min='1' max='100' name='intermedio_f' id='intermedio_f'></td>
+                    </tr>
+                    <tr>
+                        <th>Avanzado</th>
+                        <td scope="row"><center id='avanzado_i'>1</center></td>
+                        <td><input type='number' required value='1' min='1' max='100' name='avanzado_f' id='avanzado_f'></td>
+                    </tr>
+                    <tr>
+                        <th>Profesional</th>
+                        <td scope="row"><center id='profesional_i'>1</center></td>
+                        <td><input type='number' required value='1' min='1' max='100' name='profesional_f' id='profesional_f'></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
+    <div style='display: none' id="pregunta_ventana">
+        <div class="form-group">
+            <label for="respuestas">Pregunta:</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" aria-describedby="button-addon2" id="preguntas" name="preguntas" />
+                <div  class="input-group-append">
+                    <a href="#" onclick = "return agreg_pre();" class="btn btn-success btncolorblanco">
+                        <i class="fa fa-plus"></i> Agregar
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="pregunta_r"></div>
 
+    </div>
+
+    <center>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" id="anterior" onclick = "return ante();" class="btn btn-secondary">Anterior</button>
+            <button type="button" id="siguiente" onclick = "return sigui();" class="btn btn-secondary">Siguiente</button>
+        </div>
+    </center>
 @endsection
 
 @section('contenido')

@@ -226,6 +226,13 @@ Route::GET('/Preguntas/prueba', [PreguntaController::class,'prueba'])->name('Pre
 Route::resource('Curso', CursoController::class)->except('show','edit','create','update');
 Route::PUT('/Curso', [CursoController::class,'update'])->name('Curso.update');
 Route::POST('/Cursos', [CursoController::class,'cargar'])->name('Curso.cargar');
+Route::POST('/Curso/agreg_pre', [CursoController::class,'agreg_pre'])->name('Curso.agreg_pre');
+Route::POST('/Curso/agreg_resp', [CursoController::class,'agreg_resp'])->name('Curso.agreg_resp');
+Route::POST('/Curso/quitar_p', [CursoController::class,'quitar_p'])->name('Curso.quitar_p');
+Route::POST('/Curso/quitar_r', [CursoController::class,'quitar_r'])->name('Curso.quitar_r');
+Route::POST('/Curso/clear_p', [CursoController::class,'clear_p'])->name('Curso.clear_p');
+Route::POST('/Curso/clear_r', [CursoController::class,'clear_r'])->name('Curso.clear_r');
+Route::POST('/Curso/puntos', [CursoController::class,'puntos'])->name('Curso.puntos');
 Route::POST('/Curso/rellenar', [CursoController::class,'mostrar'])->name('Curso.mostrar');
 Route::GET('/Curso/{js?}', [CursoController::class,'index']);
 

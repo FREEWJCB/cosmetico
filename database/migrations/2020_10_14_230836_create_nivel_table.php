@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRespuestasTable extends Migration
+class CreateNivelTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateRespuestasTable extends Migration
      */
     public function up()
     {
-        Schema::create('respuestas', function (Blueprint $table) {
+        Schema::create('nivel', function (Blueprint $table) {
             $table->id();
-            $table->string('respuesta',100)->unique();
-            $table->decimal('puntos',2,0)->default(1);
+            $table->string('niveles');
+            $table->decimal('inicial',3,0)->default(1);
+            $table->decimal('final',3,0);
+            $table->unsignedBigInteger('cursos');
+            $table->foreign('cursos')->references('id')->on('cursos');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateRespuestasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('respuestas');
+        Schema::dropIfExists('nivel');
     }
 }

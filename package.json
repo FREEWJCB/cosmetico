@@ -29,5 +29,12 @@
         "tailwindcss": "^1.3.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "@fullcalendar/core": "^5.3.1",
+        "@fullcalendar/daygrid": "^5.3.2",
+        "@fullcalendar/list": "^5.3.1",
+        "@fullcalendar/timegrid": "^5.3.1",
+        "fullcalendar": "^5.3.2"
     }
 }

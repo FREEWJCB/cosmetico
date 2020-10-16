@@ -55,9 +55,9 @@
 @section('tbody')
 
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0; @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++; @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->cedula }}</center></td>

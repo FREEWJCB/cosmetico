@@ -17,8 +17,8 @@ class PreguntaController extends Controller
         //
         $cons = DB::table('pregunta')
                     ->select('pregunta.*', 'cursos.curso as curs')
-                    ->join('cursos', 'pregunta.curso', '=', 'cursos.id')
-                    ->where('status', '1')
+                    ->join('cursos', 'pregunta.cursos', '=', 'cursos.id')
+                    ->where('pregunta.status', '1')
                     ->orderBy('preguntas','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
@@ -110,15 +110,17 @@ class PreguntaController extends Controller
     public function cargar(Request $request)
     {
         $cat="";
-        $preguntas=$request->bs_preguntas;
-        $curs=$request->bs_curs;
+        $preguntas=$request->bs_pregunta;
+        $curs=$request->bs_curso;
         $cons = DB::table('pregunta')
-                ->select('pregunta.*', 'cursos.curso as curs')
-                ->join('cursos', 'pregunta.curso', '=', 'cursos.id')
-                ->where('preguntas','like', "%$preguntas%")
-                ->where('curs','like', "%$curs%")
-                ->where('status', '1')
-                ->orderBy('preguntas','asc');
+                    ->select('pregunta.*', 'cursos.curso as curs')
+                    ->join('cursos', 'pregunta.cursos', '=', 'cursos.id')
+                    ->where([
+                        ['pregunta.status', '1'],
+                        ['preguntas','like', "%$preguntas%"],
+                        ['cursos.curso','like', "%$curs%"]
+                    ])
+                    ->orderBy('preguntas','asc');
 
         $cons1 = $cons->get();
         $num = $cons->count();

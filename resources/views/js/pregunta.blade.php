@@ -1,11 +1,11 @@
 {{-- <script> --}}
 @section('document')
 
-    $("#bs_curso").on("keyup", function() {
+    $("#bs_curso").on("change", function() {
         cargar();
     });
 
-    $("#bs_preguntas").on("keyup", function() {
+    $("#bs_pregunta").on("keyup", function() {
         cargar();
     });
 
@@ -16,7 +16,6 @@
 @endsection
 
 @section('select')
-
     $('#respu').show();
     clear();
 
