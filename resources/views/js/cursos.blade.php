@@ -39,7 +39,7 @@
 
 @section('select') limpiar(); @endsection
 
-@section('registro') $('#curso').val(''); @endsection
+@section('registro') limpiar(); @endsection
 
 @section('edicion') $('#curso2').val($('#curso').val()); @endsection
 
