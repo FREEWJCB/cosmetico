@@ -298,14 +298,14 @@ class PreguntaController extends Controller
         //
         $cursos=$request['curso'];
         $cons = DB::table('pregunta')->where('cursos', $cursos)->orderBy('preguntas','asc');
-        $cons2 = $cons->get();
+        $cons1 = $cons->get();
         $num = $cons->count();
         $exam="";
         if ($num>0) {
             # code...
             $i=0;
             $exam.="<h2>Preguntas</h2>";
-            foreach ($cons as $cons2) {
+            foreach ($cons1 as $cons2) {
                 # code...
                 $i++;
                 $id=$cons2->id;
@@ -326,10 +326,11 @@ class PreguntaController extends Controller
                             <label class='form-check-label' for='respuestas$u$i'>$respuestas</label>
                         </div>";
                 }
-                $exam.="</div>
+
+            }
+            $exam.="</div>
                         <br><br><input type='submit' class='btn btn-primary' id='reg' value='Examinar' />
                         <div id='resp'></div>";
-            }
         }else{
             $exam.="<div class='alert alert-danger' role='alert'>
                         No hay preguntas registradas!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -348,7 +349,8 @@ class PreguntaController extends Controller
     public function calcular(Request $request)
     {
         //
-        $num=$request->num;
+        $curso=$request['curso'];
+        $num=$request['num'];
         $puntos=0;
         $resp="";
         if ($num>0) {
@@ -359,8 +361,18 @@ class PreguntaController extends Controller
                 $puntos=$puntos+$respuestas;
 
             }
+            $cons = DB::table('nivel')->where('cursos', $curso)->orderBy('id','asc')->get();
+            foreach($cons as $cons2){
+                $inicial = $cons2->inicial;
+                $final = $cons2->final;
+                if($puntos >= $inicial && $puntos <= $final){
+                    $niveles = $cons2->niveles;
+                }
+            }
+
             $resp .="<div class='alert alert-success' role='alert'>
                         La encuesta ha dado un total de <strong>$puntos</strong> puntos.
+                        Nivel <strong>$niveles</strong>.
                     </div>";
         }else{
             $resp .="<div class='alert alert-danger' role='alert'>
