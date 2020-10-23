@@ -30,6 +30,10 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RepresentanteController;
 use App\Http\Controllers\EstudianteController;
 
+//reportes
+
+use App\Http\Controllers\imprimirTiposAlergiasController;
+
 // c-sabe
 
 use App\Http\Controllers\PreguntaController;
@@ -208,6 +212,10 @@ Route::POST('/Estudiante/quitar_a', [EstudianteController::class,'quitar_a'])->n
 Route::POST('/Estudiante/quitar_d', [EstudianteController::class,'quitar_d'])->name('Estudiante.quitar_d');
 Route::POST('/Estudiante/combobox', [EstudianteController::class,'combobox'])->name('Estudiante.combobox');
 Route::GET('/Estudiante/{js?}', [EstudianteController::class,'index']);
+
+// Reportes
+
+Route::get('/imprimirTipoAlergia', [imprimirTiposAlergiasController::class, 'imprimirTodos'])->name('imprimirTipoAlergia');
 
 //c-sabe
 

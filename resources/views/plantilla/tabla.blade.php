@@ -20,6 +20,8 @@
                 <i class="fas fa-user-plus"></i> Nuevo
             </a>
 
+            @yield('reporte')
+
         </form>
     </nav>
     <!-- catalogo -->

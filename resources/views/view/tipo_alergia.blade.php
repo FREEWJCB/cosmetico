@@ -9,7 +9,12 @@
 
     <label for="bs_tipo">Tipo:a &nbsp;&nbsp;&nbsp;</label>
     <input name="bs_tipo" id="bs_tipo" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por tipo" arialabel="Search" />
+@endsection
 
+@section('reporte')
+<a href="{{ URL::to('imprimirTipoAlergia?export=pdf') }}" id="reporte" class="btn btn-success ml-1" target="_blank">
+                <i class="fas fa-user-plus"></i>Reporte
+            </a>
 @endsection
 
 @if ($js == 'axios')
