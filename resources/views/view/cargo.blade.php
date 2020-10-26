@@ -8,7 +8,7 @@
 @section('busqueda')
 
     <label for="bs_cargos">Cargo: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_cargos" id="bs_cargos" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por cargo" arialabel="Search" />
+    <input name="bs_cargos" id="bs_cargos" onkeyup="mayuscula(this)" onkeypress="return letra(event)" class="form-control mr-sm-2" type="text" placeholder="Buscar por cargo" arialabel="Search" />
 
 @endsection
 
@@ -27,9 +27,9 @@
 @section('tbody')
 
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0 @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++ @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->cargos }}</center></td>
@@ -47,7 +47,7 @@
 
     <div class="form-group">
       <label for="cargos">Cargo</label>
-      <input type="text" onkeyup="mayuscula(this)" required class="form-control" id="cargos" name="cargos" />
+      <input type="text" onkeyup="mayuscula(this)" onkeypress="return letra(event)" required class="form-control" id="cargos" name="cargos" />
       <input type="hidden" id="cargos2" name="cargos2" />
     </div>
 
