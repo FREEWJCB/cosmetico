@@ -31,6 +31,24 @@
         val_curso(1);
     });
 
+    $("#basico_f").on("change", function() {
+
+        basico();
+        val_curso(1);
+    });
+
+    $("#intermedio_f").on("change", function() {
+
+        intermedio();
+        val_curso(1);
+    });
+
+    $("#avanzado_f").on("change", function() {
+
+        avanzado();
+        val_curso(1);
+    });
+
 @endsection
 
 @section('url_registro') var url = "{{ route('Curso.store') }}"; @endsection
@@ -66,13 +84,15 @@
         let basico = parseInt($('#basico_f').val());
         let intermedio = parseInt($('#intermedio_f').val());
         let intermedio_i = basico+1;
+        if (basico != "") {
+            $("#intermedio_i").html(intermedio_i);
+            $("#intermedio_f").attr("min", intermedio_i);
 
-        $("#intermedio_i").html(intermedio_i);
-        $("#intermedio_f").attr("min", intermedio_i);
-
-        if (basico >= intermedio) {
-            $("#intermedio_f").val(intermedio_i);
+            if (basico >= intermedio) {
+                $("#intermedio_f").val(intermedio_i);
+            }
         }
+
 
     }
 
@@ -83,12 +103,15 @@
         let avanzado = parseInt($('#avanzado_f').val());
         let avanzado_i = intermedio+1;
 
-        $("#avanzado_i").html(avanzado_i);
-        $("#avanzado_f").attr("min", avanzado_i);
+        if (intermedio != "") {
+            $("#avanzado_i").html(avanzado_i);
+            $("#avanzado_f").attr("min", avanzado_i);
 
-        if (intermedio >= avanzado) {
-            $("#avanzado_f").val(avanzado_i);
+            if (intermedio >= avanzado) {
+                $("#avanzado_f").val(avanzado_i);
+            }
         }
+
 
     }
 
@@ -99,12 +122,15 @@
         let profesional = parseInt($('#profesional_f').val());
         let profesional_i = avanzado+1;
 
-        $("#profesional_i").html(profesional_i);
-        $("#profesional_f").attr("min", profesional_i);
+        if (avanzado != "") {
+            $("#profesional_i").html(profesional_i);
+            $("#profesional_f").attr("min", profesional_i);
 
-        if (avanzado >= profesional) {
-            $("#profesional_f").val(profesional_i);
+            if (avanzado >= profesional) {
+                $("#profesional_f").val(profesional_i);
+            }
         }
+
 
     }
 

@@ -294,7 +294,7 @@ class CursoController extends Controller
                 $preguntas.="
                 <tr id='resp$id$id_r'>
                     <th>$respuesta</th>
-                    <td><input type='number' required class='my-1 mr-sm-2' value='$puntos' min='1' max='99' name='puntos$id$id_r' id='puntos$id$id_r'></td>
+                    <td><input type='number' required maxlength='2' onkeyup='puntos($id,$id_r)' class='my-1 mr-sm-2' value='$puntos' min='1' max='99' name='puntos$id$id_r' id='puntos$id$id_r'></td>
                     <td>
                         <center>
                             <a href='#' onclick = 'return quitar_r($id,$id_r);' class='btn btn-danger btncolorblanco'>
@@ -371,7 +371,7 @@ class CursoController extends Controller
             $respuestas.="
             <tr $ocultar id='resp$id_p$id'>
                 <th>$respuesta</th>
-                <td><input type='number' onkeyup='puntos($id_p,$id)' required class='my-1 mr-sm-2' value='1' min='1' max='99' name='puntos$id_p$id' id='puntos$id_p$id'></td>
+                <td><input type='number' onkeyup='puntos($id_p,$id)'  maxlength='2' required class='my-1 mr-sm-2' value='1' min='1' max='99' name='puntos$id_p$id' id='puntos$id_p$id'></td>
                 <td>
                     <center>
                         <a href='#' onclick = 'return quitar_r($id_p,$id);' class='btn btn-danger btncolorblanco'>
