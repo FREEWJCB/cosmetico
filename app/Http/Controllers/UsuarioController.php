@@ -28,7 +28,7 @@ class UsuarioController extends Controller
         $tipo2 = $tipo->get();
         $num_tipo = $tipo->count();
 
-        return view('view.Usuario',['cons' => $cons2, 'num' => $num, 'tipo' => $tipo2, 'num_tipo' => $num_tipo, 'js' => $js]);
+        return view('view.usuario',['cons' => $cons2, 'num' => $num, 'tipo' => $tipo2, 'num_tipo' => $num_tipo, 'js' => $js]);
     }
 
     /**
