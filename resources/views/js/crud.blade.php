@@ -213,6 +213,11 @@ function mostrar(id, pro) {
 function validacion(pro){
     let i = 0;
     let boo = true;
+    if(pro == 'Registro'){
+        let message = 'Error en el registro.';
+    }else{
+        let message = 'Error en la edición.';
+    }
 
     @yield('validacion')
 

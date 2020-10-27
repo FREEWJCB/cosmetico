@@ -49,6 +49,7 @@
       <label for="cargos">Cargo</label>
       <input type="text" onkeyup="mayuscula(this)" onkeypress="return letra(event)" maxlength="255" required class="form-control" id="cargos" name="cargos" />
       <input type="hidden" id="cargos2" name="cargos2" />
+      <small id="cargos_e" style="color: red"></small>
     </div>
 
 

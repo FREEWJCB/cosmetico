@@ -30,3 +30,41 @@
 @section('editar') $("#cargos").removeAttr("readonly"); @endsection
 
 @section('mostrar') $("#cargos").attr("readonly", "readonly"); @endsection
+
+@section('validacion')
+
+    let cargos = $("#cargos").val();
+    let cargos2 = $("#cargos2").val();
+
+    if(cargos == ""){
+        i++;
+        $("#cargos").val('');
+        $("#cargos").attr('class', 'form-control border border-danger');
+        $("#cargos_e").html('El campo cargo es obligatorio.');
+
+    }else if(cargos.length > 255){
+        i++;
+        $("#cargos").val('');
+        $("#cargos").attr('class', 'form-control border border-danger');
+        $("#cargos_e").html('El campo cargo no debe contener más de 255 caracteres.');
+
+    }else if(cargos.length < 3){
+        i++;
+        $("#cargos").val('');
+        $("#cargos").attr('class', 'form-control border border-danger');
+        $("#cargos_e").html('El campo cargo debe contener al menos 03 caracteres.');
+
+    }else if(cargos == cargos2 && pro == 'Edicion'){
+        i++;
+        $("#cargos").val(cargos2);
+        message = 'No ha hecho ningun cambio.';
+    }
+
+    if(i > 0){
+        boo = false;
+        $("body").overhang({
+            type: "error",
+            message: message
+        });
+    }
+@endsection
