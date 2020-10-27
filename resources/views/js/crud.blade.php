@@ -1,9 +1,10 @@
 {{-- <script> --}}
 
-function reiniciar() {
+function reiniciar(pro) {
     $("#reg").val("Registrar");
     $("#edi").val("Editar");
     $("#lim").val("Limpiar");
+    $("#pro").val(pro);
     $("#formulario input[type=reset]").removeAttr("disabled");
     $("#formulario input[type=submit]").removeAttr("disabled");
     $("#formulario select").removeAttr("disabled");
@@ -12,6 +13,7 @@ function reiniciar() {
     $("#formulario input[type=email]").removeAttr("readonly");
     $("#formulario input[type=tel]").removeAttr("readonly");
     $("#formulario textarea").removeAttr("readonly");
+    @yield('reiniciar')
 }
 
 function cargar() {
@@ -54,13 +56,13 @@ function cargar() {
 $(document).ready(function() {
     $("#nuevo").on("click", function() {
         $("#formulario")[0].reset();
-        $("#pro").val("Registro");
+
         $("#titulo").html("Registrar");
         $("#edi").hide();
         $("#lim").show();
         $("#reg").show();
         @yield('select')
-        reiniciar();
+        reiniciar("Registro");
         $("#modal").modal({
             show: true,
             backdrop: "static"
@@ -71,57 +73,64 @@ $(document).ready(function() {
 });
 
 function agregaRegistro() {
-    if ($("#pro").val() == "Registro") {
-        @yield('url_registro')
-        var tipo = "POST";
-        var message = "Registro completado con exito";
-    }else{
-        @yield('url_edicion')
-        var tipo = "PUT";
-        var message = "Edición completado con exito";
-    }
-
-    $.ajax({
-        type: tipo,
-        url: url,
-        data: $("#formulario").serialize(),
-        beforeSend: function() {
-            setStart();
-            $("#formulario input[type=reset]").val("Procesando...");
-            $("#formulario input[type=submit]").val("Procesando...");
-            $("#formulario input[type=reset]").attr("disabled", "disabled");
-            $("#formulario input[type=submit]").attr("disabled", "disabled");
-            $("#formulario input[type=text]").attr("readonly", "readonly");
-            $("#formulario textarea").attr("readonly", "readonly");
-        },
-        success: function(valores) {
-            setDone();
-
-            var type = "success";
-            if ($("#pro").val() == "Registro") {
-                 var message = "Registro completado con exito";
-                 $("#formulario")[0].reset();
-                @yield('registro')
-            }else{
-                var message = "Edición completado con exito";
-                @yield('edicion')
-            }
-
-            $("body").overhang({
-                type: type,
-                message: message,
-                callback: function() {
-                    reiniciar();
-                    cargar();
-                    console.log("%cProceso realizado con éxito",'color:green;');
-                    return false;
-                }
-            });
-        },
-        error: function(xhr, textStatus, errorMessage) {
-            error(xhr, textStatus, errorMessage);
+    let pro = $("#pro").val();
+    let val = validacion(pro);
+    if(val == true){
+        if (pro == "Registro") {
+            @yield('url_registro')
+            var tipo = "POST";
+            var message = "Registro completado con exito";
+        }else{
+            @yield('url_edicion')
+            var tipo = "PUT";
+            var message = "Edición completado con exito";
         }
-    });
+
+        $.ajax({
+            type: tipo,
+            url: url,
+            data: $("#formulario").serialize(),
+            beforeSend: function() {
+                setStart();
+                $("#formulario input[type=reset]").val("Procesando...");
+                $("#formulario input[type=submit]").val("Procesando...");
+                $("#formulario input[type=reset]").attr("disabled", "disabled");
+                $("#formulario input[type=submit]").attr("disabled", "disabled");
+                $("#formulario input[type=text]").attr("readonly", "readonly");
+                $("#formulario textarea").attr("readonly", "readonly");
+            },
+            success: function(valores) {
+                setDone();
+
+                var type = "success";
+                if (pro == "Registro") {
+                     var message = "Registro completado con exito";
+                     $("#formulario")[0].reset();
+                    @yield('registro')
+                }else{
+                    var message = "Edición completado con exito";
+                    @yield('edicion')
+                }
+
+                $("body").overhang({
+                    type: type,
+                    message: message,
+                    callback: function() {
+                        reiniciar(pro);
+                        cargar();
+                        console.log("%cProceso realizado con éxito",'color:green;');
+                        return false;
+                    }
+                });
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+                reiniciar(pro);
+                cargar();
+                @yield('error')
+            }
+        });
+    }
     return false;
 }
 
@@ -159,10 +168,8 @@ function desactivar(id) {
                         error(xhr, textStatus, errorMessage);
                     }
                 });
-                return false;
-            } else {
-                return false;
             }
+            return false;
         }
     });
 }
@@ -201,6 +208,15 @@ function mostrar(id, pro) {
         }
     });
     return false;
+}
+
+function validacion(pro){
+    let i = 0;
+    let boo = true;
+
+    @yield('validacion')
+
+    return boo;
 }
 
 @yield('funciones')
