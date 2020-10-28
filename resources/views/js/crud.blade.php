@@ -222,7 +222,6 @@ function validacion(pro){
     if(pro == 'Registro'){
         message = 'Error en el registro.';
     }else{
-        console.log(`pro3 = ${pro}`);
         message = 'Error en la edición.';
     }
 

@@ -7,7 +7,7 @@
 
 @section('busqueda')
 
-    <label for="bs_cargos">Cargo: &nbsp;&nbsp;&nbsp;</label>
+    <label for="bs_cargos"><b>Cargo:</b> &nbsp;&nbsp;&nbsp;</label>
     <input name="bs_cargos" id="bs_cargos" onkeyup="mayuscula(this)" onkeypress="return letra(event)" maxlength="255" class="form-control mr-sm-2" type="text" placeholder="Buscar por cargo" arialabel="Search" />
 
 @endsection
@@ -46,7 +46,7 @@
 
 
     <div class="form-group">
-      <label for="cargos">Cargo</label>
+      <label for="cargos"><b>Cargo:</b></label>
       <input type="text" onkeyup="mayuscula(this)" onkeypress="return letra(event)" maxlength="255" required class="form-control" id="cargos" name="cargos" />
       <input type="hidden" id="cargos2" name="cargos2" />
       <small id="cargos_e" style="color: red"></small>

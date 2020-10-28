@@ -57,14 +57,16 @@
         message = 'No ha hecho ningun cambio.';
     }
 
-    if(pro == 'Registro'){
-        $("#cargos").val('');
-    }else{
-        $("#cargos"
-        ).val(cargos2);
-    }
+
 
     if(i > 0){
+
+        if(pro == 'Registro'){
+            $("#cargos").val('');
+        }else{
+            $("#cargos"
+            ).val(cargos2);
+        }
         boo = false;
         $("body").overhang({
             type: "error",
