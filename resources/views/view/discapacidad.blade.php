@@ -78,6 +78,7 @@
             <small id="discapacidades_e" style="color: red"></small>
         </div>
     </div>
+    
     <div class="form-group">
         <label for="descripcion"><b>Descripción:</b></label>
         <textarea type="text" class="form-control" required id="descripcion" name="descripcion"></textarea>
