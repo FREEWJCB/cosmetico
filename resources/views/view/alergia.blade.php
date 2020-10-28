@@ -7,7 +7,7 @@
 
 @section('busqueda')
 
-    <label for="bs_tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
+    <label for="bs_tipo"><b>Tipo:</b> &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" id="bs_tipo" name="bs_tipo">
       <option class="form-control mr-sm-2" value="" selected>Seleccione el tipo</option>
       @if ($num_tipo>0)
@@ -58,7 +58,7 @@
 
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="tipo"><b></b>Tipo</label>
+            <label for="tipo"><b></b>Tipo:</label>
             <select class="form-control" required id="tipo" name="tipo">
                 <option value="null" disabled selected>Seleccione el tipo</option>
                 @if ($num_tipo>0)
@@ -72,7 +72,7 @@
         </div>
 
         <div class="form-group col-md-6">
-            <label for="alergias"><b>Alergia</b></label>
+            <label for="alergias"><b>Alergia:</b></label>
             <input type="text" class="form-control" onkeyup="mayuscula(this)" maxlength="255" onkeypress="return letra(event)" required id="alergias" name="alergias" />
             <input type="hidden" id="alergias2" name="alergias2" />
             <small id="alergias_e" style="color: red"></small>
@@ -80,7 +80,7 @@
     </div>
 
     <div class="form-group">
-        <label for="descripcion"><b>Descripción</b></label>
+        <label for="descripcion"><b>Descripción:</b></label>
         <textarea type="text" class="form-control" required id="descripcion" name="descripcion"></textarea>
         <input type="hidden" id="descripcion2" name="descripcion2" />
         <small id="descripcion_e" style="color: red"></small>

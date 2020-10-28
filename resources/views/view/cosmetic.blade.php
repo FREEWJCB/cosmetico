@@ -6,7 +6,7 @@
 
 @section('busqueda')
 
-    <label for="bs_tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
+    <label for="bs_tipo"><b>Tipo:</b> &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" id="bs_tipo" name="bs_tipo">
       <option value="" selected>Seleccione un tipo</option>
       @if ($num_tipo>0)
@@ -16,7 +16,7 @@
       @endif
     </select>
 
-    <label for="bs_marca">Marca: &nbsp;&nbsp;&nbsp;</label>
+    <label for="bs_marca"><b>Marca:</b> &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" id="bs_marca" name="bs_marca">
       <option value="" selected>Seleccione una marca</option>
       @if ($num_marca>0)
@@ -26,13 +26,13 @@
       @endif
     </select>
 
-    <label for="bs_modelo">Modelo: &nbsp;&nbsp;&nbsp;</label>
-    <select class="form-control mr-sm-2" id="bs_modelo" name="bs_modelo">
+    <label for="bs_modelo"><b>Modelo:</b> &nbsp;&nbsp;&nbsp;</label>
+    <select class="form-control mr-sm-2"  id="bs_modelo" name="bs_modelo">
       <option value="" selected>Seleccione un modelo</option>
     </select>
 
-    <label for="bs_cosmetico">Cosmetico: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_cosmetico" id="bs_cosmetico" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por cosmetico" arialabel="Search" />
+    <label for="bs_cosmetico"><b>Cosmetico:</b> &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_cosmetico" id="bs_cosmetico" onkeypress="return letra(event)" onkeyup="mayuscula(this)" maxlength="255" class="form-control mr-sm-2" type="text" placeholder="Buscar por cosmetico" arialabel="Search" />
 
 @endsection
 
@@ -53,9 +53,9 @@
 @section('tbody')
 
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0 @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++ @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->tip }}</center></td>
@@ -76,7 +76,7 @@
 
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="marca">Marca</label>
+        <label for="marca"><b>Marca:</b></label>
         <select class="form-control" required id="marca" name="marca">
           <option value="null" disabled selected>Seleccione la marca</option>
           @if ($num_marca>0)
@@ -85,21 +85,23 @@
             @endforeach
           @endif
         </select>
+        <small id="marca_e" style="color: red"></small>
       </div>
 
       <div class="form-group col-md-6">
-        <label for="modelo">Modelo</label>
+        <label for="modelo"><b>Modelo:</b></label>
         <select class="form-control" required id="modelo" name="modelo">
           <option value="null" disabled selected>Seleccione un modelo</option>
         </select>
         <input type="hidden" id="modelo2" name="modelo2" />
+        <small id="modelo_e" style="color: red"></small>
       </div>
 
     </div>
 
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="tipo">Tipo</label>
+        <label for="tipo"><b>Tipo:</b></label>
         <select class="form-control" required id="tipo" name="tipo">
           <option value="null" disabled selected>Seleccione la tipo</option>
           @if ($num_tipo>0)
@@ -109,20 +111,23 @@
           @endif
         </select>
         <input type="hidden" id="tipo2" name="tipo2" />
+        <small id="tipo_e" style="color: red"></small>
       </div>
 
       <div class="form-group col-md-6">
-        <label for="cosmetico">Cosmetico</label>
-        <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="cosmetico" name="cosmetico" />
+        <label for="cosmetico"><b>Cosmetico:</b></label>
+        <input type="text" class="form-control" onkeyup="mayuscula(this)" onkeypress="return letra(event)" maxlength="255" required id="cosmetico" name="cosmetico" />
         <input type="hidden" id="cosmetico2" name="cosmetico2" />
+        <small id="cosmetico_e" style="color: red"></small>
       </div>
 
     </div>
 
     <div class="form-group">
-      <label for="descripcion">Descripción</label>
+      <label for="descripcion"><b>Descripción:</b></label>
       <textarea type="text" class="form-control" required id="descripcion" name="descripcion"></textarea>
       <input type="hidden" id="descripcion2" name="descripcion2" />
+      <small id="descripcion_e" style="color: red"></small>
     </div>
 
 @endsection
