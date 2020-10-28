@@ -8,7 +8,7 @@
 @section('busqueda')
 
     <label for="bs_marca"><b>Marca:</b> &nbsp;&nbsp;&nbsp;</label>
-    <select class="form-control mr-sm-2" required id="bs_marca" name="bs_marca">
+    <select class="form-control mr-sm-2" id="bs_marca" name="bs_marca">
       <option class="form-control mr-sm-2" value="" selected>Seleccione la marca</option>
       @if ($num_marca>0)
         @foreach ($marcas as $marcas2)
