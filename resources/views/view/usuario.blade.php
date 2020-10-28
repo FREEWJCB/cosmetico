@@ -8,13 +8,13 @@
 @section('busqueda')
 
     <label for="bs_cedula">Cédula: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_cedula" id="bs_cedula" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por cédula" arialabel="Search"/>
+    <input name="bs_cedula" id="bs_cedula" onkeyup="mayuscula(this)" maxlength="8" class="form-control mr-sm-2" type="number" placeholder="Buscar por cédula" arialabel="Search"/>
 
     <label for="bs_nombre">Nombre: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_nombre" id="bs_nombre" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por nombre" arialabel="Search"/>
+    <input name="bs_nombre" id="bs_nombre" onkeyup="mayuscula(this)" onkeypress="return letra(event)" maxlength="255" class="form-control mr-sm-2" type="text" placeholder="Buscar por nombre" arialabel="Search"/>
 
     <label for="bs_apellido">Apellido: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_apellido" id="bs_apellido" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por apellido" arialabel="Search"/>
+    <input name="bs_apellido" id="bs_apellido" onkeyup="mayuscula(this)" onkeypress="return letra(event)" maxlength="255" class="form-control mr-sm-2" type="text" placeholder="Buscar por apellido" arialabel="Search"/>
 
     <label for="bs_email">Email: &nbsp;&nbsp;&nbsp;</label>
     <input name="bs_email" id="bs_email" class="form-control mr-sm-2" type="email" placeholder="Buscar por email" arialabel="Search"/>
@@ -52,9 +52,9 @@
 @section('tbody')
 
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0 @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++ @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->cedula }}</center></td>
@@ -77,7 +77,7 @@
         <label for="cedula">Empleado</label>
         <div class="input-group mb-3">
 
-            <input type="text" class="form-control" placeholder="Buscar por cédula" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula" name="cedula" />
+            <input type="text" class="form-control" placeholder="Buscar por cédula" maxlength="8" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula" name="cedula" />
 
             <div data-turbolinks="false" class="input-group-append">
 
@@ -118,6 +118,7 @@
         <div id="usu" class="form-group col-md-6">
             <label for="username">Usuario</label>
             <input type="text" class="form-control" required id="username" name="username" />
+            <small id="username_e" style="color: red"></small>
         </div>
         <div class="form-group col-md-6">
             <label for="tipo">Tipo Usuario</label>
@@ -130,30 +131,35 @@
                 @endif
             </select>
             <input type="hidden" id="tipo2" name="tipo2" />
+            <small id="tipo_e" style="color: red"></small>
         </div>
     </div>
 
     <div id="pregu" class="form-row">
       <div class="form-group col-md-6">
         <label for="pregunta">Pregunta de seguridad</label>
-        <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="pregunta" name="pregunta" />
+        <input type="text" class="form-control" onkeyup="mayuscula(this)" maxlength="255" required id="pregunta" name="pregunta" />
+        <small id="pregunta_e" style="color: red"></small>
       </div>
 
       <div id="resp" class="form-group col-md-6">
         <label for="respuesta">Respuesta de seguridad</label>
-        <input type="password" class="form-control" required id="respuesta" name="respuesta" />
+        <input type="password" class="form-control" required id="respuesta" maxlength="30" name="respuesta" />
+        <small id="respuesta_e" style="color: red"></small>
       </div>
     </div>
 
     <div id="passw" class="form-row">
         <div class="form-group col-md-6">
             <label for="password">Password</label>
-            <input type="password" class="form-control" required id="password" name="password" />
+            <input type="password" class="form-control" required id="password" maxlength="30" name="password" />
+            <small id="password_e" style="color: red"></small>
         </div>
 
         <div class="form-group col-md-6">
-            <label for="respuesta">Confirmar Password</label>
-            <input type="password" class="form-control" required id="password2" name="password2" />
+            <label for="password2">Confirmar Password</label>
+            <input type="password" class="form-control" required id="password2" maxlength="30" name="password2" />
+            <small id="password2_e" style="color: red"></small>
         </div>
     </div>
 
