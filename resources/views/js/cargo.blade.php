@@ -1,3 +1,4 @@
+{{-- <script> --}}
 @section('document')
 
     $("#bs_cargos").on("keyup", function() {
@@ -6,15 +7,15 @@
 
 @endsection
 
-@section('url_registro') var url = "{{ route('Cargo.store') }}"; @endsection
+@section('url_registro') let url = "{{ route('Cargo.store') }}"; @endsection
 
-@section('url_edicion') var url = "{{ route('Cargo.update') }}"; @endsection
+@section('url_edicion') let url = `{{url('Cargo')}}/${id}`; @endsection
 
 @section('registro') $('#cargos').val(''); @endsection
 
 @section('edicion') $('#cargos2').val($('#cargos').val()); @endsection
 
-@section('delete') url: "{{url('Cargo')}}"+"/"+id, @endsection
+@section('delete') url: `{{url('Cargo')}}/${id}`, @endsection
 
 @section('cargar') url: "{{route('Cargo.cargar')}}", @endsection
 
@@ -59,7 +60,7 @@
         $("#cargos").val(cargos2);
         message = 'No ha hecho ningun cambio.';
     }
-
+    console.log(i);
     if(i > 0){
         boo = false;
         $("body").overhang({
@@ -67,4 +68,13 @@
             message: message
         });
     }
+@endsection
+
+@section('reiniciar')
+    $("#cargos_e").html('');
+    $("#cargos").attr('class', 'form-control');
+@endsection
+
+@section('error')
+    console.log(xhr.responseJSON);
 @endsection

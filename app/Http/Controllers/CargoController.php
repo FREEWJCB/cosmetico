@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Store\storeCargo;
+use App\Http\Requests\Update\updateCargo;
+use App\Models\Cargo;
 
 class CargoController extends Controller
 {
@@ -27,10 +30,11 @@ class CargoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeCargo $request)
     {
         //
-        DB::table('cargo')->insert(['cargos' => $request->cargos]);
+        Cargo::create($request->all());
+        // DB::table('cargo')->insert(['cargos' => $request->cargos]);
     }
 
     /**
@@ -40,10 +44,11 @@ class CargoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(updateCargo $request, Cargo $cargo)
     {
         //
-        DB::table('cargo')->where('id', $request->id)->update(['cargos' => $request->cargos]);
+        $cargo->update($request->all());
+        // DB::table('cargo')->where('id', $request->id)->update(['cargos' => $request->cargos]);
     }
 
     /**

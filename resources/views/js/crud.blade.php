@@ -74,16 +74,17 @@ $(document).ready(function() {
 
 function agregaRegistro() {
     let pro = $("#pro").val();
-    let val = validacion(pro);
-    if(val == true){
+    let boo = validacion(pro);
+    if(boo == true){
         if (pro == "Registro") {
+            let tipo = "POST";
+            let message = "Registro completado con exito";
             @yield('url_registro')
-            var tipo = "POST";
-            var message = "Registro completado con exito";
         }else{
+            let tipo = "PUT";
+            let message = "Edición completado con exito";
+            let id = $('#id').val();
             @yield('url_edicion')
-            var tipo = "PUT";
-            var message = "Edición completado con exito";
         }
 
         $.ajax({

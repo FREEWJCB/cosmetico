@@ -132,8 +132,8 @@ Route::POST('/Discapacidades', [DiscapacidadController::class,'cargar'])->name('
 Route::POST('/Discapacidad/rellenar', [DiscapacidadController::class,'mostrar'])->name('Discapacidad.mostrar');
 Route::GET('/Discapacidad/{js?}', [DiscapacidadController::class,'index']);
 
-Route::resource('Cargo', CargoController::class)->except('show','edit','create','update');
-Route::PUT('/Cargo', [CargoController::class,'update'])->name('Cargo.update');
+Route::resource('Cargo', CargoController::class)->except('show','edit','create');
+// Route::PUT('/Cargo', [CargoController::class,'update'])->name('Cargo.update');
 Route::POST('/Cargos', [CargoController::class,'cargar'])->name('Cargo.cargar');
 Route::POST('/Cargo/rellenar', [CargoController::class,'mostrar'])->name('Cargo.mostrar');
 Route::GET('/Cargo/{js?}', [CargoController::class,'index']);
