@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Update;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class updateCargo extends FormRequest
 {
     /**
@@ -13,7 +13,7 @@ class updateCargo extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class updateCargo extends FormRequest
     public function rules()
     {
         return [
-            'cargos' => 'required|max:255|min:3|unique:cargo,cargos,'.$this->cargo
+            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->ignore($this->Cargo)]
+        ];
+
+    }
+
+    public function attributes()
+    {
+        return [
+            'cargos' => 'cargo'
         ];
     }
 }

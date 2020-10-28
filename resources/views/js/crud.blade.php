@@ -75,15 +75,19 @@ $(document).ready(function() {
 function agregaRegistro() {
     let pro = $("#pro").val();
     let boo = validacion(pro);
+    let url = '';
+    let tipo = '';
+    let message = '';
+    let id = '';
     if(boo == true){
         if (pro == "Registro") {
-            let tipo = "POST";
-            let message = "Registro completado con exito";
+            tipo = "POST";
+            message = "Registro completado con exito";
             @yield('url_registro')
         }else{
-            let tipo = "PUT";
-            let message = "Edición completado con exito";
-            let id = $('#id').val();
+            tipo = "PUT";
+            message = "Edición completado con exito";
+            id = $('#id').val();
             @yield('url_edicion')
         }
 
@@ -214,10 +218,12 @@ function mostrar(id, pro) {
 function validacion(pro){
     let i = 0;
     let boo = true;
+    let message = '';
     if(pro == 'Registro'){
-        let message = 'Error en el registro.';
+        message = 'Error en el registro.';
     }else{
-        let message = 'Error en la edición.';
+        console.log(`pro3 = ${pro}`);
+        message = 'Error en la edición.';
     }
 
     @yield('validacion')

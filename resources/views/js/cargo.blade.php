@@ -7,9 +7,9 @@
 
 @endsection
 
-@section('url_registro') let url = "{{ route('Cargo.store') }}"; @endsection
+@section('url_registro') url = "{{ route('Cargo.store') }}"; @endsection
 
-@section('url_edicion') let url = `{{url('Cargo')}}/${id}`; @endsection
+@section('url_edicion') url = `{{url('Cargo')}}/${id}`; @endsection
 
 @section('registro') $('#cargos').val(''); @endsection
 
@@ -39,28 +39,31 @@
 
     if(cargos == ""){
         i++;
-        $("#cargos").val('');
         $("#cargos").attr('class', 'form-control border border-danger');
         $("#cargos_e").html('El campo cargo es obligatorio.');
 
     }else if(cargos.length > 255){
         i++;
-        $("#cargos").val('');
         $("#cargos").attr('class', 'form-control border border-danger');
         $("#cargos_e").html('El campo cargo no debe contener más de 255 caracteres.');
 
     }else if(cargos.length < 3){
         i++;
-        $("#cargos").val('');
         $("#cargos").attr('class', 'form-control border border-danger');
         $("#cargos_e").html('El campo cargo debe contener al menos 03 caracteres.');
 
     }else if(cargos == cargos2 && pro == 'Edicion'){
         i++;
-        $("#cargos").val(cargos2);
         message = 'No ha hecho ningun cambio.';
     }
-    console.log(i);
+
+    if(pro == 'Registro'){
+        $("#cargos").val('');
+    }else{
+        $("#cargos"
+        ).val(cargos2);
+    }
+
     if(i > 0){
         boo = false;
         $("body").overhang({
@@ -76,5 +79,11 @@
 @endsection
 
 @section('error')
-    console.log(xhr.responseJSON);
+    $("#cargos_e").html(xhr.responseJSON.errors.cargos);
+    $("#cargos").attr('class', 'form-control border border-danger');
+    if (pro == "Registro") {
+        $("#cargos").val('');
+    }else{
+        $("#cargos").val($("#cargos2").val());
+    }
 @endsection
