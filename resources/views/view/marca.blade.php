@@ -7,8 +7,8 @@
 
 @section('busqueda')
 
-    <label for="bs_marca">Marca: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_marca" id="bs_marca" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por marca" arialabel="Search" />
+    <label for="bs_marca"><b>Marca:</b> &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_marca" id="bs_marca" onkeyup="mayuscula(this)" maxlength="255" class="form-control mr-sm-2" type="text" placeholder="Buscar por marca" arialabel="Search" />
 
 @endsection
 
@@ -26,9 +26,9 @@
 @section('tbody')
 
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0 @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++ @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->marca }}</center></td>
@@ -45,9 +45,10 @@
 
 
     <div class="form-group">
-      <label for="marca">Marca</label>
-      <input type="text" required onkeyup="mayuscula(this)" class="form-control" id="marca" name="marca" />
+      <label for="marca"><b>Marca:</b></label>
+      <input type="text" required onkeyup="mayuscula(this)" maxlength="255" class="form-control" id="marca" name="marca" />
       <input type="hidden" id="marca2" name="marca2" />
+      <small id="marca_e" style="color: red"></small>
     </div>
 
 
