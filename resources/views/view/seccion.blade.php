@@ -7,8 +7,8 @@
 
 @section('busqueda')
 
-    <label for="bs_secciones">Sección: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_secciones" id="bs_secciones" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por seccion" arialabel="Search" />
+    <label for="bs_secciones"><b>Sección:</b> &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_secciones" id="bs_secciones" onkeyup="mayuscula(this)" maxlength="10" class="form-control mr-sm-2" type="text" placeholder="Buscar por seccion" arialabel="Search" />
 
 @endsection
 
@@ -27,9 +27,9 @@
 @section('tbody')
 
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0 @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++ @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->secciones }}</center></td>
@@ -46,9 +46,10 @@
 
 
     <div class="form-group">
-      <label for="secciones">Sección</label>
-      <input type="text" onkeyup="mayuscula(this)" required class="form-control" id="secciones" name="secciones" />
+      <label for="secciones"><b>Sección:</b></label>
+      <input type="text" onkeyup="mayuscula(this)" maxlength="10" required class="form-control" id="secciones" name="secciones" />
       <input type="hidden" id="secciones2" name="secciones2" />
+      <small id="secciones_e" style="color: red"></small>
     </div>
 
 
