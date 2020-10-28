@@ -7,8 +7,8 @@
 
 @section('busqueda')
 
-    <label for="bs_grados">Grado: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_grados" id="bs_grados" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por grado" arialabel="Search" />
+    <label for="bs_grados"><b>Grado:</b> &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_grados" id="bs_grados" onkeyup="mayuscula(this)" maxlength="10" class="form-control mr-sm-2" type="text" placeholder="Buscar por grado" arialabel="Search" />
 
 @endsection
 
@@ -27,9 +27,9 @@
 @section('tbody')
 
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0 @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++ @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->grados }}</center></td>
@@ -46,9 +46,10 @@
 
 
     <div class="form-group">
-      <label for="grados">Grado</label>
-      <input type="text" onkeyup="mayuscula(this)" required class="form-control" id="grados" name="grados" />
+      <label for="grados"><b>Grado:</b></label>
+      <input type="text" onkeyup="mayuscula(this)" maxlength="10" required class="form-control" id="grados" name="grados" />
       <input type="hidden" id="grados2" name="grados2" />
+      <small id="grados_e" style="color: red"></small>
     </div>
 
 
