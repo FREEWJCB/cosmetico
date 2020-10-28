@@ -18,11 +18,11 @@
         }
 
         body {
-            margin: 2.25cm 2cm 2cm;
+            margin: 2cm 2cm 2cm;
             min-width: 100vh;
             min-height: 100vh;
             font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 400;
             line-height: 1.5;
             position: relative;
@@ -83,9 +83,9 @@
         }
     </style>
     <body>
-        <header><p> Reporte - @yield('title')</p></header>
         <div class="table">
-            <table class="table table-striped">
+            <h1>@yield('encabezado')</h1>
+            <table class="table">
                 <thead class="thead-dark">
                     @yield('encabezados')
                 </thead>

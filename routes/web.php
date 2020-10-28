@@ -33,6 +33,9 @@ use App\Http\Controllers\EstudianteController;
 //reportes
 
 use App\Http\Controllers\imprimirTiposAlergiasController;
+use App\Http\Controllers\imprimirTiposUsuariosController;
+use App\Http\Controllers\imprimirOcupacionLaboralController;
+use App\Http\Controllers\imprimirTiposDiscapacidadController;
 
 // c-sabe
 
@@ -216,6 +219,9 @@ Route::GET('/Estudiante/{js?}', [EstudianteController::class,'index']);
 // Reportes
 
 Route::get('/imprimirTipoAlergia', [imprimirTiposAlergiasController::class, 'imprimirTodos'])->name('imprimirTipoAlergia');
+Route::get('/imprimirTipoUsuario', [imprimirTiposUsuariosController::class, 'imprimirTodos'])->name('imprimirTipoUsuario');
+Route::get('/imprimirOcupacionLaboral', [imprimirOcupacionLaboralController::class, 'imprimirTodos'])->name('imprimirOcupacionLaboral');
+Route::get('/imprimirTipoDiscapacidad', [imprimirTiposDiscapacidadController::class, 'imprimirTodos'])->name('imprimirTipoDiscapacidad');
 
 //c-sabe
 

@@ -1,8 +1,8 @@
 @extends('reports.reporte')
 
-@section('title', 'Tipos de Alergias')
+@section('title', 'Tipos de Usuarios')
 
-@section('encabezado', 'Reporte de los Tipos de Alergias')
+@section('encabezado', 'Reporte de los Tipos de Usuarios')
 
 @section('encabezados')
     <tr>
