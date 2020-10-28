@@ -8,7 +8,7 @@
 @section('busqueda')
 
     <label for="bs_states">Estado: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_states" id="bs_states" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por estado" arialabel="Search" />
+    <input name="bs_states" id="bs_states" onkeyup="mayuscula(this)"  onkeypress="return letra(event)" maxlength="255"b class="form-control mr-sm-2" type="text" placeholder="Buscar por estado" arialabel="Search" />
 
 @endsection
 
@@ -27,9 +27,9 @@
 @section('tbody')
 
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0 @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++ @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->states }}</center></td>
@@ -46,9 +46,11 @@
 
 
     <div class="form-group">
-      <label for="states">Estado</label>
-      <input type="text" onkeyup="mayuscula(this)" required class="form-control" id="states" name="states" />
+      <label for="states"><b>Estado:</b></label>
+      <input type="text" onkeyup="mayuscula(this)" required onkeypress="return letra(event)" maxlength="255" class="form-control" id="states" name="states" />
       <input type="hidden" id="states2" name="states2" />
+      <small id="states_e" style="color: red"></small>
+
     </div>
 
 
