@@ -7,8 +7,8 @@
 
 @section('busqueda')
 
-    <label for="bs_curso">Curso: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_curso" id="bs_curso" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por curso" arialabel="Search" />
+    <label for="bs_curso"><b>Curso:</b> &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_curso" id="bs_curso" onkeyup="mayuscula(this)" maxlength="255" class="form-control mr-sm-2" type="text" placeholder="Buscar por curso" arialabel="Search" />
 
 @endsection
 
@@ -57,8 +57,9 @@
     <div id="curso_ventana">
         <div class="form-group">
           <label for="curso">Curso</label>
-          <input type="text" required onkeyup="mayuscula(this)" class="form-control" id="curso" name="curso" />
+          <input type="text" required onkeyup="mayuscula(this)" maxlength="255" class="form-control" id="curso" name="curso" />
           <input type="hidden" id="curso2" name="curso2" />
+          <small id="curso_e" style="color: red"></small>
         </div>
         <center><h2><b>Niveles</b></h2></center>
         <div class="form-row">

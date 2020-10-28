@@ -7,7 +7,7 @@
 
 @section('busqueda')
 
-    <label for="bs_tipo">Tipo: &nbsp;&nbsp;&nbsp;</label>
+    <label for="bs_tipo"><b>Tipo:</b> &nbsp;&nbsp;&nbsp;</label>
     <select class="form-control mr-sm-2" required id="bs_tipo" name="bs_tipo">
       <option class="form-control mr-sm-2" value="" selected>Seleccione el tipo</option>
       @if ($num_tipo>0)
@@ -18,8 +18,8 @@
 
     </select>
 
-    <label for="bs_discapacidades">Discapacidad: &nbsp;&nbsp;&nbsp;</label>
-    <input name="bs_discapacidades" id="bs_discapacidades" onkeyup="mayuscula(this)" class="form-control mr-sm-2" type="text" placeholder="Buscar por discapacidades" arialabel="Search" />
+    <label for="bs_discapacidades"><b>Discapacidad:</b> &nbsp;&nbsp;&nbsp;</label>
+    <input name="bs_discapacidades" id="bs_discapacidades" onkeyup="mayuscula(this)" onkeypress="return letra(event)" maxlength="255" class="form-control mr-sm-2" type="text" placeholder="Buscar por discapacidades" arialabel="Search" />
 
 @endsection
 
@@ -38,9 +38,9 @@
 @section('tbody')
 
     @if ($num > 0)
-        @php($i=0)
+        @php $i=0 @endphp
         @foreach ($cons as $cons2)
-            @php($i++)
+            @php $i++ @endphp
             <tr>
                 <th scope="row"><center>{{ $i }}</center></th>
                 <td><center>{{ $cons2->tip }}</center></td>
@@ -58,7 +58,7 @@
 
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="tipo">Tipo</label>
+            <label for="tipo"><b>Tipo:</b></label>
             <select class="form-control" required id="tipo" name="tipo">
                 <option value="null" disabled selected>Seleccione el tipo</option>
                 @if ($num_tipo>0)
@@ -68,18 +68,21 @@
                 @endif
             </select>
             <input type="hidden" id="tipo2" name="tipo2" />
+            <small id="tipo_e" style="color: red"></small>
         </div>
 
         <div class="form-group col-md-6">
-            <label for="discapacidades">Discapacidad</label>
-            <input type="text" class="form-control" onkeyup="mayuscula(this)" required id="discapacidades" name="discapacidades" />
+            <label for="discapacidades"><b>Discapacidad:</b></label>
+            <input type="text" class="form-control" onkeyup="mayuscula(this)" onkeypress="return letra(event)" maxlength="255" required id="discapacidades" name="discapacidades" />
             <input type="hidden" id="discapacidades2" name="discapacidades2" />
+            <small id="discapacidades_e" style="color: red"></small>
         </div>
     </div>
     <div class="form-group">
-        <label for="descripcion">Descripción</label>
+        <label for="descripcion"><b>Descripción:</b></label>
         <textarea type="text" class="form-control" required id="descripcion" name="descripcion"></textarea>
         <input type="hidden" id="descripcion2" name="descripcion2" />
+        <small id="descripcion_e" style="color: red"></small>
     </div>
 
 @endsection
