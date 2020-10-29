@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Store\storeDiscapacidad;
+use App\Http\Requests\Update\updateDiscapacidad;
+use App\Models\Discapacidad;
+use App\Models\Tipo_discapacidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class DiscapacidadController extends Controller
@@ -14,15 +18,14 @@ class DiscapacidadController extends Controller
     public function index($js="AJAX")
     {
         //
-        $cons = DB::table('discapacidad')
-                    ->select('discapacidad.*', 'tipo_discapacidad.tipo as tip')
+        $cons = Discapacidad::select('discapacidad.*', 'tipo_discapacidad.tipo as tip')
                     ->join('tipo_discapacidad', 'discapacidad.tipo', '=', 'tipo_discapacidad.id')
                     ->where('discapacidad.status', '1')
                     ->orderBy('discapacidades','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
 
-        $tipo_discapacidad = DB::table('tipo_discapacidad')->where('status', '1')->orderBy('tipo','asc');
+        $tipo_discapacidad = Tipo_discapacidad::where('status', '1')->orderBy('tipo','asc');
         $tipo_discapacidad2 = $tipo_discapacidad->get();
         $num_tipo = $tipo_discapacidad->count();
 
@@ -35,14 +38,10 @@ class DiscapacidadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeDiscapacidad $request)
     {
         //
-        DB::table('discapacidad')->insert([
-            'tipo' => $request->tipo,
-            'discapacidades' => $request->discapacidades,
-            'descripcion' => $request->descripcion
-            ]);
+        Discapacidad::create($request->all());
     }
 
     /**
@@ -52,14 +51,10 @@ class DiscapacidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(updateDiscapacidad $request, Discapacidad $Discapacidad)
     {
         //
-        DB::table('discapacidad')->where('id', $request->id)->update([
-            'tipo' => $request->tipo,
-            'discapacidades' => $request->discapacidades,
-            'descripcion' => $request->descripcion
-            ]);
+        $Discapacidad->update($request->all());
     }
 
     /**
@@ -68,10 +63,10 @@ class DiscapacidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Discapacidad $Discapacidad)
     {
         //
-        DB::table('discapacidad')->where('id', $id)->delete();
+        $Discapacidad->delete();
     }
 
     public function cargar(Request $request)
@@ -79,13 +74,14 @@ class DiscapacidadController extends Controller
         $cat="";
         $tipo=$request->bs_tipo;
         $discapacidades=$request->bs_discapacidades;
-        $cons = DB::table('discapacidad')
-                ->select('discapacidad.*', 'tipo_discapacidad.tipo as tip')
-                ->join('tipo_discapacidad', 'discapacidad.tipo', '=', 'tipo_discapacidad.id')
-                ->where('discapacidad.tipo', 'like', "%$tipo%")
-                ->where('discapacidades','like', "%$discapacidades%")
-                ->where('discapacidad.status', '1')
-                ->orderBy('discapacidades','asc');
+        $cons = Discapacidad::select('discapacidad.*', 'tipo_discapacidad.tipo as tip')
+                    ->join('tipo_discapacidad', 'discapacidad.tipo', '=', 'tipo_discapacidad.id')
+                    ->where([
+                        ['discapacidad.status', '1'],
+                        ['discapacidad.tipo', 'like', "%$tipo%"],
+                        ['discapacidades','like', "%$discapacidades%"]
+                        ])
+                    ->orderBy('discapacidades','asc');
         $cons1 = $cons->get();
         $num = $cons->count();
         if ($num>0) {
@@ -130,8 +126,7 @@ class DiscapacidadController extends Controller
     {
         //
         $id=$request->id;
-        $cons= DB::table('discapacidad')
-                 ->where('id', $id)->get();
+        $cons= Discapacidad::where('id', $id)->get();
 
         foreach ($cons as $cons2) {
             # code...
