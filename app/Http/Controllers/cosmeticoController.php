@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Store\storeCosmetico;
+use App\Models\Cosmetico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +17,7 @@ class cosmeticoController extends Controller
     public function index($js="AJAX")
     {
         //
-        $cons = DB::table('cosmeticos')->where('status', '1')->orderBy('cosmetico','asc');
+        $cons = Cosmetico::where('status', '1')->orderBy('cosmetico','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
         return view('view.cosmetico',['cons' => $cons2, 'num' => $num, 'js' => $js]);
@@ -27,16 +29,10 @@ class cosmeticoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeCosmetico $request)
     {
         //
-        DB::table('cosmeticos')->insert([
-            'marca' => $request->marca,
-            'tipo' => $request->tipo,
-            'modelo' => $request->modelo,
-            'descripcion' => $request->descripcion,
-            'cosmetico' => $request->cosmetico
-            ]);
+        Cosmetico::create($request->all());
     }
 
     /**
@@ -46,16 +42,10 @@ class cosmeticoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Cosmetico $Cosmetico)
     {
         //
-        DB::table('cosmeticos')->where('id', $request->id)->update([
-        'marca' => $request->marca,
-        'tipo' => $request->tipo,
-        'modelo' => $request->modelo,
-        'descripcion' => $request->descripcion,
-        'cosmetico' => $request->cosmetico
-        ]);
+        $Cosmetico->update($request->all());
     }
 
     /**
@@ -64,10 +54,10 @@ class cosmeticoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cosmetico $Cosmetico)
     {
         //
-        DB::table('cosmeticos')->where('id', $id)->delete();
+        Cosmetico::delete();
     }
 
     public function cargar(Request $request)
@@ -77,13 +67,13 @@ class cosmeticoController extends Controller
         $marca=$request->bs_marca;
         $modelo=$request->bs_modelo;
         $cosmetico=$request->bs_cosmetico;
-        $cons= DB::table('cosmeticos')
-                 ->where('tipo','like', "%$tipo%")
-                 ->where('marca','like', "%$marca%")
-                 ->where('modelo','like', "%$modelo%")
-                 ->where('cosmetico','like', "%$cosmetico%")
-                 ->where('status', '1')
-                 ->orderBy('cosmetico','asc');
+        $cons = Cosmetico::where([
+            ['status', '1'],
+            ['tipo','like', "%$tipo%"],
+            ['marca','like', "%$marca%"],
+            ['modelo','like', "%$modelo%"],
+            ['cosmetico','like', "%$cosmetico%"],
+            ])->orderBy('cosmetico','asc');
         $cons1 = $cons->get();
         $num = $cons->count();
         if ($num>0) {
@@ -132,8 +122,7 @@ class cosmeticoController extends Controller
     {
         //
         $id=$request->id;
-        $cons= DB::table('cosmeticos')
-                 ->where('id', $id)->get();
+        $cons= Cosmetico::where('id', $id)->get();
 
         foreach ($cons as $cons2) {
             # code...

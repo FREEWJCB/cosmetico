@@ -8,7 +8,6 @@ use App\Models\Cosmetic;
 use App\Models\Marca;
 use App\Models\Tipo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class cosmeticController extends Controller
 {
