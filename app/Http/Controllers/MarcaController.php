@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Store\storeMarca;
+use App\Http\Requests\Update\updateMarca;
+use App\Models\Marca;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +18,7 @@ class MarcaController extends Controller
     public function index($js="AJAX")
     {
         //
-        $cons = DB::table('marcas')->where('status', '1')->orderBy('marca','asc');
+        $cons = Marca::where('status', '1')->orderBy('marca','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
         return view('view.marca',['cons' => $cons2, 'num' => $num, 'js' => $js]);
@@ -28,10 +31,10 @@ class MarcaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeMarca $request)
     {
         //
-        DB::table('marcas')->insert(['marca' => $request->marca]);
+        Marca::create($request->all());
 
     }
 
@@ -43,10 +46,10 @@ class MarcaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(updateMarca $request, Marca $Marca)
     {
         //
-        DB::table('marcas')->where('id', $request->id)->update(['marca' => $request->marca]);
+        $Marca->update($request->all());
     }
 
     /**
@@ -55,20 +58,21 @@ class MarcaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Marca $Marca)
     {
         //
-        DB::table('marcas')->where('id', $id)->delete();
+        $Marca->delete();
     }
 
     public function cargar(Request $request)
     {
         $cat="";
         $marca=$request->bs_marca;
-        $cons= DB::table('marcas')
-                 ->where('marca','like', "%$marca%")
-                 ->where('status', '1')
-                 ->orderBy('marca','asc');
+        $cons= Marca::table('marcas')
+                 ->where([
+                     ['status', '1'],
+                     ['marca','like', "%$marca%"]
+                 ])->orderBy('marca','asc');
         $cons1 = $cons->get();
         $num = $cons->count();
         if ($num>0) {
@@ -110,17 +114,10 @@ class MarcaController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons= DB::table('marcas')
-                 ->where('id', $id)->get();
+        $marca= Marca::find($request->id);
 
-        foreach ($cons as $cons2) {
-            # code...
-            $marca=$cons2->marca;
-
-        }
         return response()->json([
-            'marca'=>$marca
+            'marca'=>$marca->marca
         ]);
 
 
