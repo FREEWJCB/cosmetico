@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Store\storeModelo;
+use App\Http\Requests\Update\updateModelo;
+use App\Models\Marca;
+use App\Models\Modelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,15 +19,14 @@ class ModeloController extends Controller
     public function index($js="AJAX")
     {
         //
-        $cons = DB::table('modelos')
-                    ->select('modelos.*', 'marcas.marca as marc')
+        $cons = Modelo::select('modelos.*', 'marcas.marca as marc')
                     ->join('marcas', 'modelos.marca', '=', 'marcas.id')
                     ->where('modelos.status', '1')
                     ->orderBy('modelo','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
 
-        $marcas = DB::table('marcas')->where('status', '1')->orderBy('marca','asc');
+        $marcas = Marca::where('status', '1')->orderBy('marca','asc');
         $marcas2 = $marcas->get();
         $num_marca = $marcas->count();
 
@@ -36,13 +39,10 @@ class ModeloController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeModelo $request)
     {
         //
-        DB::table('modelos')->insert([
-            'marca' => $request->marca,
-            'modelo' => $request->modelo
-            ]);
+        Modelo::create($request->all());
     }
 
     /**
@@ -52,13 +52,10 @@ class ModeloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(updateModelo $request, Modelo $Modelo)
     {
         //
-        DB::table('modelos')->where('id', $request->id)->update([
-            'marca' => $request->marca,
-            'modelo' => $request->modelo
-            ]);
+        $Modelo->update($request->all());
     }
 
     /**
@@ -78,13 +75,14 @@ class ModeloController extends Controller
         $cat="";
         $marca=$request->bs_marca;
         $modelo=$request->bs_modelo;
-        $cons = DB::table('modelos')
-                ->select('modelos.*', 'marcas.marca as marc')
-                ->join('marcas', 'modelos.marca', '=', 'marcas.id')
-                ->where('modelos.marca', 'like', "%$marca%")
-                ->where('modelo','like', "%$modelo%")
-                ->where('modelos.status', '1')
-                ->orderBy('modelo','asc');
+        $cons = Modelo::select('modelos.*', 'marcas.marca as marc')
+                    ->join('marcas', 'modelos.marca', '=', 'marcas.id')
+                    ->where([
+                        ['modelos.status', '1'],
+                        ['modelos.marca', 'like', "%$marca%"],
+                        ['modelo','like', "%$modelo%"]
+                    ])->orderBy('modelo','asc');
+
         $cons1 = $cons->get();
         $num = $cons->count();
         if ($num>0) {
@@ -128,21 +126,12 @@ class ModeloController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons= DB::table('modelos')
-                 ->where('id', $id)->get();
+        $modelo= Modelo::find($request->id);
 
-        foreach ($cons as $cons2) {
-            # code...
-            $marca=$cons2->marca;
-            $modelo=$cons2->modelo;
-
-        }
         return response()->json([
-            'marca'=>$marca,
-            'modelo'=>$modelo
+            'marca'=>$modelo->marca,
+            'modelo'=>$modelo->modelo
         ]);
-
 
     }
 }
