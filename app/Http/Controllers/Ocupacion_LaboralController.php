@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Store\storeOcupacion_Laboral;
+use App\Http\Requests\Update\updateOcupacion_Laboral;
+use App\Models\Ocupacion_laboral;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +18,7 @@ class Ocupacion_LaboralController extends Controller
     public function index($js="AJAX")
     {
         //
-        $cons = DB::table('ocupacion_laboral')->where('status', '1')->orderBy('labor','asc');
+        $cons = Ocupacion_laboral::where('status', '1')->orderBy('labor','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
         return view('view.ocupacion_laboral',['cons' => $cons2, 'num' => $num, 'js' => $js]);
@@ -27,10 +30,10 @@ class Ocupacion_LaboralController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeOcupacion_Laboral $request)
     {
         //
-        DB::table('ocupacion_laboral')->insert(['labor' => $request->labor]);
+        Ocupacion_laboral::create($request->all());
     }
 
     /**
@@ -40,10 +43,10 @@ class Ocupacion_LaboralController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(updateOcupacion_Laboral $request, Ocupacion_laboral $Ocupacion_Laboral)
     {
         //
-        DB::table('ocupacion_laboral')->where('id', $request->id)->update(['labor' => $request->labor]);
+        $Ocupacion_Laboral->update($request->all());
 
     }
 
@@ -53,20 +56,21 @@ class Ocupacion_LaboralController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Ocupacion_laboral $Ocupacion_Laboral)
     {
         //
-        DB::table('ocupacion_laboral')->where('id', $id)->delete();
+        $Ocupacion_Laboral->delete();
     }
 
     public function cargar(Request $request)
     {
         $cat="";
         $labor=$request->bs_labor;
-        $cons= DB::table('ocupacion_laboral')
-                 ->where('labor','like', "%$labor%")
-                 ->where('status', '1')
-                 ->orderBy('labor','asc');
+        $cons = Ocupacion_laboral::where([
+            ['status', '1'],
+            ['labor','like', "%$labor%"]
+        ])->orderBy('labor','asc');
+
         $cons1 = $cons->get();
         $num = $cons->count();
         if ($num>0) {
@@ -108,17 +112,10 @@ class Ocupacion_LaboralController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons= DB::table('ocupacion_laboral')
-                 ->where('id', $id)->get();
+        $ocupacion_laboral= Ocupacion_laboral::find($request->id);
 
-        foreach ($cons as $cons2) {
-            # code...
-            $labor=$cons2->labor;
-
-        }
         return response()->json([
-            'labor'=>$labor
+            'labor'=>$ocupacion_laboral->labor
         ]);
 
 

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Store\storeMunicipality;
+use App\Http\Requests\Update\updateMunicipality;
+use App\Models\Municipality;
+use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,15 +19,14 @@ class MunicipalityController extends Controller
     public function index($js="AJAX")
     {
         //
-        $cons = DB::table('municipality')
-                    ->select('municipality.*', 'state.states')
+        $cons = Municipality::select('municipality.*', 'state.states')
                     ->join('state', 'municipality.state', '=', 'state.id')
                     ->where('municipality.status', '1')
                     ->orderBy('municipalitys','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
 
-        $state = DB::table('state')->where('status', '1')->orderBy('states','asc');
+        $state = State::where('status', '1')->orderBy('states','asc');
         $state2 = $state->get();
         $num_state = $state->count();
 
@@ -36,13 +39,10 @@ class MunicipalityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeMunicipality $request)
     {
         //
-        DB::table('municipality')->insert([
-            'state' => $request->state,
-            'municipalitys' => $request->municipalitys
-            ]);
+        Municipality::create($request->all());
     }
 
     /**
@@ -52,13 +52,11 @@ class MunicipalityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(updateMunicipality $request, Municipality $Municipality)
     {
         //
-        DB::table('municipality')->where('id', $request->id)->update([
-            'state' => $request->state,
-            'municipalitys' => $request->municipalitys
-            ]);
+        Municipality::update($request->all());
+
     }
 
     /**
@@ -78,13 +76,14 @@ class MunicipalityController extends Controller
         $cat="";
         $state=$request->bs_state;
         $municipalitys=$request->bs_municipalitys;
-        $cons = DB::table('municipality')
-                ->select('municipality.*', 'state.states')
-                ->join('state', 'municipality.state', '=', 'state.id')
-                ->where('state', 'like', "%$state%")
-                ->where('municipalitys','like', "%$municipalitys%")
-                ->where('municipality.status', '1')
-                ->orderBy('municipalitys','asc');
+        $cons = Municipality::select('municipality.*', 'state.states')
+                    ->join('state', 'municipality.state', '=', 'state.id')
+                    ->where([
+                        ['municipalitys','like', "%$municipalitys%"],
+                        ['state', 'like', "%$state%"],
+                        ['municipality.status', '1']
+                    ])->orderBy('municipalitys','asc');
+
         $cons1 = $cons->get();
         $num = $cons->count();
         if ($num>0) {
@@ -128,18 +127,11 @@ class MunicipalityController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons = DB::table('municipality')->where('id', $id)->get();
+        $municipality = Municipality::find($request->id);
 
-        foreach ($cons as $cons2) {
-            # code...
-            $state=$cons2->state;
-            $municipalitys=$cons2->municipalitys;
-
-        }
         return response()->json([
-            'state'=> $state,
-            'municipalitys'=>$municipalitys
+            'state'=> $municipality->state,
+            'municipalitys'=>$municipality->municipalitys
         ]);
 
 
