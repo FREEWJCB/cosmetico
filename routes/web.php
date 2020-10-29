@@ -36,6 +36,7 @@ use App\Http\Controllers\imprimirTiposAlergiasController;
 use App\Http\Controllers\imprimirTiposUsuariosController;
 use App\Http\Controllers\imprimirOcupacionLaboralController;
 use App\Http\Controllers\imprimirTiposDiscapacidadController;
+use App\Http\Controllers\imprimirAlergiaController;
 
 // c-sabe
 
@@ -222,6 +223,7 @@ Route::get('/imprimirTipoAlergia', [imprimirTiposAlergiasController::class, 'imp
 Route::get('/imprimirTipoUsuario', [imprimirTiposUsuariosController::class, 'imprimirTodos'])->name('imprimirTipoUsuario');
 Route::get('/imprimirOcupacionLaboral', [imprimirOcupacionLaboralController::class, 'imprimirTodos'])->name('imprimirOcupacionLaboral');
 Route::get('/imprimirTipoDiscapacidad', [imprimirTiposDiscapacidadController::class, 'imprimirTodos'])->name('imprimirTipoDiscapacidad');
+Route::get('/imprimirAlergia', [imprimirAlergiaController::class, 'imprimirTodos'])->name('imprimirAlergia');
 
 //c-sabe
 
