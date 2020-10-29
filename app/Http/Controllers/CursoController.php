@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Store\storeCurso;
+use App\Http\Requests\Update\updateCurso;
+use App\Models\Curso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +18,7 @@ class CursoController extends Controller
     public function index($js="AJAX")
     {
         //
-        $cons = DB::table('cursos')->where('status', '1')->orderBy('curso','asc');
+        $cons = Curso::where('status', '1')->orderBy('curso','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
         return view('view.curso',['cons' => $cons2, 'num' => $num, 'js' => $js]);
@@ -28,10 +31,9 @@ class CursoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeCurso $request)
     {
         //
-        $curso=$request['curso'];
         $basico_f=$request['basico_f'];
         $intermedio_i=$basico_f+1;
         $intermedio_f=$request['intermedio_f'];
@@ -40,14 +42,8 @@ class CursoController extends Controller
         $profesional_i=$avanzado_f+1;
         $profesional_f=$request['profesional_f'];
 
-        DB::table('cursos')->insert(['curso' => $curso]);
-
-        $cons = DB::table('cursos')->where('curso',$curso)->get();
-
-        foreach($cons as $cons2){
-
-            $id=$cons2->id;
-        }
+        $curso = Curso::create($request->all());
+        $id = $curso->id;
 
         DB::table('nivel')->insert([
             ['niveles' => 'Basico', 'inicial' => 1, 'final' => $basico_f, 'cursos' => $id],
@@ -55,8 +51,6 @@ class CursoController extends Controller
             ['niveles' => 'Avanzado', 'inicial' => $avanzado_i, 'final' => $avanzado_f, 'cursos' => $id],
             ['niveles' => 'Profesional', 'inicial' => $profesional_i, 'final' => $profesional_f, 'cursos' => $id]
         ]);
-
-
 
         $cons = DB::table('preguntas')->orderBy('id','asc');
 
@@ -105,13 +99,10 @@ class CursoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(updateCurso $request, Curso $Curso)
     {
         //
-        $id=$request['id'];
-        $curso=$request['curso'];
-
-        DB::table('cursos')->where('id', $id)->update(['curso' => $curso]);
+        $Curso->update($request->all());
 
     }
 
@@ -121,9 +112,10 @@ class CursoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Curso $Curso)
     {
         //
+        $id = $Curso->id;
         $cons = DB::table('pregunta')->where('cursos', $id)->orderBy('id','asc');
         $cons1 = $cons->get();
         $num = $cons->count();
@@ -138,17 +130,18 @@ class CursoController extends Controller
             DB::table('pregunta')->where('cursos', $id)->delete();
         }
         DB::table('nivel')->where('cursos', $id)->delete();
-        DB::table('cursos')->where('id', $id)->delete();
+        $Curso->delete();
     }
 
     public function cargar(Request $request)
     {
         $cat="";
         $curso=$request->bs_curso;
-        $cons= DB::table('cursos')
-                 ->where('curso','like', "%$curso%")
-                 ->where('status', '1')
-                 ->orderBy('curso','asc');
+        $cons = Curso::where([
+            ['status', '1'],
+            ['curso','like', "%$curso%"]
+            ])->orderBy('curso','asc');
+        
         $cons1 = $cons->get();
         $num = $cons->count();
         if ($num>0) {
@@ -191,8 +184,7 @@ class CursoController extends Controller
     {
         //
         $id=$request->id;
-        $cons= DB::table('cursos')
-                 ->where('id', $id)->get();
+        $cons= Curso::where('id', $id)->get();
 
         foreach ($cons as $cons2) {
             # code...

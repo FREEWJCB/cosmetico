@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Store\storeCosmetico;
 use App\Models\Cosmetico;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class cosmeticoController extends Controller
 {
