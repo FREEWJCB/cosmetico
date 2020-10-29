@@ -167,39 +167,24 @@ class EmpleadoController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons= Empleado::join([
-            ['persona', 'empleado.persona', '=', 'persona.id'],
-            ['municipality', 'persona.municipality', '=', 'municipality.id']
-            ])->where('empleado.id', $id)->get();
+        $empleado = Empleado::find($request->id)
+                    ->join([
+                        ['persona', 'empleado.persona', '=', 'persona.id'],
+                        ['municipality', 'persona.municipality', '=', 'municipality.id']
+                    ]);
 
-        foreach ($cons as $cons2) {
-            # code...
-            $cedula=$cons2->cedula;
-            $nombre=$cons2->nombre;
-            $apellido=$cons2->apellido;
-            $sex=$cons2->sex;
-            $telefono=$cons2->telefono;
-            $direccion=$cons2->direccion;
-            $state=$cons2->state;
-            $municipality=$cons2->municipality;
-            $email=$cons2->email;
-            $cargo=$cons2->cargo;
-            $persona=$cons2->persona;
-
-        }
         return response()->json([
-            'cedula'=>$cedula,
-            'nombre'=>$nombre,
-            'apellido'=>$apellido,
-            'sex'=>$sex,
-            'telefono'=>$telefono,
-            'direccion'=>$direccion,
-            'state'=>$state,
-            'municipality'=>$municipality,
-            'email'=>$email,
-            'cargo'=>$cargo,
-            'persona'=>$persona
+            'cedula'=>$empleado->cedula,
+            'nombre'=>$empleado->nombre,
+            'apellido'=>$empleado->apellido,
+            'sex'=>$empleado->sex,
+            'telefono'=>$empleado->telefono,
+            'direccion'=>$empleado->direccion,
+            'state'=>$empleado->state,
+            'municipality'=>$empleado->municipality,
+            'email'=>$empleado->email,
+            'cargo'=>$empleado->cargo,
+            'persona'=>$empleado->persona
         ]);
 
 

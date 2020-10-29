@@ -183,16 +183,10 @@ class CursoController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons= Curso::where('id', $id)->get();
-
-        foreach ($cons as $cons2) {
-            # code...
-            $curso=$cons2->curso;
-
-        }
+        $curso = Curso::find($request->id);
+        
         return response()->json([
-            'curso'=>$curso
+            'curso'=>$curso->curso
         ]);
 
 

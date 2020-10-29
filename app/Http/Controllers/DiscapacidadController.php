@@ -124,20 +124,12 @@ class DiscapacidadController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons= Discapacidad::where('id', $id)->get();
-
-        foreach ($cons as $cons2) {
-            # code...
-            $tipo=$cons2->tipo;
-            $discapacidades=$cons2->discapacidades;
-            $descripcion=$cons2->descripcion;
-
-        }
+        $discapacidad = Discapacidad::find($request->id);
+        
         return response()->json([
-            'tipo'=>$tipo,
-            'discapacidades'=>$discapacidades,
-            'descripcion'=>$descripcion
+            'tipo'=>$discapacidad->tipo,
+            'discapacidades'=>$discapacidad->discapacidades,
+            'descripcion'=>$discapacidad->descripcion
         ]);
 
 

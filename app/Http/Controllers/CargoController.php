@@ -110,16 +110,10 @@ class CargoController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons= Cargo::where('id', $id)->get();
-
-        foreach ($cons as $cons2) {
-            # code...
-            $cargos=$cons2->cargos;
-
-        }
+        $cargo = Cargo::find($request->id);
+         
         return response()->json([
-            'cargos'=>$cargos
+            'cargos'=>$cargo->cargos
         ]);
 
 

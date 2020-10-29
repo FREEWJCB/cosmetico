@@ -127,20 +127,12 @@ class AlergiaController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons= Alergia::where('id', $id)->get();
+        $alergia = Alergia::find($request->id);
 
-        foreach ($cons as $cons2) {
-            # code...
-            $tipo=$cons2->tipo;
-            $alergias=$cons2->alergias;
-            $descripcion=$cons2->descripcion;
-
-        }
         return response()->json([
-            'tipo'=>$tipo,
-            'alergias'=>$alergias,
-            'descripcion'=>$descripcion
+            'tipo'=>$alergia->tipo,
+            'alergias'=>$alergia->alergias,
+            'descripcion'=>$alergia->descripcion
         ]);
 
 

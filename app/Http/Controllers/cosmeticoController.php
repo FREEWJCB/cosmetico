@@ -120,24 +120,14 @@ class cosmeticoController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons= Cosmetico::where('id', $id)->get();
-
-        foreach ($cons as $cons2) {
-            # code...
-            $tipo=$cons2->tipo;
-            $marca=$cons2->marca;
-            $modelo=$cons2->modelo;
-            $descripcion=$cons2->descripcion;
-            $cosmetico=$cons2->cosmetico;
-
-        }
+        $cosmetico = Cosmetico::find($request->id);
+        
         return response()->json([
-            'tipo'=>$tipo,
-            'marca'=>$marca,
-            'modelo'=>$modelo,
-            'descripcion'=>$descripcion,
-            'cosmetico'=>$cosmetico
+            'tipo'=>$cosmetico->tipo,
+            'marca'=>$cosmetico->marca,
+            'modelo'=>$cosmetico->modelo,
+            'descripcion'=>$cosmetico->descripcion,
+            'cosmetico'=>$cosmetico->cosmetico
         ]);
 
 
