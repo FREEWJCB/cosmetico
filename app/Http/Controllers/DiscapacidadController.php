@@ -7,7 +7,6 @@ use App\Http\Requests\Update\updateDiscapacidad;
 use App\Models\Discapacidad;
 use App\Models\Tipo_discapacidad;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 class DiscapacidadController extends Controller
 {
     /**
