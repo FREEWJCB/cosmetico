@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Store\storeCosmetic;
+use App\Http\Requests\Update\updateCosmetic;
+use App\Models\Cosmetic;
+use App\Models\Marca;
+use App\Models\Tipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,21 +20,22 @@ class cosmeticController extends Controller
     public function index($js="AJAX")
     {
         //
-        $cons = DB::table('cosmetics')
-                    ->select('cosmetics.*', 'modelos.modelo as model', 'marcas.marca as marc', 'tipos.tipo as tip')
-                    ->join('tipos', 'cosmetics.tipo', '=', 'tipos.id')
-                    ->join('modelos', 'cosmetics.modelo', '=', 'modelos.id')
-                    ->join('marcas', 'modelos.marca', '=', 'marcas.id')
+        $cons = Cosmetic::select('cosmetics.*', 'modelos.modelo as model', 'marcas.marca as marc', 'tipos.tipo as tip')
+                    ->join([
+                        ['tipos', 'cosmetics.tipo', '=', 'tipos.id'],
+                        ['modelos', 'cosmetics.modelo', '=', 'modelos.id'],
+                        ['marcas', 'modelos.marca', '=', 'marcas.id']
+                        ])
                     ->where('cosmetics.status', '1')
                     ->orderBy('cosmetico','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
 
-        $tipos = DB::table('tipos')->where('status', '1')->orderBy('tipo','asc');
+        $tipos = Tipo::where('status', '1')->orderBy('tipo','asc');
         $tipos2 = $tipos->get();
         $num_tipo = $tipos->count();
 
-        $marcas = DB::table('marcas')->where('status', '1')->orderBy('marca','asc');
+        $marcas = Marca::where('status', '1')->orderBy('marca','asc');
         $marcas2 = $marcas->get();
         $num_marca = $marcas->count();
 
@@ -42,15 +48,11 @@ class cosmeticController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeCosmetic $request)
     {
         //
-        DB::table('cosmetics')->insert([
-            'tipo' => $request->tipo,
-            'modelo' => $request->modelo,
-            'descripcion' => $request->descripcion,
-            'cosmetico' => $request->cosmetico
-            ]);
+        Cosmetic::create($request->all());
+
     }
 
     /**
@@ -60,15 +62,10 @@ class cosmeticController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(updateCosmetic $request, Cosmetic $Cosmetic)
     {
         //
-        DB::table('cosmetics')->where('id', $request->id)->update([
-            'tipo' => $request->tipo,
-            'modelo' => $request->modelo,
-            'descripcion' => $request->descripcion,
-            'cosmetico' => $request->cosmetico
-            ]);
+        $Cosmetic->update($request->all());
     }
 
     /**
@@ -77,10 +74,10 @@ class cosmeticController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cosmetic $Cosmetic)
     {
         //
-        DB::table('cosmetics')->where('id', $id)->delete();
+        $Cosmetic->delete();
     }
     public function cargar(Request $request)
     {
@@ -89,17 +86,21 @@ class cosmeticController extends Controller
         $marca=$request->bs_marca;
         $modelo=$request->bs_modelo;
         $cosmetico=$request->bs_cosmetico;
-        $cons = DB::table('cosmetics')
-                ->select('cosmetics.*', 'modelos.modelo as model', 'marcas.marca as marc', 'tipos.tipo as tip')
-                ->join('tipos', 'cosmetics.tipo', '=', 'tipos.id')
-                ->join('modelos', 'cosmetics.modelo', '=', 'modelos.id')
-                ->join('marcas', 'modelos.marca', '=', 'marcas.id')
-                ->where('cosmetics.tipo','like', "%$tipo%")
-                ->where('modelos.marca','like', "%$marca%")
-                ->where('cosmetics.modelo','like', "%$modelo%")
-                ->where('cosmetico','like', "%$cosmetico%")
-                ->where('cosmetics.status', '1')
-                ->orderBy('cosmetico','asc');
+
+        $cons = Cosmetic::select('cosmetics.*', 'modelos.modelo as model', 'marcas.marca as marc', 'tipos.tipo as tip')
+                    ->join([
+                        ['tipos', 'cosmetics.tipo', '=', 'tipos.id'],
+                        ['modelos', 'cosmetics.modelo', '=', 'modelos.id'],
+                        ['marcas', 'modelos.marca', '=', 'marcas.id']
+                        ])
+                    ->where([
+                        ['cosmetics.status', '1'],
+                        ['cosmetics.tipo','like', "%$tipo%"],
+                        ['modelos.marca','like', "%$marca%"],
+                        ['cosmetics.modelo','like', "%$modelo%"],
+                        ['cosmetico','like', "%$cosmetico%"]
+                        ])
+                    ->orderBy('cosmetico','asc');
 
         $cons1 = $cons->get();
         $num = $cons->count();
@@ -149,9 +150,7 @@ class cosmeticController extends Controller
     {
         //
         $id=$request->id;
-        $cons= DB::table('cosmetics')
-                 ->join('modelos', 'cosmetics.modelo', '=', 'modelos.id')
-                 ->where('cosmetics.id', $id)->get();
+        $cons= Cosmetic::where('cosmetics.id', $id)->join('modelos', 'cosmetics.modelo', '=', 'modelos.id')->get();
 
         foreach ($cons as $cons2) {
             # code...
