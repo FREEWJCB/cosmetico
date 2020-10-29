@@ -11,7 +11,7 @@ class Grado extends Model
 
     protected $table = 'grado';
 
-    protected $guarded = ['status'];
+    protected $guarded = ['id', 'status'];
 
     // protected $fillable = ['grados'];
 }

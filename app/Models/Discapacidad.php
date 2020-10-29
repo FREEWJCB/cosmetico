@@ -11,7 +11,7 @@ class Discapacidad extends Model
 
     protected $table = 'discapacidad';
 
-    protected $guarded = ['status'];
+    protected $guarded = ['id', 'status'];
 
     // protected $fillable = ['discapacidades', 'descripcion', 'tipo'];
 }

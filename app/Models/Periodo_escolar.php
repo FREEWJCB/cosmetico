@@ -11,7 +11,7 @@ class Periodo_escolar extends Model
 
     protected $table = 'periodo_escolar';
 
-    protected $guarded = ['status'];
+    protected $guarded = ['id', 'status'];
 
     // protected $fillable = ['ano', 'seccion', 'salon', 'grado', 'empleado'];
 }

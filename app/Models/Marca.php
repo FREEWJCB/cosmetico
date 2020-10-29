@@ -11,7 +11,7 @@ class Marca extends Model
 
     protected $table = 'marcas';
 
-    protected $guarded = ['status'];
+    protected $guarded = ['id', 'status'];
 
     // protected $fillable = ['marca'];
 }

@@ -11,7 +11,7 @@ class Cosmetico extends Model
 
     protected $table = 'cosmeticos';
 
-    protected $guarded = ['status'];
+    protected $guarded = ['id', 'status'];
 
     // protected $fillable = ['cosmetico', 'descripcion', 'tipo', 'marca', 'modelo'];
 }
