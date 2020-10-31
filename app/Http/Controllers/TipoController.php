@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Store\storeTipo;
+use App\Http\Requests\Update\updateTipo;
+use App\Models\Tipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class TipoController extends Controller
@@ -14,7 +17,7 @@ class TipoController extends Controller
     public function index($js="AJAX")
     {
         //
-        $cons = DB::table('tipos')->where('status', '1')->orderBy('tipo','asc');
+        $cons = Tipo::table('tipos')->where('status', '1')->orderBy('tipo','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
         return view('view.tipo',['cons' => $cons2, 'num' => $num, 'js' => $js]);
@@ -26,10 +29,10 @@ class TipoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeTipo $request)
     {
         //
-        DB::table('tipos')->insert(['tipo' => $request->tipo]);
+        Tipo::create($request->all());
 
     }
     /**
@@ -39,10 +42,10 @@ class TipoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(updateTipo $request, Tipo $Tipo)
     {
         //
-        DB::table('tipos')->where('id', $request->id)->update(['tipo' => $request->tipo]);
+        $Tipo->update($request->all());
     }
 
     /**
@@ -51,23 +54,21 @@ class TipoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tipo $Tipo)
     {
         //
 
-        DB::table('tipos')->where('id', $id)->delete();
-
-
+        $Tipo->delete();
     }
 
     public function cargar(Request $request)
     {
         $cat="";
         $tipo=$request->bs_tipo;
-        $cons= DB::table('tipos')
-                 ->where('tipo','like', "%$tipo%")
-                 ->where('status', '1')
-                 ->orderBy('tipo','asc');
+        $cons = Tipo::table('tipos')->where([
+            ['status', '1'],
+            ['tipo','like', "%$tipo%"]
+        ])->orderBy('tipo','asc');
         $cons1 = $cons->get();
         $num = $cons->count();
         if ($num>0) {
@@ -109,17 +110,10 @@ class TipoController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $id=$request->id;
-        $cons= DB::table('tipos')
-                 ->where('id', $id)->get();
+        $tipo= Tipo::find($request->id);
 
-        foreach ($cons as $cons2) {
-            # code...
-            $tipo=$cons2->tipo;
-
-        }
         return response()->json([
-            'tipo'=>$tipo
+            'tipo'=>$tipo->tipo
         ]);
 
 
