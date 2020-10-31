@@ -8,13 +8,13 @@
 
 @section('url_registro') var url = "{{ route('Tipo_Discapacidad.store') }}"; @endsection
 
-@section('url_edicion') var url = "{{ route('Tipo_Discapacidad.update') }}"; @endsection
+@section('url_edicion') var url = `{{url('Tipo_Discapacidad')}}/${id}`; @endsection
 
 @section('registro') $('#tipo').val(''); @endsection
 
 @section('edicion') $('#tipo2').val($('#tipo').val()); @endsection
 
-@section('delete') url: "{{url('Tipo_Discapacidad')}}"+"/"+id, @endsection
+@section('delete') url: `{{url('Tipo_Discapacidad')}}/${id}`, @endsection
 
 @section('cargar') url: "{{route('Tipo_Discapacidad.cargar')}}", @endsection
 
@@ -30,3 +30,61 @@
 @section('editar') $("#tipo").removeAttr("readonly"); @endsection
 
 @section('mostrar') $("#tipo").attr("readonly", "readonly"); @endsection
+
+@section('validacion')
+
+    let tipo = $("#tipo").val();
+    let tipo2 = $("#tipo2").val();
+
+    if(tipo == ""){
+        i++;
+        $("#tipo").attr('class', 'form-control border border-danger');
+        $("#tipo_e").html('El campo cargo es obligatorio.');
+
+    }else if(tipo.length > 255){
+        i++;
+        $("#tipo").attr('class', 'form-control border border-danger');
+        $("#tipo_e").html('El campo cargo no debe contener más de 255 caracteres.');
+
+    }else if(tipo.length < 3){
+        i++;
+        $("#tipo").attr('class', 'form-control border border-danger');
+        $("#tipo_e").html('El campo cargo debe contener al menos 03 caracteres.');
+
+    }else if(tipo == tipo2 && pro == 'Edicion'){
+        i++;
+        message = 'No ha hecho ningun cambio.';
+    }
+
+
+
+    if(i > 0){
+
+        if(pro == 'Registro'){
+            $("#tipo").val('');
+        }else{
+            $("#tipo"
+            ).val(tipo2);
+        }
+        boo = false;
+        $("body").overhang({
+            type: "error",
+            message: message
+        });
+    }
+@endsection
+
+@section('reiniciar')
+    $("#tipo_e").html('');
+    $("#tipo").attr('class', 'form-control');
+@endsection
+
+@section('error')
+    $("#tipo_e").html(xhr.responseJSON.errors.tipo);
+    $("#tipo").attr('class', 'form-control border border-danger');
+    if (pro == "Registro") {
+        $("#tipo").val('');
+    }else{
+        $("#tipo").val($("#tipo2").val());
+    }
+@endsection
