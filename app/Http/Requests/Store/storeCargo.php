@@ -34,4 +34,5 @@ class storeCargo extends FormRequest
             'cargos' => 'cargo'
         ];
     }
+
 }

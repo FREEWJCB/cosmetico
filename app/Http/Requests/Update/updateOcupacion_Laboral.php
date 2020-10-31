@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Update;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class updateOcupacion_Laboral extends FormRequest
 {
@@ -25,6 +26,14 @@ class updateOcupacion_Laboral extends FormRequest
     {
         return [
             //
+            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->ignore($this->Cargo)]
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'cargos' => 'cargo'
         ];
     }
 }

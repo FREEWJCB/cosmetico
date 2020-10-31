@@ -41,15 +41,10 @@
         $("#grados").attr('class', 'form-control border border-danger');
         $("#grados_e").html('El campo grado es obligatorio.');
 
-    }else if(grados.length > 255){
+    }else if(grados.length > 10){
         i++;
         $("#grados").attr('class', 'form-control border border-danger');
         $("#grados_e").html('El campo grado no debe contener más de 255 caracteres.');
-
-    }else if(grados.length < 3){
-        i++;
-        $("#grados").attr('class', 'form-control border border-danger');
-        $("#grados_e").html('El campo grado debe contener al menos 03 caracteres.');
 
     }else if(grados == grados2 && pro == 'Edicion'){
         i++;
@@ -63,8 +58,7 @@
         if(pro == 'Registro'){
             $("#grados").val('');
         }else{
-            $("#grados"
-            ).val(grados2);
+            $("#grados").val(grados2);
         }
         boo = false;
         $("body").overhang({

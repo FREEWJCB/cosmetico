@@ -64,8 +64,7 @@
         if(pro == 'Registro'){
             $("#cargos").val('');
         }else{
-            $("#cargos"
-            ).val(cargos2);
+            $("#cargos").val(cargos2);
         }
         boo = false;
         $("body").overhang({

@@ -25,6 +25,14 @@ class storeGrado extends FormRequest
     {
         return [
             //
+            'cargos' => 'required|max:255|min:3|unique:cargo,cargos'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'cargos' => 'cargo'
         ];
     }
 }
