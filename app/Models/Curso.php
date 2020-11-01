@@ -11,7 +11,7 @@ class Curso extends Model
 
     protected $table = 'cursos';
 
-    protected $guarded = ['id', 'status'];
+    protected $guarded = ['id'];
 
     // protected $fillable = ['curso'];
 }

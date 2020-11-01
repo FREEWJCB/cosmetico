@@ -34,7 +34,15 @@ class MarcaController extends Controller
     public function store(storeMarca $request)
     {
         //
-        Marca::create($request->all());
+        $marca = Marca::where('marca', $request->marcas);
+        $num = $marca->count();
+        if ($num > 0) {
+            # code...
+            $marca->update(['status' => 1]);
+        }else{
+            Marca::create($request->all());
+        }
+
 
     }
 
@@ -49,7 +57,26 @@ class MarcaController extends Controller
     public function update(updateMarca $request, Marca $Marca)
     {
         //
-        $Marca->update($request->all());
+        $marca = Marca::where([['marca', $request->marca],['status', 0]]);
+        $num = $marca->count();
+        $id=0;
+        if ($num > 0) {
+            $marca1 = $marca->get();
+            foreach ($marca1 as $marca2) {
+                # code...
+                $id = $marca2->id;
+            }
+            $marca->update(['status' => 1]);
+            $Marca->update(['status' => 0]);
+        }else{
+            $Marca->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
+
     }
 
     /**

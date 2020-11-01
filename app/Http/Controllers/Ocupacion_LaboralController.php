@@ -6,7 +6,6 @@ use App\Http\Requests\Store\storeOcupacion_Laboral;
 use App\Http\Requests\Update\updateOcupacion_Laboral;
 use App\Models\Ocupacion_laboral;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class Ocupacion_LaboralController extends Controller
 {
@@ -33,7 +32,14 @@ class Ocupacion_LaboralController extends Controller
     public function store(storeOcupacion_Laboral $request)
     {
         //
-        Ocupacion_laboral::create($request->all());
+        $ocupacion_laboral = Ocupacion_laboral::where('labor', $request->labor);
+        $num = $ocupacion_laboral->count();
+        if ($num > 0) {
+            # code...
+            $ocupacion_laboral->update(['status' => 1]);
+        }else{
+            Ocupacion_laboral::create($request->all());
+        }
     }
 
     /**
@@ -46,7 +52,25 @@ class Ocupacion_LaboralController extends Controller
     public function update(updateOcupacion_Laboral $request, Ocupacion_laboral $Ocupacion_Laboral)
     {
         //
-        $Ocupacion_Laboral->update($request->all());
+        $ocupacion_laboral = Ocupacion_laboral::where([['labor', $request->labor],['status', 0]]);
+        $num = $ocupacion_laboral->count();
+        $id=0;
+        if ($num > 0) {
+            $ocupacion_laboral1 = $ocupacion_laboral->get();
+            foreach ($ocupacion_laboral1 as $ocupacion_laboral2) {
+                # code...
+                $id = $ocupacion_laboral2->id;
+            }
+            $ocupacion_laboral->update(['status' => 1]);
+            $Ocupacion_Laboral->update(['status' => 0]);
+        }else{
+            $Ocupacion_Laboral->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
 
     }
 
@@ -59,7 +83,7 @@ class Ocupacion_LaboralController extends Controller
     public function destroy(Ocupacion_laboral $Ocupacion_Laboral)
     {
         //
-        $Ocupacion_Laboral->delete();
+        $Ocupacion_Laboral->update(['status' => 0]);
     }
 
     public function cargar(Request $request)

@@ -11,7 +11,7 @@ class Tipo extends Model
 
     protected $table = 'tipos';
 
-    protected $guarded = ['id', 'status'];
+    protected $guarded = ['id'];
 
     // protected $fillable = ['tipo'];
 }

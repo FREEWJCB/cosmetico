@@ -6,7 +6,6 @@ use App\Http\Requests\Store\storeTipo_Usuario;
 use App\Http\Requests\Update\updateTipo_Usuario;
 use App\Models\Tipo_usuario;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class Tipo_UsuarioController extends Controller
 {
@@ -33,7 +32,14 @@ class Tipo_UsuarioController extends Controller
     public function store(storeTipo_Usuario $request)
     {
         //
-        Tipo_usuario::create($request->all());
+        $tipo_usuario = Tipo_Usuario::where('tipo', $request->tipo);
+        $num = $tipo_usuario->count();
+        if ($num > 0) {
+            # code...
+            $tipo_usuario->update(['status' => 1]);
+        }else{
+            Tipo_Usuario::create($request->all());
+        }
     }
 
     /**
@@ -46,7 +52,25 @@ class Tipo_UsuarioController extends Controller
     public function update(updateTipo_Usuario $request, Tipo_usuario $Tipo_Usuario)
     {
         //
-        $Tipo_Usuario->update($request->all());
+        $tipo_usuario = Tipo_Usuario::where([['tipo', $request->tipo],['status', 0]]);
+        $num = $tipo_usuario->count();
+        $id=0;
+        if ($num > 0) {
+            $tipo_usuario1 = $tipo_usuario->get();
+            foreach ($tipo_usuario1 as $tipo_usuario2) {
+                # code...
+                $id = $tipo_usuario2->id;
+            }
+            $tipo_usuario->update(['status' => 1]);
+            $Tipo_Usuario->update(['status' => 0]);
+        }else{
+            $Tipo_Usuario->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
     }
 
     /**
@@ -58,7 +82,7 @@ class Tipo_UsuarioController extends Controller
     public function destroy(Tipo_usuario $Tipo_Usuario)
     {
         //
-        $Tipo_Usuario->delete();
+        $Tipo_Usuario->update(['status' => 0]);
     }
 
     public function cargar(Request $request)

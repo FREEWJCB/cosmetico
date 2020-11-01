@@ -6,7 +6,6 @@ use App\Http\Requests\Store\storeTipo;
 use App\Http\Requests\Update\updateTipo;
 use App\Models\Tipo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 class TipoController extends Controller
 {
     /**
@@ -32,7 +31,14 @@ class TipoController extends Controller
     public function store(storeTipo $request)
     {
         //
-        Tipo::create($request->all());
+        $tipo = Tipo::where('tipo', $request->tipo);
+        $num = $tipo->count();
+        if ($num > 0) {
+            # code...
+            $tipo->update(['status' => 1]);
+        }else{
+            Tipo::create($request->all());
+        }
 
     }
     /**
@@ -45,7 +51,25 @@ class TipoController extends Controller
     public function update(updateTipo $request, Tipo $Tipo)
     {
         //
-        $Tipo->update($request->all());
+        $tipo = Tipo::where([['tipo', $request->tipo],['status', 0]]);
+        $num = $tipo->count();
+        $id=0;
+        if ($num > 0) {
+            $tipo1 = $tipo->get();
+            foreach ($tipo1 as $tipo2) {
+                # code...
+                $id = $tipo2->id;
+            }
+            $tipo->update(['status' => 1]);
+            $Tipo->update(['status' => 0]);
+        }else{
+            $Tipo->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
     }
 
     /**
@@ -58,7 +82,7 @@ class TipoController extends Controller
     {
         //
 
-        $Tipo->delete();
+        $Tipo->update(['status' => 0]);
     }
 
     public function cargar(Request $request)

@@ -33,7 +33,14 @@ class StateController extends Controller
     public function store(storeState $request)
     {
         //
-        State::create($request->all());
+        $state = State::where('states', $request->states);
+        $num = $state->count();
+        if ($num > 0) {
+            # code...
+            $state->update(['status' => 1]);
+        }else{
+            State::create($request->all());
+        }
     }
 
     /**
@@ -46,7 +53,25 @@ class StateController extends Controller
     public function update(updateState $request, State $State)
     {
         //
-        $State->update($request->all());
+        $state = State::where([['states', $request->states],['status', 0]]);
+        $num = $state->count();
+        $id=0;
+        if ($num > 0) {
+            $state1 = $state->get();
+            foreach ($state1 as $state2) {
+                # code...
+                $id = $state2->id;
+            }
+            $state->update(['status' => 1]);
+            $State->update(['status' => 0]);
+        }else{
+            $State->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
     }
 
     /**
@@ -58,7 +83,7 @@ class StateController extends Controller
     public function destroy(State $State)
     {
         //
-        $State->delete();
+        $State->update(['status' => 0]);
     }
 
     public function cargar(Request $request)

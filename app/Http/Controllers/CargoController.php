@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Store\storeCargo;
 use App\Http\Requests\Update\updateCargo;
 use App\Models\Cargo;
+// use Illuminate\Support\Facades\DB;
 
 class CargoController extends Controller
 {
@@ -40,7 +41,7 @@ class CargoController extends Controller
         }else{
             Cargo::create($request->all());
         }
-        
+
     }
 
     /**
@@ -72,7 +73,7 @@ class CargoController extends Controller
             'i' => $num,
             'id' => $id
         ]);
-        
+
     }
 
     /**
@@ -84,6 +85,7 @@ class CargoController extends Controller
     public function destroy(Cargo $Cargo)
     {
         //
+        // DB::table('cargo')->where('id', $Cargo->id)->update(['status' => 0]);
         $Cargo->update(['status' => 0]);
     }
 
@@ -138,7 +140,7 @@ class CargoController extends Controller
     {
         //
         $cargo = Cargo::find($request->id);
-         
+
         return response()->json([
             'cargos'=>$cargo->cargos
         ]);

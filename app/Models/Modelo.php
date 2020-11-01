@@ -11,7 +11,7 @@ class Modelo extends Model
 
     protected $table = 'modelos';
 
-    protected $guarded = ['id', 'status'];
+    protected $guarded = ['id'];
 
     // protected $fillable = ['modelo', 'marca'];
 }

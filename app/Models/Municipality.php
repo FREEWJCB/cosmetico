@@ -11,7 +11,7 @@ class Municipality extends Model
 
     protected $table = 'municipality';
 
-    protected $guarded = ['id', 'status'];
+    protected $guarded = ['id'];
 
     // protected $fillable = ['municipalitys', 'state'];
 }

@@ -6,7 +6,6 @@ use App\Http\Requests\Store\storeSeccion;
 use App\Http\Requests\Update\updateSeccion;
 use App\Models\Seccion;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class SeccionController extends Controller
 {
@@ -33,7 +32,15 @@ class SeccionController extends Controller
     public function store(storeSeccion $request)
     {
         //
-        Seccion::create($request->all());
+        $seccion = Seccion::where('secciones', $request->secciones);
+        $num = $seccion->count();
+        if ($num > 0) {
+            # code...
+            $seccion->update(['status' => 1]);
+        }else{
+            Seccion::create($request->all());
+        }
+
     }
     /**
      * Update the specified resource in storage.
@@ -45,7 +52,25 @@ class SeccionController extends Controller
     public function update(updateSeccion $request, Seccion $Seccion)
     {
         //
-        $Seccion->update($request->all());
+        $seccion = Seccion::where([['secciones', $request->secciones],['status', 0]]);
+        $num = $seccion->count();
+        $id=0;
+        if ($num > 0) {
+            $seccion1 = $seccion->get();
+            foreach ($seccion1 as $seccion2) {
+                # code...
+                $id = $seccion2->id;
+            }
+            $seccion->update(['status' => 1]);
+            $Seccion->update(['status' => 0]);
+        }else{
+            $Seccion->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
     }
 
     /**
@@ -57,7 +82,7 @@ class SeccionController extends Controller
     public function destroy(Seccion $Seccion)
     {
         //
-        $Seccion->delete();
+        $Seccion->update(['status' => 0]);
     }
 
     public function cargar(Request $request)

@@ -6,7 +6,6 @@ use App\Http\Requests\Store\storeTipo_Alergia;
 use App\Http\Requests\Update\updateTipo_Alergia;
 use App\Models\Tipo_alergia;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class Tipo_AlergiaController extends Controller
 {
@@ -33,7 +32,14 @@ class Tipo_AlergiaController extends Controller
     public function store(storeTipo_Alergia $request)
     {
         //
-        Tipo_alergia::create($request->all());
+        $tipo_alergia = Tipo_Alergia::where('tipo', $request->tipo);
+        $num = $tipo_alergia->count();
+        if ($num > 0) {
+            # code...
+            $tipo_alergia->update(['status' => 1]);
+        }else{
+            Tipo_Alergia::create($request->all());
+        }
     }
 
     /**
@@ -46,7 +52,25 @@ class Tipo_AlergiaController extends Controller
     public function update(updateTipo_Alergia $request, Tipo_alergia $Tipo_Alergia)
     {
         //
-        $Tipo_Alergia->update($request->all());
+        $tipo_alergia = Tipo_Alergia::where([['tipo', $request->tipo],['status', 0]]);
+        $num = $tipo_alergia->count();
+        $id=0;
+        if ($num > 0) {
+            $tipo_alergia1 = $tipo_alergia->get();
+            foreach ($tipo_alergia1 as $tipo_alergia2) {
+                # code...
+                $id = $tipo_alergia2->id;
+            }
+            $tipo_alergia->update(['status' => 1]);
+            $Tipo_Alergia->update(['status' => 0]);
+        }else{
+            $Tipo_Alergia->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
     }
 
     /**
@@ -58,7 +82,7 @@ class Tipo_AlergiaController extends Controller
     public function destroy(Tipo_alergia $Tipo_Alergia)
     {
         //
-        $Tipo_Alergia->delete();
+        $Tipo_Alergia->update(['status' => 0]);
     }
 
     public function cargar(Request $request)
