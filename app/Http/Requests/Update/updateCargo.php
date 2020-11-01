@@ -24,7 +24,7 @@ class updateCargo extends FormRequest
     public function rules()
     {
         return [
-            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->ignore($this->Cargo)]
+            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->where('status', 1)->ignore($this->Cargo)]
         ];
 
     }

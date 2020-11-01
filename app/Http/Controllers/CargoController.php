@@ -32,7 +32,15 @@ class CargoController extends Controller
     public function store(storeCargo $request)
     {
         //
-        Cargo::create($request->all());
+        $cargo = Cargo::where('cargos', $request->cargos);
+        $num = $cargo->count();
+        if ($num > 0) {
+            # code...
+            $cargo->update(['status' => 1]);
+        }else{
+            Cargo::create($request->all());
+        }
+        
     }
 
     /**
@@ -45,7 +53,26 @@ class CargoController extends Controller
     public function update(updateCargo $request, Cargo $Cargo)
     {
         //
-        $Cargo->update($request->all());
+        $cargo = Cargo::where([['cargos', $request->cargos],['status', 0]]);
+        $num = $cargo->count();
+        $id=0;
+        if ($num > 0) {
+            $cargo1 = $cargo->get();
+            foreach ($cargo1 as $cargo2) {
+                # code...
+                $id = $cargo2->id;
+            }
+            $cargo->update(['status' => 1]);
+            $Cargo->update(['status' => 0]);
+        }else{
+            $Cargo->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
+        
     }
 
     /**
@@ -57,7 +84,7 @@ class CargoController extends Controller
     public function destroy(Cargo $Cargo)
     {
         //
-        $Cargo->delete();
+        $Cargo->update(['status' => 0]);
     }
 
     public function cargar(Request $request)

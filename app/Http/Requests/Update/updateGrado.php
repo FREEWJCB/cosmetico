@@ -26,14 +26,14 @@ class updateGrado extends FormRequest
     {
         return [
             //
-            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->ignore($this->Cargo)]
+            'grados' => ['required','max:11','min:1','integer',Rule::unique('grado')->where('status', 1)->ignore($this->Grado)]
         ];
     }
 
     public function attributes()
     {
         return [
-            'cargos' => 'cargo'
+            'grados' => 'grado'
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Store;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class storeCargo extends FormRequest
 {
@@ -24,7 +25,7 @@ class storeCargo extends FormRequest
     public function rules()
     {
         return [
-            'cargos' => 'required|max:255|min:3|unique:cargo,cargos'
+            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->where('status', 1)]
         ];
     }
 
@@ -34,5 +35,4 @@ class storeCargo extends FormRequest
             'cargos' => 'cargo'
         ];
     }
-
 }

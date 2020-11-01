@@ -6,9 +6,9 @@
 
 @endsection
 
-@section('url_registro') var url = "{{ route('Grado.store') }}"; @endsection
+@section('url_registro') url = "{{ route('Grado.store') }}"; @endsection
 
-@section('url_edicion') var url = `{{url('Grado')}}/${id}`; @endsection
+@section('url_edicion') url = `{{url('Grado')}}/${id}`; @endsection
 
 @section('registro') $('#grados').val(''); @endsection
 
@@ -41,10 +41,20 @@
         $("#grados").attr('class', 'form-control border border-danger');
         $("#grados_e").html('El campo grado es obligatorio.');
 
-    }else if(grados.length > 10){
+    }else if(grados > 11){
         i++;
         $("#grados").attr('class', 'form-control border border-danger');
-        $("#grados_e").html('El campo grado no debe contener más de 255 caracteres.');
+        $("#grados_e").html('El campo grado no debe ser mayor a 11.');
+
+    }else if(grados < 1){
+        i++;
+        $("#grados").attr('class', 'form-control border border-danger');
+        $("#grados_e").html('El campo grado debe ser al menos 1.');
+
+    }else if(grados.length > 2){
+        i++;
+        $("#grados").attr('class', 'form-control border border-danger');
+        $("#grados_e").html('El campo grado no debe contener más de 2 caracteres.');
 
     }else if(grados == grados2 && pro == 'Edicion'){
         i++;

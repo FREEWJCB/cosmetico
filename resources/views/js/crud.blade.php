@@ -106,13 +106,15 @@ function agregaRegistro() {
             },
             success: function(valores) {
                 setDone();
-
                 var type = "success";
                 if (pro == "Registro") {
                      var message = "Registro completado con exito";
                      $("#formulario")[0].reset();
                     @yield('registro')
                 }else{
+                    if(valores.i > 0){
+                        $('#id').val(valores.id);
+                    }
                     var message = "Edición completado con exito";
                     @yield('edicion')
                 }

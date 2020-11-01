@@ -33,7 +33,14 @@ class GradoController extends Controller
     public function store(storeGrado $request)
     {
         //
-        Grado::create($request->all());
+        $grado = Grado::where('grados', $request->grados);
+        $num = $grado->count();
+        if ($num > 0) {
+            # code...
+            $grado->update(['status' => 1]);
+        }else{
+            Grado::create($request->all());
+        }
     }
 
     /**
@@ -46,7 +53,25 @@ class GradoController extends Controller
     public function update(updateGrado $request, Grado $Grado)
     {
         //
-        $Grado->update($request->all());
+        $grado = Grado::where([['grados', $request->grados],['status', 0]]);
+        $num = $grado->count();
+        $id=0;
+        if ($num > 0) {
+            $grado1 = $grado->get();
+            foreach ($grado1 as $grado2) {
+                # code...
+                $id = $grado2->id;
+            }
+            $grado->update(['status' => 1]);
+            $Grado->update(['status' => 0]);
+        }else{
+            $Grado->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
     }
 
     /**
@@ -58,7 +83,7 @@ class GradoController extends Controller
     public function destroy(Grado $Grado)
     {
         //
-        $Grado->delete();
+        $Grado->update(['status' => 0]);
     }
 
     public function cargar(Request $request)
