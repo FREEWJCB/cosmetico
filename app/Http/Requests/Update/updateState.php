@@ -14,7 +14,7 @@ class updateState extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,14 +26,14 @@ class updateState extends FormRequest
     {
         return [
             //
-            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->ignore($this->Cargo)]
+            'states' => ['required','max:255','min:3',Rule::unique('state')->where('status', 1)->ignore($this->State)]
         ];
     }
 
     public function attributes()
     {
         return [
-            'cargos' => 'cargo'
+            'states' => 'estado'
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Store;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class storeOcupacion_Laboral extends FormRequest
 {
@@ -25,14 +26,8 @@ class storeOcupacion_Laboral extends FormRequest
     {
         return [
             //
-            'cargos' => 'required|max:255|min:3|unique:cargo,cargos'
+            'labor' => ['required','max:255','min:3',Rule::unique('ocupacion_laboral')->where('status', 1)]
         ];
     }
 
-    public function attributes()
-    {
-        return [
-            'cargos' => 'cargo'
-        ];
-    }
 }

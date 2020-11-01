@@ -14,7 +14,7 @@ class updateSalon extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,14 +26,14 @@ class updateSalon extends FormRequest
     {
         return [
             //
-            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->ignore($this->Cargo)]
+            'salones' => ['required','max:10','min:1',Rule::unique('salon')->where('status', 1)->ignore($this->Salon)]
         ];
     }
 
     public function attributes()
     {
         return [
-            'cargos' => 'cargo'
+            'salones' => 'salon'
         ];
     }
 }

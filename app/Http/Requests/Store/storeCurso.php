@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Store;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class storeCurso extends FormRequest
@@ -13,7 +14,7 @@ class storeCurso extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

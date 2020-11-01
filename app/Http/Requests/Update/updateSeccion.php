@@ -14,7 +14,7 @@ class updateSeccion extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,14 +26,14 @@ class updateSeccion extends FormRequest
     {
         return [
             //
-            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->ignore($this->Cargo)]
+            'secciones' => ['required','max:10','min:1',Rule::unique('seccion')->where('status', 1)->ignore($this->Seccion)]
         ];
     }
 
     public function attributes()
     {
         return [
-            'cargos' => 'cargo'
+            'secciones' => 'sección'
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Store;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class storeSalon extends FormRequest
 {
@@ -13,7 +14,7 @@ class storeSalon extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,14 +26,14 @@ class storeSalon extends FormRequest
     {
         return [
             //
-            'cargos' => 'required|max:255|min:3|unique:cargo,cargos'
+            'salones' => ['required','max:10','min:1',Rule::unique('salon')->where('status', 1)]
         ];
     }
 
     public function attributes()
     {
         return [
-            'cargos' => 'cargo'
+            'salones' => 'salon'
         ];
     }
 }

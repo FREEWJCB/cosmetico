@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Store;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class storeMarca extends FormRequest
 {
@@ -13,7 +14,7 @@ class storeMarca extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,14 +26,7 @@ class storeMarca extends FormRequest
     {
         return [
             //
-            'cargos' => 'required|max:255|min:3|unique:cargo,cargos'
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'cargos' => 'cargo'
+            'marca' => ['required','max:255','min:3',Rule::unique('marcas')->where('status', 1)]
         ];
     }
 }

@@ -14,7 +14,7 @@ class updateTipo extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,14 +26,7 @@ class updateTipo extends FormRequest
     {
         return [
             //
-            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->ignore($this->Cargo)]
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'cargos' => 'cargo'
+            'tipo' => ['required','max:255','min:3',Rule::unique('tipos')->where('status', 1)->ignore($this->Tipo)]
         ];
     }
 }

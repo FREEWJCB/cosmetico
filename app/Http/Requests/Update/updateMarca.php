@@ -14,7 +14,7 @@ class updateMarca extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,14 +26,8 @@ class updateMarca extends FormRequest
     {
         return [
             //
-            'cargos' => ['required','max:255','min:3',Rule::unique('cargo')->ignore($this->Cargo)]
+            'marca' => ['required','max:255','min:3',Rule::unique('marcas')->where('status', 1)->ignore($this->Marca)]
         ];
     }
 
-    public function attributes()
-    {
-        return [
-            'cargos' => 'cargo'
-        ];
-    }
 }

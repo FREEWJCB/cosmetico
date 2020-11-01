@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Store;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class storeCosmetic extends FormRequest
 {
@@ -13,7 +14,7 @@ class storeCosmetic extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

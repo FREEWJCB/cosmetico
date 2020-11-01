@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Store;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class storeTipo_Alergia extends FormRequest
 {
@@ -13,7 +14,7 @@ class storeTipo_Alergia extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,14 +26,8 @@ class storeTipo_Alergia extends FormRequest
     {
         return [
             //
-            'cargos' => 'required|max:255|min:3|unique:cargo,cargos'
+            'tipo' => ['required','max:255','min:3',Rule::unique('tipo_alergia')->where('status', 1)]
         ];
     }
 
-    public function attributes()
-    {
-        return [
-            'cargos' => 'cargo'
-        ];
-    }
 }
