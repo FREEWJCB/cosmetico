@@ -95,8 +95,7 @@ class MarcaController extends Controller
     {
         $cat="";
         $marca=$request->bs_marca;
-        $cons= Marca::table('marcas')
-                 ->where([
+        $cons= Marca::where([
                      ['status', '1'],
                      ['marca','like', "%$marca%"]
                  ])->orderBy('marca','asc');

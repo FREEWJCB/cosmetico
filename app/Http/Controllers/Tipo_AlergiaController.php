@@ -6,6 +6,7 @@ use App\Http\Requests\Store\storeTipo_Alergia;
 use App\Http\Requests\Update\updateTipo_Alergia;
 use App\Models\Tipo_alergia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Tipo_AlergiaController extends Controller
 {
@@ -49,7 +50,7 @@ class Tipo_AlergiaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(updateTipo_Alergia $request, Tipo_alergia $Tipo_Alergia)
+    public function update(updateTipo_Alergia $request, Tipo_alergia $Tipo_Alergium)
     {
         //
         $tipo_alergia = Tipo_Alergia::where([['tipo', $request->tipo],['status', 0]]);
@@ -62,9 +63,9 @@ class Tipo_AlergiaController extends Controller
                 $id = $tipo_alergia2->id;
             }
             $tipo_alergia->update(['status' => 1]);
-            $Tipo_Alergia->update(['status' => 0]);
+            $Tipo_Alergium->update(['status' => 0]);
         }else{
-            $Tipo_Alergia->update($request->all());
+            $Tipo_Alergium->update($request->all());
         }
 
         return response()->json([
@@ -79,10 +80,11 @@ class Tipo_AlergiaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipo_alergia $Tipo_Alergia)
+    public function destroy(Tipo_alergia $Tipo_Alergium)
     {
         //
-        $Tipo_Alergia->update(['status' => 0]);
+        $Tipo_Alergium->update(['status' => 0]);
+        // DB::table('tipo_alergia')->where('id', $Tipo_Alergia->id)->update(['status' => 0]);
     }
 
     public function cargar(Request $request)

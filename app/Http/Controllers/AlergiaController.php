@@ -51,10 +51,10 @@ class AlergiaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(updateAlergia $request, Alergia $Alergia)
+    public function update(updateAlergia $request, Alergia $Alergium)
     {
         //
-        $Alergia->update($request->all());
+        $Alergium->update($request->all());
 
     }
 
@@ -64,10 +64,10 @@ class AlergiaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alergia $Alergia)
+    public function destroy(Alergia $Alergium)
     {
         //
-        $Alergia->delete();
+        $Alergium->delete();
     }
 
     public function cargar(Request $request)

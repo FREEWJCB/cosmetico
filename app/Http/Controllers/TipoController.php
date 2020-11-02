@@ -16,7 +16,7 @@ class TipoController extends Controller
     public function index($js="AJAX")
     {
         //
-        $cons = Tipo::table('tipos')->where('status', '1')->orderBy('tipo','asc');
+        $cons = Tipo::where('status', '1')->orderBy('tipo','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
         return view('view.tipo',['cons' => $cons2, 'num' => $num, 'js' => $js]);
@@ -89,7 +89,7 @@ class TipoController extends Controller
     {
         $cat="";
         $tipo=$request->bs_tipo;
-        $cons = Tipo::table('tipos')->where([
+        $cons = Tipo::where([
             ['status', '1'],
             ['tipo','like', "%$tipo%"]
         ])->orderBy('tipo','asc');

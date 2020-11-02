@@ -6,9 +6,9 @@
 
 @endsection
 
-@section('url_registro') var url = "{{ route('Ocupacion_Laboral.store') }}"; @endsection
+@section('url_registro') url = "{{ route('Ocupacion_Laboral.store') }}"; @endsection
 
-@section('url_edicion') var url = `{{url('Ocupacion_Laboral')}}/${id}`; @endsection
+@section('url_edicion') url = `{{url('Ocupacion_Laboral')}}/${id}`; @endsection
 
 @section('registro') $('#labor').val(''); @endsection
 
@@ -63,8 +63,7 @@
         if(pro == 'Registro'){
             $("#labor").val('');
         }else{
-            $("#labor"
-            ).val(labor2);
+            $("#labor").val(labor2);
         }
         boo = false;
         $("body").overhang({

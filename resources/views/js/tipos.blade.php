@@ -6,9 +6,9 @@
 
 @endsection
 
-@section('url_registro') var url = "{{ route('Tipo.store') }}"; @endsection
+@section('url_registro') url = "{{ route('Tipo.store') }}"; @endsection
 
-@section('url_edicion') var url = `{{url('Tipo')}}/${id}`; @endsection
+@section('url_edicion') url = `{{url('Tipo')}}/${id}`; @endsection
 
 @section('registro') $('#tipo').val(''); @endsection
 
@@ -63,8 +63,7 @@
         if(pro == 'Registro'){
             $("#tipo").val('');
         }else{
-            $("#tipo"
-            ).val(tipo2);
+            $("#tipo").val(tipo2);
         }
         boo = false;
         $("body").overhang({

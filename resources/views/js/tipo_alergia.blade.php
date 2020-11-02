@@ -6,9 +6,9 @@
 
 @endsection
 
-@section('url_registro') var url = "{{ route('Tipo_Alergia.store') }}"; @endsection
+@section('url_registro') url = "{{ route('Tipo_Alergia.store') }}"; @endsection
 
-@section('url_edicion') var url = `{{url('Tipo_Alergia')}}/${id}`; @endsection
+@section('url_edicion') url = `{{url('Tipo_Alergia')}}/${id}`; @endsection
 
 @section('registro') $('#tipo').val(''); @endsection
 
@@ -39,17 +39,17 @@
     if(tipo == ""){
         i++;
         $("#tipo").attr('class', 'form-control border border-danger');
-        $("#tipo_e").html('El campo cargo es obligatorio.');
+        $("#tipo_e").html('El campo tipo es obligatorio.');
 
     }else if(tipo.length > 255){
         i++;
         $("#tipo").attr('class', 'form-control border border-danger');
-        $("#tipo_e").html('El campo cargo no debe contener más de 255 caracteres.');
+        $("#tipo_e").html('El campo tipo no debe contener más de 255 caracteres.');
 
     }else if(tipo.length < 3){
         i++;
         $("#tipo").attr('class', 'form-control border border-danger');
-        $("#tipo_e").html('El campo cargo debe contener al menos 03 caracteres.');
+        $("#tipo_e").html('El campo tipo debe contener al menos 03 caracteres.');
 
     }else if(tipo == tipo2 && pro == 'Edicion'){
         i++;
@@ -63,8 +63,7 @@
         if(pro == 'Registro'){
             $("#tipo").val('');
         }else{
-            $("#tipo"
-            ).val(tipo2);
+            $("#tipo").val(tipo2);
         }
         boo = false;
         $("body").overhang({

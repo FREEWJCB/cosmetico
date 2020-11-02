@@ -6,9 +6,9 @@
 
 @endsection
 
-@section('url_registro') var url = "{{ route('Salon.store') }}"; @endsection
+@section('url_registro') url = "{{ route('Salon.store') }}"; @endsection
 
-@section('url_edicion') var url = `{{url('Salon')}}/${id}`; @endsection
+@section('url_edicion') url = `{{url('Salon')}}/${id}`; @endsection
 
 @section('registro') $('#salones').val(''); @endsection
 
@@ -41,15 +41,15 @@
         $("#salones").attr('class', 'form-control border border-danger');
         $("#salones_e").html('El campo salon es obligatorio.');
 
-    }else if(salones.length > 255){
+    }else if(salones.length > 10){
         i++;
         $("#salones").attr('class', 'form-control border border-danger');
-        $("#salones_e").html('El campo salon no debe contener más de 255 caracteres.');
+        $("#salones_e").html('El campo salon no debe contener más de 10 caracteres.');
 
-    }else if(salones.length < 3){
+    }else if(salones.length < 1){
         i++;
         $("#salones").attr('class', 'form-control border border-danger');
-        $("#salones_e").html('El campo salon debe contener al menos 03 caracteres.');
+        $("#salones_e").html('El campo salon debe contener al menos 1 caracteres.');
 
     }else if(salones == salones2 && pro == 'Edicion'){
         i++;
@@ -63,8 +63,7 @@
         if(pro == 'Registro'){
             $("#salones").val('');
         }else{
-            $("#salones"
-            ).val(salones2);
+            $("#salones").val(salones2);
         }
         boo = false;
         $("body").overhang({

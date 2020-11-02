@@ -26,7 +26,7 @@ class updateTipo_Alergia extends FormRequest
     {
         return [
             //
-            'tipo' => ['required','max:255','min:3',Rule::unique('tipo_alergia')->where('status', 1)->ignore($this->Tipo_Alergia)]
+            'tipo' => ['required','max:255','min:3',Rule::unique('tipo_alergia')->where('status', 1)->ignore($this->Tipo_Alergium)]
         ];
     }
 }
