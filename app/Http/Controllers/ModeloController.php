@@ -42,7 +42,14 @@ class ModeloController extends Controller
     public function store(storeModelo $request)
     {
         //
-        Modelo::create($request->all());
+        $modelo = Modelo::where('modelos', $request->modelos);
+        $num = $modelo->count();
+        if ($num > 0) {
+            # code...
+            $modelo->update(['status' => 1]);
+        }else{
+            Modelo::create($request->all());
+        }
     }
 
     /**
@@ -55,7 +62,25 @@ class ModeloController extends Controller
     public function update(updateModelo $request, Modelo $Modelo)
     {
         //
-        $Modelo->update($request->all());
+        $modelo = Modelo::where([['modelos', $request->modelos],['status', 0]]);
+        $num = $modelo->count();
+        $id=0;
+        if ($num > 0) {
+            $modelo1 = $modelo->get();
+            foreach ($modelo1 as $modelo2) {
+                # code...
+                $id = $modelo2->id;
+            }
+            $modelo->update(['status' => 1]);
+            $Modelo->update(['status' => 0]);
+        }else{
+            $Modelo->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
     }
 
     /**
@@ -64,10 +89,10 @@ class ModeloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Modelo $Modelo)
     {
         //
-        DB::table('modelos')->where('id', $id)->delete();
+        $Modelo->update(['status' => 0]);
     }
 
     public function cargar(Request $request)
