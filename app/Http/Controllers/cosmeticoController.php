@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Store\storeCosmetico;
+use App\Http\Requests\Update\updateCosmetico;
 use App\Models\Cosmetico;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,7 @@ class cosmeticoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cosmetico $Cosmetico)
+    public function update(updateCosmetico $request, Cosmetico $Cosmetico)
     {
         //
         $Cosmetico->update($request->all());
@@ -56,7 +57,7 @@ class cosmeticoController extends Controller
     public function destroy(Cosmetico $Cosmetico)
     {
         //
-        Cosmetico::delete();
+        $Cosmetico->delete();
     }
 
     public function cargar(Request $request)
@@ -121,7 +122,7 @@ class cosmeticoController extends Controller
     {
         //
         $cosmetico = Cosmetico::find($request->id);
-        
+
         return response()->json([
             'tipo'=>$cosmetico->tipo,
             'marca'=>$cosmetico->marca,

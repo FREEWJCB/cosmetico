@@ -25,8 +25,7 @@ class cosmeticController extends Controller
                         ['modelos', 'cosmetics.modelo', '=', 'modelos.id'],
                         ['marcas', 'modelos.marca', '=', 'marcas.id']
                         ])
-                    ->where('cosmetics.status', '1')
-                    ->orderBy('cosmetico','asc');
+                    ->where('cosmetics.status', '1')->orderBy('cosmetico','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
 

@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Store;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class storeCosmetico extends FormRequest
 {
@@ -25,7 +24,11 @@ class storeCosmetico extends FormRequest
     public function rules()
     {
         return [
-            //
+            'marca' => ['required','max:255','min:3'],
+            'modelo' => ['required','max:255','min:3'],
+            'tipo' => ['required','max:255','min:3'],
+            'cosmetico' => ['required','max:255','min:3','unique:cosmeticos,cosmetico'],
+            'descripcion' => ['required']
         ];
     }
 }

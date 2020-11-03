@@ -25,7 +25,11 @@ class updateCosmetico extends FormRequest
     public function rules()
     {
         return [
-            //
+            'marca' => ['required','max:255','min:3'],
+            'modelo' => ['required','max:255','min:3'],
+            'tipo' => ['required','max:255','min:3'],
+            'cosmetico' => ['required','max:255','min:3',Rule::unique('cosmeticos')->ignore($this->Cosmetico)],
+            'descripcion' => ['required']
         ];
     }
 }

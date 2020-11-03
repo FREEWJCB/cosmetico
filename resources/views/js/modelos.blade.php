@@ -60,12 +60,9 @@
 
 @section('validacion')
 
-    let marca = $("#marca").val();
-    let marca2 = $("#marca2").val();
-    let modelo = $("#modelo").val();
-    let modelo2 = $("#modelo2").val();
-    let mar = 0;
-    let mod = 0;
+    let marca = $("#marca").val(); let marca2 = $("#marca2").val();
+    let modelo = $("#modelo").val(); let modelo2 = $("#modelo2").val();
+    let mar = 0; let mod = 0;
 
     if(marca == "" || marca == "null"){
         i++; mar++;
@@ -75,10 +72,10 @@
     }
 
     if(modelo == ""){
-        i++;
+        i++; mod++;
         $("#modelo").attr('class', 'form-control border border-danger');
         $("#modelo_e").html('El campo modelo es obligatorio.');
-        mod++; mod++;
+
     }else if(modelo.length > 255){
         i++; mod++;
         $("#modelo").attr('class', 'form-control border border-danger');
@@ -101,6 +98,7 @@
     if(i > 0){
 
         if(pro == 'Registro'){
+
             if (mar > 0) {
                 $("#marca").val('null');
             }
@@ -110,6 +108,7 @@
             }
 
         }else{
+
             if (mar > 0) {
                 $("#marca").val(marca2);
             }
@@ -117,6 +116,7 @@
             if (mod > 0) {
                 $("#modelo").val(modelo2);
             }
+
         }
         boo = false;
         $("body").overhang({
@@ -134,8 +134,7 @@
 @endsection
 
 @section('error')
-    let mar = 0;
-    let mod = 0;
+    let mar = 0; let mod = 0;
     if (xhr.responseJSON.errors.modelo){
         $("#modelo_e").html(xhr.responseJSON.errors.modelo);
         $("#modelo").attr('class', 'form-control border border-danger');
@@ -151,6 +150,7 @@
 
 
     if (pro == "Registro") {
+
         if (mar > 0) {
             $("#marca").val('null');
         }
@@ -158,8 +158,16 @@
         if (mod > 0) {
             $("#modelo").val('');
         }
+
     }else{
-        $("#marca").val($("#marca2").val());
-        $("#modelo").val($("#modelo2").val());
+
+        if (mar > 0) {
+            $("#marca").val($("#marca2").val());
+        }
+
+        if (mod > 0) {
+            $("#modelo").val($("#modelo2").val());
+        }
+
     }
 @endsection

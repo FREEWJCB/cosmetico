@@ -85,6 +85,7 @@
             @endforeach
           @endif
         </select>
+        <input type="hidden" id="marca2" name="marca2" />
         <small id="marca_e" style="color: red"></small>
       </div>
 
