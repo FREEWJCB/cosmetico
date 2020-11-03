@@ -42,7 +42,7 @@ class ModeloController extends Controller
     public function store(storeModelo $request)
     {
         //
-        $modelo = Modelo::where('modelos', $request->modelos);
+        $modelo = Modelo::where('modelo', $request->modelo);
         $num = $modelo->count();
         if ($num > 0) {
             # code...
@@ -62,7 +62,7 @@ class ModeloController extends Controller
     public function update(updateModelo $request, Modelo $Modelo)
     {
         //
-        $modelo = Modelo::where([['modelos', $request->modelos],['status', 0]]);
+        $modelo = Modelo::where([['modelo', $request->modelo],['status', 0]]);
         $num = $modelo->count();
         $id=0;
         if ($num > 0) {

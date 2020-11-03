@@ -40,7 +40,14 @@ class AlergiaController extends Controller
     public function store(storeAlergia $request)
     {
         //
-        Alergia::create($request->all());
+        $alergia = Alergia::where('alergias', $request->alergias);
+        $num = $alergia->count();
+        if ($num > 0) {
+            # code...
+            $alergia->update(['status' => 1]);
+        }else{
+            Alergia::create($request->all());
+        }
 
     }
 
@@ -54,7 +61,25 @@ class AlergiaController extends Controller
     public function update(updateAlergia $request, Alergia $Alergium)
     {
         //
-        $Alergium->update($request->all());
+        $alergia = Alergia::where([['alergias', $request->alergias],['status', 0]]);
+        $num = $alergia->count();
+        $id=0;
+        if ($num > 0) {
+            $alergia1 = $alergia->get();
+            foreach ($alergia1 as $alergia2) {
+                # code...
+                $id = $alergia2->id;
+            }
+            $alergia->update(['status' => 1]);
+            $Alergium->update(['status' => 0]);
+        }else{
+            $Alergium->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
 
     }
 
@@ -67,7 +92,7 @@ class AlergiaController extends Controller
     public function destroy(Alergia $Alergium)
     {
         //
-        $Alergium->delete();
+        $Alergium->update(['status' => 0]);
     }
 
     public function cargar(Request $request)

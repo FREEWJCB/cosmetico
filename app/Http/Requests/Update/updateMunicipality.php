@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Update;
 
+use App\Rules\NotNull;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -25,7 +26,16 @@ class updateMunicipality extends FormRequest
     public function rules()
     {
         return [
-            //
+            'state' => ['required',new NotNull()],
+            'municipalitys' => ['required','max:255','min:3',Rule::unique('municipality')->where('status', 1)->ignore($this->Municipality)]
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'state' => 'estado',
+            'municipalitys' => 'municipio'
         ];
     }
 }

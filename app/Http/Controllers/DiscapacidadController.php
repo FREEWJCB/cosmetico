@@ -40,7 +40,14 @@ class DiscapacidadController extends Controller
     public function store(storeDiscapacidad $request)
     {
         //
-        Discapacidad::create($request->all());
+        $discapacidad = Discapacidad::where('discapacidades', $request->discapacidades);
+        $num = $discapacidad->count();
+        if ($num > 0) {
+            # code...
+            $discapacidad->update(['status' => 1]);
+        }else{
+            Discapacidad::create($request->all());
+        }
     }
 
     /**
@@ -53,7 +60,25 @@ class DiscapacidadController extends Controller
     public function update(updateDiscapacidad $request, Discapacidad $Discapacidad)
     {
         //
-        $Discapacidad->update($request->all());
+        $discapacidad = Discapacidad::where([['discapacidades', $request->discapacidades],['status', 0]]);
+        $num = $discapacidad->count();
+        $id=0;
+        if ($num > 0) {
+            $discapacidad1 = $discapacidad->get();
+            foreach ($discapacidad1 as $discapacidad2) {
+                # code...
+                $id = $discapacidad2->id;
+            }
+            $discapacidad->update(['status' => 1]);
+            $Discapacidad->update(['status' => 0]);
+        }else{
+            $Discapacidad->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
     }
 
     /**
@@ -65,7 +90,7 @@ class DiscapacidadController extends Controller
     public function destroy(Discapacidad $Discapacidad)
     {
         //
-        $Discapacidad->delete();
+        $Discapacidad->update(['status' => 0]);
     }
 
     public function cargar(Request $request)
@@ -125,7 +150,7 @@ class DiscapacidadController extends Controller
     {
         //
         $discapacidad = Discapacidad::find($request->id);
-        
+
         return response()->json([
             'tipo'=>$discapacidad->tipo,
             'discapacidades'=>$discapacidad->discapacidades,

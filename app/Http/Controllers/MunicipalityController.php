@@ -42,7 +42,14 @@ class MunicipalityController extends Controller
     public function store(storeMunicipality $request)
     {
         //
-        Municipality::create($request->all());
+        $municipality = Municipality::where('municipalitys', $request->municipalitys);
+        $num = $municipality->count();
+        if ($num > 0) {
+            # code...
+            $municipality->update(['status' => 1]);
+        }else{
+            Municipality::create($request->all());
+        }
     }
 
     /**
@@ -55,7 +62,26 @@ class MunicipalityController extends Controller
     public function update(updateMunicipality $request, Municipality $Municipality)
     {
         //
-        Municipality::update($request->all());
+        $municipality = Municipality::where([['municipalitys', $request->municipalitys],['status', 0]]);
+        $num = $municipality->count();
+        $id=0;
+        if ($num > 0) {
+            $municipality1 = $municipality->get();
+            foreach ($municipality1 as $municipality2) {
+                # code...
+                $id = $municipality2->id;
+            }
+            $municipality->update(['status' => 1]);
+            $Municipality->update(['status' => 0]);
+        }else{
+            $Municipality->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id
+        ]);
+
 
     }
 
@@ -65,10 +91,10 @@ class MunicipalityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Municipality $Municipality)
     {
         //
-        DB::table('municipality')->where('id', $id)->delete();
+        $Municipality->update(['status' => 0]);
     }
 
     public function cargar(Request $request)
