@@ -75,10 +75,7 @@ $(document).ready(function() {
 function agregaRegistro() {
     let pro = $("#pro").val();
     let boo = validacion(pro);
-    let url = '';
-    let tipo = '';
-    let message = '';
-    let id = '';
+    let url = ''; let tipo = ''; let message = ''; let id = ''; let type = "";
     if(boo == true){
         if (pro == "Registro") {
             tipo = "POST";
@@ -106,18 +103,29 @@ function agregaRegistro() {
             },
             success: function(valores) {
                 setDone();
-                var type = "success";
-                if (pro == "Registro") {
-                     var message = "Registro completado con exito";
-                     $("#formulario")[0].reset();
-                    @yield('registro')
-                }else{
-                    if(valores.i > 0){
-                        $('#id').val(valores.id);
+                if(!valores.error || valores.error == 'false'){
+                    type = "success";
+                    if (pro == "Registro") {
+                        $("#formulario")[0].reset();
+                        @yield('registro')
+                    }else{
+                        if(valores.i > 0){
+                            $('#id').val(valores.id);
+                        }
+                        @yield('edicion')
                     }
-                    var message = "Edición completado con exito";
-                    @yield('edicion')
+                }else{
+                    type = "error";
+                    message = "El periodo escolar ya está en uso";
+                    if (pro == "Registro") {
+                        $("#formulario")[0].reset();
+                        @yield('registro')
+                    }else{
+                        @yield('edicion')
+                    }
+
                 }
+
 
                 $("body").overhang({
                     type: type,

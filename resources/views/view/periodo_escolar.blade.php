@@ -112,8 +112,7 @@
                 @endif
             </select>
             <input type="hidden" id="grado2" name="grado2" />
-            
-      <small id="grado_e" style="color: red"></small>
+            <small id="grado_e" style="color: red"></small>
         </div>
 
         <div class="form-group col-md-6">
@@ -127,8 +126,7 @@
                 @endif
             </select>
             <input type="hidden" id="seccion2" name="seccion2" />
-            
-      <small id="seccion_e" style="color: red"></small>
+            <small id="seccion_e" style="color: red"></small>
         </div>
 
     </div>
@@ -145,16 +143,14 @@
                 @endif
             </select>
             <input type="hidden" id="salon2" name="salon2" />
-            
-      <small id="salon_e" style="color: red"></small>
+            <small id="salon_e" style="color: red"></small>
         </div>
 
         <div class="form-group col-md-6">
             <label for="ano"><b>Año:</b></label>
             <input type="text" class="form-control" maxlength="9" required id="ano" name="ano" />
             <input type="hidden" id="ano2" name="ano2" />
-            
-      <small id="ano_e" style="color: red"></small>
+            <small id="ano_e" style="color: red"></small>
         </div>
     </div>
 
@@ -167,6 +163,7 @@
                     <i class="fa fa-search"></i>
                 </a>
             </div>
+            <small id="cedula_e" style="color: red"></small>
         </div>
 
     </div>

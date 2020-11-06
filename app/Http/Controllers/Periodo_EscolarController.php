@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Store\storePeriodo_Escolar;
-use App\Http\Requests\Update\updatePeriodo_Escolar;
 use App\Models\Empleado;
 use App\Models\Grado;
 use App\Models\Periodo_escolar;
 use App\Models\Salon;
 use App\Models\Seccion;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 class Periodo_EscolarController extends Controller
 {
     /**
@@ -56,7 +54,28 @@ class Periodo_EscolarController extends Controller
     public function store(storePeriodo_Escolar $request)
     {
         //
-        Periodo_escolar::create($request->all());
+        $periodo_escolar = Periodo_escolar::where([
+            ['salon', $request->salon],
+            ['seccion', $request->seccion],
+            ['salon', $request->salon],
+            ['ano', $request->ano],
+            ['empleado', $request->empleado]
+        ]);
+        $num = $periodo_escolar->count();
+        if ($num > 0) {
+            # code...
+            $num2 = $periodo_escolar->where('status', 0)->count();
+            if ($num2 == 0) {
+                # code...
+                $periodo_escolar->update(['status' => 1]);
+            }else{
+                return response()->json(['error' => 'error']);
+            }
+
+        }else{
+            Periodo_escolar::create($request->all());
+        }
+
     }
 
     /**
@@ -66,10 +85,41 @@ class Periodo_EscolarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(updatePeriodo_Escolar $request, Periodo_escolar $Periodo_Escolar)
+    public function update(storePeriodo_Escolar $request, Periodo_escolar $Periodo_Escolar)
     {
         //
-        $Periodo_Escolar->update($request->all());
+        $periodo_escolar = Periodo_Escolar::where([
+            ['salon', $request->salon],
+            ['seccion', $request->seccion],
+            ['salon', $request->salon],
+            ['ano', $request->ano],
+            ['empleado', $request->empleado]
+        ]);
+        $num = $periodo_escolar->count();
+        $id=0;
+        $error="false";
+        if ($num > 0) {
+            $num2 = $periodo_escolar->where('status', 0)->count();
+            if ($num2 == 0) {
+                $periodo_escolar1 = $periodo_escolar->get();
+                foreach ($periodo_escolar1 as $periodo_escolar2) {
+                    # code...
+                    $id = $periodo_escolar2->id;
+                }
+                $periodo_escolar->update(['status' => 1]);
+                $Periodo_Escolar->update(['status' => 0]);
+            }else{
+                $error = "error";
+            }
+        }else{
+            $Periodo_Escolar->update($request->all());
+        }
+
+        return response()->json([
+            'i' => $num,
+            'id' => $id,
+            'error' => $error
+        ]);
     }
 
     /**
@@ -81,7 +131,7 @@ class Periodo_EscolarController extends Controller
     public function destroy(Periodo_escolar $Periodo_Escolar)
     {
         //
-        $Periodo_Escolar->delete();
+        $Periodo_Escolar->update(['status' => 0]);
     }
 
     public function cargar(Request $request)
@@ -164,11 +214,10 @@ class Periodo_EscolarController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $periodo_escolar= Periodo_escolar::find($request->id)
-                 ->join([
-                     ['empleado', 'periodo_escolar.empleado', '=', 'empleado.id'],
-                     ['persona', 'empleado.persona', '=', 'persona.id']
-                 ]);
+        $periodo_escolar= Periodo_escolar::find($request->id)->join([
+            ['empleado', 'periodo_escolar.empleado', '=', 'empleado.id'],
+            ['persona', 'empleado.persona', '=', 'persona.id']
+        ]);
 
         return response()->json([
             'grado' => $periodo_escolar->grado,
@@ -188,7 +237,13 @@ class Periodo_EscolarController extends Controller
         $id="";
         $nombre="";
         $cedula=$request->cedula;
-        $cons= Empleado::join('persona', 'empleado.persona', '=', 'persona.id')->where('cedula', $cedula)->get();
+        $cons= Empleado::join([
+            ['persona', 'empleado.persona', '=', 'persona.id'],
+            ['cargo', 'empleado.cargo', '=', 'cargo.id']
+        ])->where([
+            ['cedula', $cedula],
+            ['cargos', 'PROFESOR']
+        ])->get();
         $num = $cons->count();
         if ($num>0) {
             # code...
