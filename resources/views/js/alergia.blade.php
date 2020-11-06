@@ -68,7 +68,7 @@
     let tipo = $("#tipo").val(); let tipo2 = $("#tipo2").val();
     let alergias = $("#alergias").val(); let alergias2 = $("#alergias2").val();
     let descripcion = $("#descripcion").val(); let descripcion2 = $("#descripcion2").val();
-    let tip = 0; let ale = 0;
+    let tip = 0; let ale = 0; let des = 0;
 
     if(tipo == "" || tipo == "null"){
         i++; tip++;
