@@ -45,7 +45,7 @@ class CreateAlergiaTable extends Migration
      */
     public function down()
     {
-        // Eliminar Vista view_discapacidad
+        // Eliminar Vista view_alergia
         DB::statement("DROP VIEW IF EXISTS view_alergia");
 
         Schema::dropIfExists('alergia');

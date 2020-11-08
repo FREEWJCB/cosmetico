@@ -23,6 +23,12 @@
 
 @endsection
 
+@section('reporte')
+<a href="{{ URL::to('imprimirDiscapacidad?export=pdf') }}" id="reporte" class="btn btn-success ml-1" target="_blank">
+                <i class="fas fa-user-plus"></i>Reporte
+            </a>
+@endsection
+
 @if ($js == 'axios')
     @section('ajax','warning')
     @section('axios','success')
