@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateEmpleadoTable extends Migration
 {
@@ -24,6 +25,23 @@ class CreateEmpleadoTable extends Migration
             $table->foreign('persona')->references('id')->on('persona');
 
         });
+
+        // Creación de la Vista view_empleado
+        DB::statement('
+            CREATE OR REPLACE VIEW view_empleado as
+                SELECT
+                e.id, p.cedula, p.nombre, p.apellido, p.sex, p.telefono,
+                p.direccion, e.email, c.cargos, m.municipalitys, s.states
+                FROM empleado e
+                INNER JOIN persona p
+                ON e.persona = p.id
+                INNER JOIN cargo c
+                ON e.cargo = c.id
+                INNER JOIN municipality m
+                ON p.municipality = m.id
+                INNER JOIN state s
+                ON m.state = s.id;
+        ');
     }
 
     /**
@@ -33,6 +51,9 @@ class CreateEmpleadoTable extends Migration
      */
     public function down()
     {
+        // Eliminar Vista view_empleado
+        DB::statement("DROP VIEW IF EXISTS view_empleado");
+
         Schema::dropIfExists('empleado');
     }
 }
