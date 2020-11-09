@@ -77,7 +77,7 @@
         <label for="cedula">Empleado</label>
         <div class="input-group mb-3">
 
-            <input type="text" class="form-control" placeholder="Buscar por cédula" maxlength="8" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula" name="cedula" />
+            <input type="number" class="form-control" placeholder="Buscar por cédula" maxlength="8" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula" name="cedula" />
 
             <div data-turbolinks="false" class="input-group-append">
 
@@ -89,6 +89,7 @@
                     <i class="fa fa-times-circle"></i>
                 </a>
             </div>
+            <small id="cedula_e" style="color: red"></small>
         </div>
     </div>
 
@@ -117,7 +118,7 @@
     <div class="form-row">
         <div id="usu" class="form-group col-md-6">
             <label for="username">Usuario</label>
-            <input type="text" class="form-control" required id="username" name="username" />
+            <input type="text" class="form-control" maxlength="10" required id="username" name="username" />
             <small id="username_e" style="color: red"></small>
         </div>
         <div class="form-group col-md-6">
@@ -144,21 +145,21 @@
 
       <div id="resp" class="form-group col-md-6">
         <label for="respuesta">Respuesta de seguridad</label>
-        <input type="password" class="form-control" required id="respuesta" maxlength="30" name="respuesta" />
+        <input type="password" class="form-control" required id="respuesta" maxlength="20" name="respuesta" />
         <small id="respuesta_e" style="color: red"></small>
       </div>
     </div>
 
     <div id="passw" class="form-row">
         <div class="form-group col-md-6">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" required id="password" maxlength="30" name="password" />
+            <label for="password">Contraseña</label>
+            <input type="password" class="form-control" required id="password" maxlength="20" name="password" />
             <small id="password_e" style="color: red"></small>
         </div>
 
         <div class="form-group col-md-6">
-            <label for="password2">Confirmar Password</label>
-            <input type="password" class="form-control" required id="password2" maxlength="30" name="password2" />
+            <label for="password2">Confirmar Contraseña</label>
+            <input type="password" class="form-control" required id="password2" maxlength="20" name="password2" />
             <small id="password2_e" style="color: red"></small>
         </div>
     </div>

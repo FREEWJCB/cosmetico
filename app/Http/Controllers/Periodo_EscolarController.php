@@ -69,7 +69,7 @@ class Periodo_EscolarController extends Controller
                 # code...
                 $periodo_escolar->update(['status' => 1]);
             }else{
-                return response()->json(['error' => 'error']);
+                return response()->json(['error' => 'error', 'message' => 'El periodo escolar ya está en uso', 'limpiar' => true]);
             }
 
         }else{
@@ -98,6 +98,8 @@ class Periodo_EscolarController extends Controller
         $num = $periodo_escolar->count();
         $id=0;
         $error="false";
+        $message="";
+        $limpiar=false;
         if ($num > 0) {
             $num2 = $periodo_escolar->where('status', 0)->count();
             if ($num2 == 0) {
@@ -110,6 +112,8 @@ class Periodo_EscolarController extends Controller
                 $Periodo_Escolar->update(['status' => 0]);
             }else{
                 $error = "error";
+                $message="El periodo escolar ya está en uso";
+                $limpiar=true;
             }
         }else{
             $Periodo_Escolar->update($request->all());
@@ -118,7 +122,9 @@ class Periodo_EscolarController extends Controller
         return response()->json([
             'i' => $num,
             'id' => $id,
-            'error' => $error
+            'error' => $error,
+            'message' => $message,
+            'limpiar' => $limpiar
         ]);
     }
 

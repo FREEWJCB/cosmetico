@@ -63,6 +63,18 @@
 
  @endsection
 
+@section('edicion_e')
+
+    $('#grado').val($('#grado2').val());
+    $('#seccion').val($('#seccion2').val());
+    $('#salon').val($('#salon2').val());
+    $('#ano').val($('#ano2').val());
+    $('#empleado').val($('#empleado2').val());
+    $('#cedula').val($('#cedula2').val());
+    $('#nombre').val($('#nombre2').val());
+
+@endsection
+
 @section('delete') url: "{{url('Periodo_Escolar')}}"+"/"+id, @endsection
 
 @section('cargar') url: "{{route('Periodo_Escolar.cargar')}}", @endsection

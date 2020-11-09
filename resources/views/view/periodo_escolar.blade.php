@@ -163,6 +163,7 @@
                     <i class="fa fa-search"></i>
                 </a>
             </div>
+            <input type="hidden" id="cedula2" name="cedula2" />
             <small id="cedula_e" style="color: red"></small>
         </div>
 
@@ -171,6 +172,7 @@
     <div style='display: none' id="profesor" class="form-group">
         <label for="nombre"><b>Nombre y apellido:</b></label>
         <input type="text" class="form-control" disabled id="nombre" name="nombre" />
+        <input type="hidden" id="nombre2" name="nombre2" />
     </div>
 
     <div style='display: none' id="noprofesor" class="form-group">

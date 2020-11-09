@@ -18,13 +18,12 @@ class UsuarioController extends Controller
      */
     public function index($js="AJAX")
     {
-        //
+
         $cons = Usuario::select('usuario.*','empleado.*','persona.*','tipo_usuario.tipo as tip')
-                    ->join([
-                        ['tipo_usuario', 'usuario.tipo', '=', 'tipo_usuario.id'],
-                        ['empleado', 'usuario.empleado', '=', 'empleado.id'],
-                        ['persona', 'empleado.persona', '=', 'persona.id']
-                    ])->where('usuario.status', '1')->orderBy('username','asc');
+        ->join('tipo_usuario', 'usuario.tipo', '=', 'tipo_usuario.id')
+        ->join('empleado', 'usuario.empleado', '=', 'empleado.id')
+        ->join('persona', 'empleado.persona', '=', 'persona.id')
+        ->where('usuario.status', '1')->orderBy('username','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
 
@@ -44,12 +43,23 @@ class UsuarioController extends Controller
     public function store(storeUsuario $request)
     {
         //
-        $usuario = Usuario::create($request->all());
+        if ($request['password'] == $request['password2']) {
+            # code...
+            $usuario = Usuario::create($request->all());
 
-        DB::table('password')->insert([
-            'passw' => md5($request->password),
-            'usuario' => $usuario->id
+            DB::table('password')->insert([
+                'passw' => md5($request->password),
+                'usuario' => $usuario->id
             ]);
+        }else{
+            return response()->json([
+                'error' => 'error',
+                'message' => 'Las contraseñas no coinciden',
+                'limpiar' => false,
+                'alerta' => "<script> $('#password2').val(''); $('#password2').attr('class', 'form-control border border-danger'); $('#password2_e').html('La contraseña no coinciden.'); </script>"
+            ]);
+        }
+
     }
 
     /**
@@ -76,6 +86,13 @@ class UsuarioController extends Controller
         //
         DB::table('password')->where('usuario', $Usuario->id)->update(['status' => 0]);
         $Usuario->update(['status' => 0]);
+    }
+
+    public function active(Usuario $Usuario)
+    {
+        //
+        DB::table('password')->where('usuario', $Usuario->id)->update(['status' => 0]);
+        $Usuario->update(['status' => 1]);
     }
 
     public function cargar(Request $request)

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Update;
 
+use App\Rules\NotNull;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class updateUsuario extends FormRequest
 {
@@ -25,7 +25,7 @@ class updateUsuario extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tipo' => ['required',new NotNull()]
         ];
     }
 }

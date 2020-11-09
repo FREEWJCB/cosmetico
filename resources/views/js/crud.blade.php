@@ -116,12 +116,22 @@ function agregaRegistro() {
                     }
                 }else{
                     type = "error";
-                    message = "El periodo escolar ya está en uso";
+                    message = valores.message;
                     if (pro == "Registro") {
-                        $("#formulario")[0].reset();
-                        @yield('registro')
+                        if (valores.limpiar == true){
+                            $("#formulario")[0].reset();
+                            @yield('registro')
+                        }else{
+                            $('#alert_e').html(valores.alerta);
+                        }
+
                     }else{
-                        @yield('edicion')
+                        if (valores.limpiar == true){
+                            @yield('edicion_e')
+                        }else{
+                            $('#alert_e').html(valores.alerta);
+                        }
+
                     }
 
                 }

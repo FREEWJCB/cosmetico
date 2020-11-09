@@ -53,10 +53,9 @@
             @yield('ventanas')
             <form id="formulario" name="formulario" class="formulario"  onsubmit='return agregaRegistro();'>
                 @csrf
+                <div id="alert_e"></div>
                 <input type="hidden" id="id" name="id" />
                 <input type="hidden" id="pro" name="pro" />
-                <input type="hidden" value="@yield('maestro')" id="maestro" name="maestro" />
-                <input type="hidden" value="@yield('atributo')" id="atributo" name="atributo" />
                 <div class="modal-body">
                     @yield('form')
                 </div>

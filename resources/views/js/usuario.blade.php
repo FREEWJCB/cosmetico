@@ -30,9 +30,9 @@
 
 @endsection
 
-@section('url_registro') var url = "{{ route('Usuario.store') }}"; @endsection
+@section('url_registro') url = "{{ route('Usuario.store') }}"; @endsection
 
-@section('url_edicion') var url = "{{ route('Usuario.update') }}"; @endsection
+@section('url_edicion') url = `{{url('Usuario')}}/${id}`; @endsection
 
 @section('select')
 
@@ -76,7 +76,13 @@
 
  @endsection
 
-@section('delete') url: "{{url('Usuario')}}"+"/"+id, @endsection
+@section('edicion_e')
+
+    $('#tipo').val($('#tipo2').val());
+
+ @endsection
+
+@section('delete') url: `{{url('Usuario')}}/${id}`, @endsection
 
 @section('cargar') url: "{{route('Usuario.cargar')}}", @endsection
 
@@ -188,4 +194,246 @@
         $("#cance").hide();
     }
 
+@endsection
+@section('validacion')
+
+    let empleado = $("#empleado").val();
+    let username = $("#username").val();
+    let tipo = $("#tipo").val(); let tipo2 = $("#tipo2").val();
+    let pregunta = $("#pregunta").val();
+    let respuesta = $("#respuesta").val();
+    let password = $("#password").val(); let password2 = $("#password2").val();
+    let emp = 0; let use = 0; let tip = 0; let pre = 0; let res = 0; let pas = 0; let pas2 = 0;
+
+    if(tipo == "" || tipo == "null"){
+        i++; tip++;
+        $("#tipo").attr('class', 'form-control border border-danger');
+        $("#tipo_e").html('El campo tipo es obligatorio.');
+
+    }
+
+    if(pro == 'Registro'){
+        if(empleado == ""){
+            i++; emp++;
+            $("#cedula").attr('class', 'form-control border border-danger');
+            $("#cedula_e").html('El campo tipo es obligatorio.');
+
+        }
+
+        if(username == ""){
+            i++; use++;
+            $("#username").attr('class', 'form-control border border-danger');
+            $("#username_e").html('El campo usuario es obligatorio.');
+
+        }else if(username.length > 10){
+            i++; use++;
+            $("#username").attr('class', 'form-control border border-danger');
+            $("#username_e").html('El campo usuario no debe contener más de 10 caracteres.');
+
+        }else if(username.length < 8){
+            i++; use++;
+            $("#username").attr('class', 'form-control border border-danger');
+            $("#username_e").html('El campo usuario debe contener al menos 8 caracteres.');
+
+        }
+
+        if(pregunta == ""){
+            i++; pre++;
+            $("#pregunta").attr('class', 'form-control border border-danger');
+            $("#pregunta_e").html('El campo pregunta es obligatorio.');
+
+        }else if(pregunta.length > 255){
+            i++; pre++;
+            $("#pregunta").attr('class', 'form-control border border-danger');
+            $("#pregunta_e").html('El campo pregunta no debe contener más de 255 caracteres.');
+
+        }else if(pregunta.length < 3){
+            i++; pre++;
+            $("#pregunta").attr('class', 'form-control border border-danger');
+            $("#pregunta_e").html('El campo pregunta debe contener al menos 03 caracteres.');
+
+        }
+
+        if(respuesta == ""){
+            i++; res++;
+            $("#respuesta").attr('class', 'form-control border border-danger');
+            $("#respuesta_e").html('El campo respuesta es obligatorio.');
+
+        }else if(respuesta.length > 20){
+            i++; res++;
+            $("#respuesta").attr('class', 'form-control border border-danger');
+            $("#respuesta_e").html('El campo respuesta no debe contener más de 20 caracteres.');
+
+        }else if(respuesta.length < 3){
+            i++; res++;
+            $("#respuesta").attr('class', 'form-control border border-danger');
+            $("#respuesta_e").html('El campo respuesta debe contener al menos 3 caracteres.');
+
+        }
+
+        if(password == ""){
+            i++; pas++;
+            $("#password").attr('class', 'form-control border border-danger');
+            $("#password_e").html('El campo contraseña es obligatorio.');
+
+        }else if(password.length > 20){
+            i++; pas++;
+            $("#password").attr('class', 'form-control border border-danger');
+            $("#password_e").html('El campo contraseña no debe contener más de 20 caracteres.');
+
+        }else if(password.length < 8){
+            i++; pas++;
+            $("#password").attr('class', 'form-control border border-danger');
+            $("#password_e").html('El campo contraseña debe contener al menos 8 caracteres.');
+
+        }else if(password == password2){
+            i++; pas2++;
+            $("#password2").attr('class', 'form-control border border-danger');
+            $("#password2_e").html('Las contraseñas no coinciden.');
+        }
+    }else if(tipo == tipo2){
+        tip++;
+        message = 'No ha hecho ningun cambio.';
+    }
+
+    if(i > 0){
+
+        if(pro == 'Registro'){
+
+            if (tip > 0) {
+                $("#tipo").val('null');
+            }
+
+            if (emp > 0) {
+                $("#empleado").val('');
+            }
+
+            if (use > 0) {
+                $("#username").val('');
+            }
+
+            if (pre > 0) {
+                $("#pregunta").val('');
+            }
+
+            if (res > 0) {
+                $("#respuesta").val('');
+            }
+
+            if (pas > 0) {
+                $("#password").val('');
+                $("#password2").val('');
+            }
+
+            if (pas2 > 0) {
+                $("#password2").val('');
+            }
+
+        }else{
+
+            if (tip > 0) {
+                $("#tipo").val(tipo2);
+            }
+        }
+        boo = false;
+        $("body").overhang({
+            type: "error",
+            message: message
+        });
+    }
+@endsection
+
+@section('reiniciar')
+    $("#cedula_e").html('');
+    $("#tipo_e").html('');
+    $("#username_e").html('');
+    $("#pregunta_e").html('');
+    $("#respuesta_e").html('');
+    $("#password_e").html('');
+    $("#password2_e").html('');
+    $("#cedula").attr('class', 'form-control');
+    $("#tipo").attr('class', 'form-control');
+    $("#username").attr('class', 'form-control');
+    $("#pregunta").attr('class', 'form-control');
+    $("#respuesta").attr('class', 'form-control');
+    $("#password").attr('class', 'form-control');
+    $("#password2").attr('class', 'form-control');
+@endsection
+
+@section('error')
+    let emp = 0; let use = 0; let tip = 0; let pre = 0; let res = 0; let pas = 0; let pas2 = 0;
+
+    if (xhr.responseJSON.errors.empleado){
+        $("#cedula_e").html(xhr.responseJSON.errors.empleado);
+        $("#cedula").attr('class', 'form-control border border-danger');
+        emp++;
+    }
+
+    if (xhr.responseJSON.errors.tipo){
+        $("#tipo_e").html(xhr.responseJSON.errors.tipo);
+        $("#tipo").attr('class', 'form-control border border-danger');
+        tip++;
+    }
+
+    if (xhr.responseJSON.errors.username){
+        $("#username_e").html(xhr.responseJSON.errors.username);
+        $("#username").attr('class', 'form-control border border-danger');
+        use++;
+    }
+
+    if (xhr.responseJSON.errors.pregunta){
+        $("#pregunta_e").html(xhr.responseJSON.errors.pregunta);
+        $("#pregunta").attr('class', 'form-control border border-danger');
+        pre++;
+    }
+
+    if (xhr.responseJSON.errors.respuesta){
+        $("#respuesta_e").html(xhr.responseJSON.errors.respuesta);
+        $("#respuesta").attr('class', 'form-control border border-danger');
+        res++;
+    }
+
+    if (xhr.responseJSON.errors.password || xhr.responseJSON.errors.password2){
+        $("#password_e").html(xhr.responseJSON.errors.password);
+        $("#password").attr('class', 'form-control border border-danger');
+        pass++;
+    }
+
+    if (pro == "Registro") {
+
+        if (tip > 0) {
+            $("#tipo").val('null');
+        }
+
+        if (emp > 0) {
+            $("#empleado").val('');
+        }
+
+        if (use > 0) {
+            $("#username").val('');
+        }
+
+        if (pre > 0) {
+            $("#pregunta").val('');
+        }
+
+        if (res > 0) {
+            $("#respuesta").val('');
+        }
+
+        if (pas > 0) {
+            $("#password").val('');
+            $("#password2").val('');
+        }
+
+        if (pas2 > 0) {
+            $("#password2").val('');
+        }
+
+    }else{
+
+        if (tip > 0) {
+            $("#tipo").val($("#tipo2").val());
+        }
+    }
 @endsection
