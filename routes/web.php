@@ -187,6 +187,7 @@ Route::POST('/Estudiante/quitar_d', [EstudianteController::class,'quitar_d'])->n
 Route::POST('/Estudiante/combobox', [EstudianteController::class,'combobox'])->name('Estudiante.combobox');
 Route::GET('/Estudiante/{js?}', [EstudianteController::class,'index']);
 
+Route::POST('Persona', [EstudianteController::class,'consulta'])->name('Persona.consulta');
 //c-sabe
 
 Route::resource('Pregunta', PreguntaController::class)->except('show','edit','create');

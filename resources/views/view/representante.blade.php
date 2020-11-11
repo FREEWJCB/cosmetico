@@ -130,6 +130,7 @@
                     @endforeach
                 @endif
             </select>
+            <input type="hidden" id="ocupacion_laboral2" name="ocupacion_laboral2" />
             <small id="ocupacion_laboral_e" style="color: red"></small>
         </div>
     </div>
@@ -145,6 +146,7 @@
                     @endforeach
                 @endif
             </select>
+            <input type="hidden" id="state2" name="state2" />
             <small id="state_e" style="color: red"></small>
         </div>
 

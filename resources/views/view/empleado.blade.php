@@ -4,6 +4,7 @@
 
 @section('titulo','Empleado')
 @section('proyecto','active')
+@section('modal','modal-lg')
 
 @section('busqueda')
 
@@ -81,31 +82,41 @@
 @section('form')
 
     <input type="hidden" id="persona" name="persona" />
+
+    
     <div class="form-row">
-        <div class="form-group col-md-6">
+        
+        <div class="form-group col-md-4">
             <label for="cedula"><b>Cedula:</b></label>
-            <input type="number" class="form-control" maxlength="8" required id="cedula" name="cedula" />
-            <small id="cedula_e" style="color: red"></small>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" maxlength="8" onkeypress="return numero_e(event)" required id="cedula" name="cedula" />
+                <div data-turbolinks="false" class="input-group-append">
+                    <a href="#" style='display: none' id="cance" onclick = "return cancelar();" class="btn btn-danger btncolorblanco">
+                        <i class="fa fa-times-circle"></i>
+                    </a>
+                </div>
+                <small id="cedula_e" style="color: red"></small>
+            </div>
         </div>
 
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="nombre"><b>Nombre:</b></label>
             <input type="text" class="form-control" onkeyup="mayuscula(this)" onkeypress="return letra(event)" maxlength="255" required id="nombre" name="nombre" />
             <input type="hidden" id="nombre2" name="nombre2" />
             <small id="nombre_e" style="color: red"></small>
         </div>
 
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="apellido"><b>Apellido:</b></label>
             <input type="text" class="form-control" onkeyup="mayuscula(this)" onkeypress="return letra(event)" maxlength="255" required id="apellido" name="apellido" />
             <input type="hidden" id="apellido2" name="apellido2" />
             <small id="apellido_e" style="color: red"></small>
         </div>
+    </div>
 
-        <div class="form-group col-md-6">
+    <div class="form-row">
+        
+        <div class="form-group col-md-4">
             <label for="sex"><b>Sexo:</b></label>
             <select class="form-control" id="sex" name="sex">
                 <option value="null" disabled selected>Seleccione un sexo</option>
@@ -115,17 +126,15 @@
             <input type="hidden" id="sex2" name="sex2" />
             <small id="sex_e" style="color: red"></small>
         </div>
-    </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="telefono"><b>Telefono:</b></label>
             <input type="tel" class="form-control" maxlength="11" required id="telefono" name="telefono" />
             <input type="hidden" id="telefono2" name="telefono2" />
             <small id="telefono_e" style="color: red"></small>
         </div>
 
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="email"><b>Email:</b></label>
             <input type="email" class="form-control" required id="email" name="email" />
             <input type="hidden" id="email2" name="email2" />
@@ -134,7 +143,7 @@
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="state"><b>Estado:</b></label>
             <select class="form-control" required id="state" name="state">
                 <option value="null" disabled selected>Seleccione un estado</option>
@@ -144,10 +153,11 @@
                     @endforeach
                 @endif
             </select>
+            <input type="hidden" id="state2" name="state2" />
             <small id="state_e" style="color: red"></small>
         </div>
 
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="municipality"><b>Municipio:</b></label>
             <select class="form-control" required id="municipality" name="municipality">
                 <option value="null" disabled selected>Seleccione un municipio</option>
@@ -155,17 +165,8 @@
             <input type="hidden" id="municipality2" name="municipality2" />
             <small id="municipality_e" style="color: red"></small>
         </div>
-    </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="direccion"><b>Dirección:</b></label>
-            <textarea class="form-control" required id="direccion" name="direccion"></textarea>
-            <input type="hidden" id="direccion2" name="direccion2" />
-            <small id="direccion_e" style="color: red"></small>
-        </div>
-
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="cargo"><b>Cargo:</b></label>
             <select class="form-control" required id="cargo" name="cargo">
                 <option value="null" disabled selected>Seleccione un cargo</option>
@@ -178,6 +179,14 @@
             <input type="hidden" id="cargo2" name="cargo2" />
             <small id="cargo_e" style="color: red"></small>
         </div>
+        
+    </div>
+
+    <div class="form-group">
+        <label for="direccion"><b>Dirección:</b></label>
+        <textarea class="form-control" required id="direccion" name="direccion" rows="3"></textarea>
+        <input type="hidden" id="direccion2" name="direccion2" />
+        <small id="direccion_e" style="color: red"></small>
     </div>
 
 @endsection

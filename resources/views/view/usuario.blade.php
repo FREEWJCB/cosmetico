@@ -77,7 +77,7 @@
         <label for="cedula">Empleado</label>
         <div class="input-group mb-3">
 
-            <input type="number" class="form-control" placeholder="Buscar por cédula" maxlength="8" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula" name="cedula" />
+            <input type="text" class="form-control" onkeypress="return numero_e(event)" placeholder="Buscar por cédula" maxlength="8" arialabel="Buscar por cédula" aria-describedby="button-addon2" required id="cedula" name="cedula" />
 
             <div data-turbolinks="false" class="input-group-append">
 

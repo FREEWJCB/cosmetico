@@ -20,14 +20,10 @@ class EmpleadoController extends Controller
     {
         //
         $cons = Empleado::select('empleado.*', 'cargo.cargos', 'state.states', 'municipality.municipalitys', 'persona.cedula', 'persona.nombre', 'persona.apellido', 'persona.sex', 'persona.telefono')
-                    ->join([
-                        ['cargo', 'empleado.cargo', '=', 'cargo.id'],
-                        ['persona', 'empleado.persona', '=', 'persona.id'],
-                        ['municipality', 'persona.municipality', '=', 'municipality.id'],
-                        ['state', 'municipality.state', '=', 'state.id']
-                        ])
-                    ->where('empleado.status', '1')
-                    ->orderBy('cedula','asc');
+                    ->join('cargo', 'empleado.cargo', '=', 'cargo.id')
+                    ->join('persona', 'empleado.persona', '=', 'persona.id')
+                    ->join('municipality', 'persona.municipality', '=', 'municipality.id')
+                    ->join('state', 'municipality.state', '=', 'state.id')->where('empleado.status', '1')->orderBy('cedula','asc');
         $cons2 = $cons->get();
         $num = $cons->count();
 
