@@ -38,6 +38,17 @@ use App\Http\Controllers\imprimirOcupacionLaboralController;
 use App\Http\Controllers\imprimirTiposDiscapacidadController;
 use App\Http\Controllers\imprimirAlergiaController;
 use App\Http\Controllers\imprimirDiscapacidadController;
+use App\Http\Controllers\imprimirCargoController;
+use App\Http\Controllers\imprimirSeccionController;
+use App\Http\Controllers\imprimirSalonController;
+use App\Http\Controllers\imprimirGradoController;
+use App\Http\Controllers\imprimirEstadoController;
+use App\Http\Controllers\imprimirMunicipioController;
+use App\Http\Controllers\imprimirEmpleadoController;
+use App\Http\Controllers\imprimirUsuarioController;
+use App\Http\Controllers\imprimirRepresentanteController;
+use App\Http\Controllers\imprimirEstudianteController;
+use App\Http\Controllers\imprimirPeriodoEscolarController;
 
 // c-sabe
 
@@ -226,6 +237,17 @@ Route::get('/imprimirOcupacionLaboral', [imprimirOcupacionLaboralController::cla
 Route::get('/imprimirTipoDiscapacidad', [imprimirTiposDiscapacidadController::class, 'imprimirTodos'])->name('imprimirTipoDiscapacidad');
 Route::get('/imprimirAlergia', [imprimirAlergiaController::class, 'imprimirTodos'])->name('imprimirAlergia');
 Route::get('/imprimirDiscapacidad', [imprimirDiscapacidadController::class, 'imprimirTodos'])->name('imprimirDiscapacidad');
+Route::get('/imprimirCargo', [imprimirCargoController::class, 'imprimirTodos'])->name('imprimirCargo');
+Route::get('/imprimirSeccion', [imprimirSeccionController::class, 'imprimirTodos'])->name('imprimirSeccion');
+Route::get('/imprimirSalon', [imprimirSalonController::class, 'imprimirTodos'])->name('imprimirSalon');
+Route::get('/imprimirGrado', [imprimirGradoController::class, 'imprimirTodos'])->name('imprimirGrado');
+Route::get('/imprimirEstado', [imprimirEstadoController::class, 'imprimirTodos'])->name('imprimirEstado');
+Route::get('/imprimirMunicipio', [imprimirMunicipioController::class, 'imprimirTodos'])->name('imprimirMunicipio');
+Route::get('/imprimirEmpleado', [imprimirEmpleadoController::class, 'imprimirTodos'])->name('imprimirEmpleado');
+Route::get('/imprimirUsuario', [imprimirUsuarioController::class, 'imprimirTodos'])->name('imprimirUsuario');
+Route::get('/imprimirRepresentante', [imprimirRepresentanteController::class, 'imprimirTodos'])->name('imprimirRepresentante');
+Route::get('/imprimirEstudiante', [imprimirEstudianteController::class, 'imprimirTodos'])->name('imprimirEstudiante');
+Route::get('/imprimirPeriodoEscolar', [imprimirPeriodoEscolarController::class, 'imprimirTodos'])->name('imprimirPeriodoEscolar');
 
 //c-sabe
 
@@ -256,5 +278,4 @@ Route::GET('/Curso/{js?}', [CursoController::class,'index']);
 
 // otros
 Route::resource('combobox', combo::class)->only('store');
-
 
