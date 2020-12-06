@@ -1,4 +1,4 @@
-<script>
+{{-- <script> --}}
 @section('document')
 
     $("#lim").on("click", function() {
@@ -51,9 +51,9 @@
 
 @endsection
 
-@section('url_registro') var url = "{{ route('Curso.store') }}"; @endsection
+@section('url_registro') url = "{{ route('Curso.store') }}"; @endsection
 
-@section('url_edicion') var url = "{{ route('Curso.update') }}"; @endsection
+@section('url_edicion') url = `{{url('Curso')}}/${id}`; @endsection
 
 @section('select') limpiar(); @endsection
 
@@ -61,7 +61,7 @@
 
 @section('edicion') $('#curso2').val($('#curso').val()); @endsection
 
-@section('delete') url: "{{url('Curso')}}"+"/"+id, @endsection
+@section('delete') url: `{{url('Curso')}}/${id}`, @endsection
 
 @section('cargar') url: "{{route('Curso.cargar')}}", @endsection
 
@@ -451,4 +451,4 @@
 
 
 @endsection
-</script>
+
