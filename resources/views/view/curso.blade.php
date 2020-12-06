@@ -75,22 +75,34 @@
                     <tr>
                         <th>Básico</th>
                         <td scope="row"><center id='basico_i'>1</center></td>
-                        <td><input type='number' required value='1' min='1' max='100' maxlength="3" name='basico_f' id='basico_f'></td>
+                        <td>
+                            <input type='number' required value='1' min='1' max='100' maxlength="3" name='basico_f' id='basico_f'>
+                            <small id="basico_f_e" style="color: red"></small>
+                        </td>
                     </tr>
                     <tr>
                         <th>Intermedio</th>
                         <td scope="row"><center id='intermedio_i'>1</center></td>
-                        <td><input type='number' required value='1' min='1' max='100' maxlength="3" name='intermedio_f' id='intermedio_f'></td>
+                        <td>
+                            <input type='number' required value='1' min='1' max='100' maxlength="3" name='intermedio_f' id='intermedio_f'>
+                            <small id="intermedio_f_e" style="color: red"></small>
+                        </td>
                     </tr>
                     <tr>
                         <th>Avanzado</th>
                         <td scope="row"><center id='avanzado_i'>1</center></td>
-                        <td><input type='number' required value='1' min='1' max='100' maxlength="3" name='avanzado_f' id='avanzado_f'></td>
+                        <td>
+                            <input type='number' required value='1' min='1' max='100' maxlength="3" name='avanzado_f' id='avanzado_f'>
+                            <small id="avanzado_f_e" style="color: red"></small>
+                        </td>
                     </tr>
                     <tr>
                         <th>Profesional</th>
                         <td scope="row"><center id='profesional_i'>1</center></td>
-                        <td><input type='number' required value='1' min='1' max='100' maxlength="3" name='profesional_f' id='profesional_f'></td>
+                        <td>
+                            <input type='number' required value='1' min='1' max='100' maxlength="3" name='profesional_f' id='profesional_f'>
+                            <small id="profesional_f_e" style="color: red"></small>
+                        </td>
                     </tr>
                 </tbody>
             </table>
