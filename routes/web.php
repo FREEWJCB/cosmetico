@@ -210,6 +210,7 @@ Route::POST('/Curso/quitar_r', [CursoController::class,'quitar_r'])->name('Curso
 Route::POST('/Curso/clear_p', [CursoController::class,'clear_p'])->name('Curso.clear_p');
 Route::POST('/Curso/clear_r', [CursoController::class,'clear_r'])->name('Curso.clear_r');
 Route::POST('/Curso/puntos', [CursoController::class,'puntos'])->name('Curso.puntos');
+Route::POST('/Curso/val_pregunta', [CursoController::class,'val_pregunta'])->name('Curso.val_pregunta');
 Route::POST('/Curso/rellenar', [CursoController::class,'mostrar'])->name('Curso.mostrar');
 Route::GET('/Curso/{js?}', [CursoController::class,'index']);
 

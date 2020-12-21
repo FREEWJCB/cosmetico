@@ -78,6 +78,7 @@
                         <td>
                             <input type='number' required value='1' min='1' max='100' maxlength="3" name='basico_f' id='basico_f'>
                             <small id="basico_f_e" style="color: red"></small>
+                            <input type="hidden" id="basico_f2" name="basico_f2" />
                         </td>
                     </tr>
                     <tr>
@@ -86,6 +87,7 @@
                         <td>
                             <input type='number' required value='1' min='1' max='100' maxlength="3" name='intermedio_f' id='intermedio_f'>
                             <small id="intermedio_f_e" style="color: red"></small>
+                            <input type="hidden" id="intermedio_f2" name="intermedio_f2" />
                         </td>
                     </tr>
                     <tr>
@@ -94,6 +96,7 @@
                         <td>
                             <input type='number' required value='1' min='1' max='100' maxlength="3" name='avanzado_f' id='avanzado_f'>
                             <small id="avanzado_f_e" style="color: red"></small>
+                            <input type="hidden" id="avanzado_f2" name="avanzado_f2" />
                         </td>
                     </tr>
                     <tr>
@@ -102,6 +105,7 @@
                         <td>
                             <input type='number' required value='1' min='1' max='100' maxlength="3" name='profesional_f' id='profesional_f'>
                             <small id="profesional_f_e" style="color: red"></small>
+                            <input type="hidden" id="profesional_f2" name="profesional_f2" />
                         </td>
                     </tr>
                 </tbody>
@@ -110,12 +114,13 @@
     </div>
 
     <div style='display: none' id="pregunta_ventana">
+        <div id="val_pregunta"></div>
         <div class="form-group">
             <label for="respuestas">Pregunta:</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" aria-describedby="button-addon2" id="preguntas" name="preguntas" />
                 <div  class="input-group-append">
-                    <a href="#" onclick = "return agreg_pre();" class="btn btn-success btncolorblanco">
+                    <a href="#" onclick = "return agreg_pre('si');" class="btn btn-success btncolorblanco">
                         <i class="fa fa-plus"></i> Agregar
                     </a>
                 </div>

@@ -1,4 +1,4 @@
-{{-- <script> --}}
+<script>
 @section('document')
 
     $("#lim").on("click", function() {
@@ -10,43 +10,43 @@
     });
 
     $("#curso").on("keyup", function() {
-        val_curso(1);
+        val_curso("no");
     });
 
     $("#basico_f").on("keyup", function() {
 
         basico();
-        val_curso(1);
+        val_curso("no");
     });
 
     $("#intermedio_f").on("keyup", function() {
 
         intermedio();
-        val_curso(1);
+        val_curso("no");
     });
 
     $("#avanzado_f").on("keyup", function() {
 
         avanzado();
-        val_curso(1);
+        val_curso("no");
     });
 
     $("#basico_f").on("change", function() {
 
         basico();
-        val_curso(1);
+        val_curso("no");
     });
 
     $("#intermedio_f").on("change", function() {
 
         intermedio();
-        val_curso(1);
+        val_curso("no");
     });
 
     $("#avanzado_f").on("change", function() {
 
         avanzado();
-        val_curso(1);
+        val_curso("no");
     });
 
 @endsection
@@ -134,7 +134,177 @@
 
     }
 
-    function curso() {
+    function validacion_curso(val){
+        let boo = true;
+        let message = ['validar'];
+        let pro = $("#pro").val();
+        let intermedio_i = parseInt(basico_f) + 1;
+        let curso = $("#curso").val(); let curso2 = $("#curso2").val();
+        let basico_f = $("#basico_f").val(); let basico_f2 = $("#basico_f2").val();
+        let intermedio_f = $("#intermedio_f").val(); let intermedio_f2 = $("#intermedio_f2").val();
+        let avanzado_f = $("#avanzado_f").val(); let avanzado_f2 = $("#avanzado_f2").val();
+        let profesional_f = $("#profesional_f").val(); let profesional_f2 = $("#profesional_f2").val();
+        let intermedio_i = parseInt(basico_f) + 1;
+        let avanzado_i = parseInt(intermedio_f) + 1;
+        let profesional_i = parseInt(avanzado_f) + 1;
+        let i = 0; let cur = 0; let ba = 0; let in = 0; let av = 0; let pr = 0;
+
+        {{-- curso --}}
+        if(curso == ""){
+            i++; cur++;
+            message.push('El campo curso es obligatorio.');
+
+        }else if(curso.length > 255){
+            i++; cur++;
+            message.push('El campo curso no debe contener más de 255 caracteres.');
+
+        }else if(curso.length < 3){
+            i++; cur++;
+            message.push('El campo curso debe contener al menos 03 caracteres.');
+
+        }
+
+        {{-- basico --}}
+        if (basico_f == "") {
+            i++; ba++;
+            message.push('El campo básico es obligatorio.');
+        }else if (basico_f < 1){
+            i++; ba++;
+            message.push('El campo básico debe ser mayor que 0.');
+        }else if (basico_f > 100){
+            i++; ba++;
+            message.push('El campo básico debe ser menor que 101.');
+        }
+
+         {{-- intermedio --}}
+        if (intermedio_f == "") {
+            i++; in++;
+            message.push('El campo intermedio es obligatorio.');
+        }else if (intermedio_f < intermedio_i){
+            i++; in++;
+            message.push(`El campo intermedio debe ser mayor que ${basico_f}.`);
+
+        }else if (intermedio_f > 100){
+            i++; in++;
+            message.push('El campo intermedio debe ser menor que 101.');
+        }
+
+        {{-- avanzado --}}
+        if (avanzado_f == "") {
+            i++; av++;
+            message.push('El campo avanzado es obligatorio.');
+        }else if (avanzado_f < avanzado_i){
+            i++; av++;
+            message.push(`El campo avanzado debe ser mayor que ${intermedio_f}.`);
+        }else if (avanzado_f > 100){
+            i++; av++;
+            message.push('El campo avanzado debe ser menor que 101.');
+        }
+        // profesional
+        if (profesional_f == "") {
+            i++; pr++;
+            message.push('El campo profesional es obligatorio.');
+        }else if (profesional_f < profesional_i){
+            i++; pr++;
+            message.push(`El campo profesional debe ser mayor que ${avanzado_f}.`);
+        }else if (profesional_f > 100){
+            i++; pr++;
+            message.push('El campo profesional debe ser menor que 101.');
+        }
+
+        if(i > 0 && val == "si"){
+            let u = 0;
+            if(pro == 'Registro'){
+
+                if (cur > 0) {
+                    u++;
+                    $("#curso").val('');
+                    $("#curso").attr('class', 'form-control border border-danger');
+                    $("#curso_e").html(message[u]);
+                }
+
+                if (ba > 0) {
+                    u++;
+                    $("#basico_f").val('1');
+                    $("#basico_f").attr('class', 'form-control border border-danger');
+                    $("#basico_f_e").html(message[u]);
+                }
+
+                if (in > 0) {
+                    u++;
+                    $("#intermedio_f").val(parseInt($("#basico_f").val()) + 1);
+                    $("#intermedio_f").attr('class', 'form-control border border-danger');
+                    $("#intermedio_f").attr('min', parseInt($("#basico_f").val()) + 1));
+                    $("#intermedio_f_e").html(message[u]);
+                }
+
+                if (av > 0) {
+                    u++;
+                    $("#avanzado_f").val(parseInt($("#intermedio_f").val()) + 1);
+                    $("#avanzado_f").attr('class', 'form-control border border-danger');
+                    $("#avanzado_f").attr('min', parseInt($("#intermedio_f").val()) + 1));
+                    $("#avanzado_f_e").html(message[u]);
+                }
+
+                if (pr > 0) {
+                    u++;
+                    $("#profesional_f").val(parseInt($("#avanzado_f").val()) + 1));
+                    $("#profesional_f").attr('class', 'form-control border border-danger');
+                    $("#profesional_f").attr('min', parseInt($("#avanzado_f").val()) + 1));
+                    $("#profesional_f_e").html(message[u]);
+                }
+
+            }else{
+
+                if (cur > 0) {
+                    u++;
+                    $("#curso").val(curso2);
+                    $("#curso").attr('class', 'form-control border border-danger');
+                    $("#curso_e").html(message[u]);
+                }
+
+                if (ba > 0) {
+                    u++;
+                    $("#basico_f").val(basico_f2);
+                    $("#basico_f").attr('class', 'form-control border border-danger');
+                    $("#basico_f_e").html(message[u]);
+                }
+
+                if (in > 0) {
+                    u++;
+                    $("#intermedio_f").val(intermedio_f2);
+                    $("#intermedio_f").attr('class', 'form-control border border-danger');
+                    $("#intermedio_f").attr('min', intermedio_f2);
+                    $("#intermedio_f_e").html(message[u]);
+                }
+
+                if (av > 0) {
+                    u++;
+                    $("#avanzado_f").val(avanzado_f2);
+                    $("#avanzado_f").attr('class', 'form-control border border-danger');
+                    $("#avanzado_f").attr('min', avanzado_f2);
+                    $("#avanzado_f_e").html(message[u]);
+                }
+                if (pr > 0) {
+                    u++;
+                    $("#profesional_f").val(profesional_f2);
+                    $("#profesional_f").attr('class', 'form-control border border-danger');
+                    $("#profesional_f").attr('min', profesional_f2);
+                    $("#profesional_f_e").html(message[u]);
+                }
+
+            }
+
+        }
+
+        if(i > 0){
+            boo = false;
+        }
+
+        return boo;
+    }
+
+    function curso(val) {
         $("#button_curso").attr("class", "btn btn-success");
         $("#button_pregunta").attr("class", "btn btn-secondary");
         $('#pregunta_ventana').fadeOut();
@@ -144,103 +314,23 @@
         $("#siguiente").attr("class", "btn btn-primary");
         $("#siguiente").removeAttr("disabled");
         $("#ventana").val('1');
-        val_curso(0);
+        val_curso(val);
     }
 
     function val_curso(val){
         let ventana = $('#ventana').val();
-        let curso = $('#curso').val();
-        let basico = parseInt($('#basico_f').val());
-        let intermedio = parseInt($('#intermedio_f').val());
-        let avanzado = parseInt($('#avanzado_f').val());
-        let profesional = parseInt($('#profesional_f').val());
-        let intermedio_i = basico+1;
-        let avanzado_i = intermedio+1;
-        let profesional_i = avanzado+1;
+        let boo = validacion_curso(val);
 
-        let i = 0;
+        if (boo == true) {
+            if(ventana == 1){
+                $("#button_curso").attr("class", "btn btn-success");
+                $("#siguiente").attr("class", "btn btn-primary");
+                $("#siguiente").removeAttr("disabled");
+                $("#button_pregunta").attr("class", "btn btn-primary");
+                $("#button_pregunta").removeAttr("disabled");
 
-        // curso
-        if (curso == "") {
-            i++;
-            // console.log('curso'+i);
-        }else if (curso.length <= 3){
-            i++;
-            if (val == 0) {
-                $('#curso').val('');
             }
-            // console.log();
-        }
-        // basico
-        if (basico == "") {
-            i++;
-            // console.log('basico'+i);
-        }else if (basico < 1){
-            i++;
-            if (val == 0) {
-                $('#basico_f').val(1);
-            }
-            console.log('curso'+i);
-        // }else if (basico > 100){
-            i++;
-            if (val == 0) {
-                $('#basico_f').val(1);
-            }
-            // console.log('basico'+i);
-        }
-        // intermedio
-        if (intermedio == "") {
-            i++;
-            // console.log('intermedio'+i);
-        }else if (intermedio < intermedio_i){
-            i++;
-            if (val == 0) {
-                $('#intermedio_f').val(intermedio_i);
-            }
-            // console.log('intermedio'+i);
-        }else if (intermedio > 100){
-            i++;
-            if (val == 0) {
-                $('#intermedio_f').val(intermedio_i);
-            }
-            // console.log('intermedio'+i);
-        }
-        // avanzado
-        if (avanzado == "") {
-            i++;
-            // console.log('avanzado'+i);
-        }else if (avanzado < avanzado_i){
-            i++;
-            if (val == 0) {
-                $('#avanzado_f').val(avanzado_i);
-            }
-            // console.log('avanzado'+i);
-        }else if (avanzado > 100){
-            i++;
-            if (val == 0) {
-                $('#avanzado_f').val(avanzado_i);
-            }
-            // console.log('avanzado'+i);
-        }
-        // profesional
-        if (profesional == "") {
-            i++;
-            // console.log('profesional'+i);
-        }else if (profesional < profesional_i){
-            i++;
-            if (val == 0) {
-                $('#profesional_f').val(profesional_i);
-            }
-            // console.log('profesional'+i);
-        }else if (profesional > 100){
-            i++;
-            if (val == 0) {
-                $('#profesional_f').val(profesional_i);
-            }
-            // console.log('profesional'+i);
-        }
-
-        if(i > 0){
+        }else{
             $("#anterior").attr("class", "btn btn-secondary");
             $("#anterior").attr("disabled", "disabled");
             $("#siguiente").attr("class", "btn btn-secondary");
@@ -251,17 +341,7 @@
             $('#pregunta_ventana').fadeOut();
             $('#curso_ventana').fadeIn();
             $("#ventana").val('1');
-        }else{
-            if(ventana == 1){
-                $("#button_curso").attr("class", "btn btn-success");
-                $("#siguiente").attr("class", "btn btn-primary");
-                $("#siguiente").removeAttr("disabled");
-                $("#button_pregunta").attr("class", "btn btn-primary");
-                $("#button_pregunta").removeAttr("disabled");
-
-            }
         }
-
     }
 
     function pregunta() {
@@ -274,7 +354,7 @@
         $("#siguiente").attr("class", "btn btn-secondary");
         $("#siguiente").attr("disabled", "disabled");
         $("#ventana").val('2');
-        val_curso(0);
+        val_curso("si");
     }
 
     function ante() {
@@ -282,7 +362,7 @@
 
         if (ventana == 2) {
 
-            curso();
+            curso("si");
 
         }
 
@@ -316,11 +396,11 @@
     }
 
 
-    function agreg_pre() {
+    function agreg_pre(ag) {
         $.ajax({
             type: "POST",
             url:"{{route('Curso.agreg_pre')}}",
-            data: $("#formulario").serialize(),
+            data: $("#formulario").serialize()+'&ag='+ag,
             success: function(valores) {
 
                 $('#preguntas').val('');
@@ -339,11 +419,11 @@
         return false;
     }
 
-    function agreg_resp(id) {
+    function agreg_resp(id,ag) {
         $.ajax({
             type: "POST",
             url:"{{route('Curso.agreg_resp')}}",
-            data: $("#formulario").serialize()+'&id='+id,
+            data: $("#formulario").serialize()+'&id='+id+'&ag='+ag,
             success: function(valores) {
                 // console.log(valores.respuesta);
                 $('#respuestas'+id).val('');
@@ -375,6 +455,7 @@
                 }
                 $('#preg'+id).slideUp();
                 $('#preg'+id).html('');
+                agreg_pre("no");
             },
             error: function(xhr, textStatus, errorMessage) {
                 error(xhr, textStatus, errorMessage);
@@ -396,6 +477,7 @@
                 }
                 $('#resp'+id+id_r).slideUp();
                 $('#resp'+id+id_r).html('');
+                agreg_resp(id,"no");
             },
             error: function(xhr, textStatus, errorMessage) {
                 error(xhr, textStatus, errorMessage);
@@ -439,7 +521,7 @@
     }
 
     function limpiar(){
-        curso();
+        curso("no");
         clear_p();
         $('#intermedio_i').html(1);
         $('#avanzado_i').html(1);
@@ -449,6 +531,92 @@
         $("#profesional_f").attr("min", 1);
     }
 
+    function val_pregunta(){
+        $.ajax({
+            type: "POST",
+            url:"{{route('Curso.val_pregunta')}}",
+            success: function(valores) {
+                if(valores.boo == false){
+
+                    if (valores.pregunta != true) {
+
+                        $('#val_pregunta').html(`<i class="fa fa-trash-alt"></i> ${valores.pregunta}`);
+
+                    }else if(typeof valores.respuesta != true){
+
+                        $('#val_pregunta').html(`<i class="fa fa-trash-alt"></i> ${valores.respuesta}`);
+                    }
+                }
+                return valores.boo;
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                error(xhr, textStatus, errorMessage);
+            }
+        });
+        return false;
+    }
+
 
 @endsection
 
+{{-- funcion validacion --}}
+@section('validacion')
+
+    let boo2 = validacion_curso('si');
+    let boo3 = val_pregunta();
+
+
+    if(boo2 == false || boo3 == false){
+        i++;
+    }
+
+    if(i > 0){
+
+        if (boo == false) {
+            val_curso('no');
+        }
+        boo = false;
+        $("body").overhang({
+            type: "error",
+            message: message
+        });
+    }
+@endsection
+{{-- funcion reiniciar --}}
+@section('reiniciar')
+    $("#curso_e").html('');
+    $("#basico_f_e").html('');
+    $("#intermedio_f_e").html('');
+    $("#avanzado_f_e").html('');
+    $("#profesional_f_e").html('');
+
+    $("#curso").attr('class', 'form-control');
+    $("#basico_f").attr('class', 'form-control');
+    $("#intermedio_f").attr('class', 'form-control');
+    $("#avanzado_f").attr('class', 'form-control');
+    $("#profesional_f").attr('class', 'form-control');
+@endsection
+{{-- error en el registro o edicion --}}
+@section('error')
+    let cur = 0;
+
+    if (xhr.responseJSON.errors.curso){
+        $("#curso_e").html(xhr.responseJSON.errors.curso);
+        $("#curso").attr('class', 'form-control border border-danger');
+        cur++;
+    }
+
+
+    if(pro == 'Registro'){
+
+        if (cur > 0) {
+            $("#curso").val('');
+        }
+
+    }else{
+
+        if (cur > 0) {
+            $("#curso").val($("#curso2").val());
+        }
+    }
+@endsection

@@ -141,7 +141,7 @@ class CursoController extends Controller
             ['status', '1'],
             ['curso','like', "%$curso%"]
             ])->orderBy('curso','asc');
-        
+
         $cons1 = $cons->get();
         $num = $cons->count();
         if ($num>0) {
@@ -184,7 +184,7 @@ class CursoController extends Controller
     {
         //
         $curso = Curso::find($request->id);
-        
+
         return response()->json([
             'curso'=>$curso->curso
         ]);
@@ -195,7 +195,12 @@ class CursoController extends Controller
     public function agreg_pre(Request $request)
     {
         //
-        DB::table('preguntas')->insert(['pregunta' => $request->preguntas]);
+
+        $ag=$request['ag'];
+        if($ag == "si"){
+            DB::table('preguntas')->insert(['pregunta' => $request->preguntas]);
+        }
+
 
         $cons = DB::table('preguntas')->orderBy('id','asc');
         $cons1 = $cons->get();
@@ -220,7 +225,7 @@ class CursoController extends Controller
                         <tr>
                             <th scope='col' colspan='2'>
                                 <center>
-                                    $pregunta
+                                    #$i $pregunta
                                     <button type='button' id='pregun$id' class='close' data-dismiss='alert' aria-label='Close' onclick='return quitar_p($id);'>
                                         <span aria-hidden='true'>&times;</span>
                                     </button>
@@ -237,7 +242,7 @@ class CursoController extends Controller
                             <td><input type='text' class='form-control' aria-describedby='button-addon2' id='respuestas$id' name='respuestas$id' /></td>
                             <td>
                                 <center>
-                                    <a href='#' onclick = 'return agreg_resp($id);' class='btn btn-success btncolorblanco'>
+                                    <a href='#' onclick = 'return agreg_resp($id,\"si\");' class='btn btn-success btncolorblanco'>
                                         <i class='fa fa-plus'></i>
                                     </a>
                                 </center>
@@ -258,6 +263,7 @@ class CursoController extends Controller
                     <table class='table table-bordered'>
                         <thead class='thead-dark'>
                             <tr>
+                                <th scope='col'><center>#</center></th>
                                 <th scope='col'><center>Respuestas</center></th>
                                 <th scope='col'><center>Punto</center></th>
                                 <th scope='col'><center>Eliminar</center></th>
@@ -271,14 +277,17 @@ class CursoController extends Controller
                 <div id='respuesta_r$id'>
                 ";
             }
+            $n=0;
             foreach ($consu1 as $consu2) {
                 # code...
+                $n++;
                 $id_r=$consu2->id;
                 $respuesta=$consu2->respuesta;
                 $puntos=$consu2->puntos;
 
                 $preguntas.="
                 <tr id='resp$id$id_r'>
+                    <th>$n</th>
                     <th>$respuesta</th>
                     <td><input type='number' required maxlength='2' onkeyup='puntos($id,$id_r)' class='my-1 mr-sm-2' value='$puntos' min='1' max='99' name='puntos$id$id_r' id='puntos$id$id_r'></td>
                     <td>
@@ -313,12 +322,14 @@ class CursoController extends Controller
     {
         //
         $id_p=$request['id'];
-        $respuesta=$request['respuestas'.$id_p];
-        DB::table('respuestas')->insert([
-            'respuesta' => $respuesta,
-            'preguntas' => $id_p
-            ]);
-
+        $ag=$request['ag'];
+        if($ag == "si"){
+            $respuesta=$request['respuestas'.$id_p];
+            DB::table('respuestas')->insert([
+                'respuesta' => $respuesta,
+                'preguntas' => $id_p
+                ]);
+        }
         $cons = DB::table('respuestas')->where('preguntas',$id_p)->orderBy('id','asc');;
         $cons1 = $cons->get();
         $num = $cons->count();
@@ -331,6 +342,7 @@ class CursoController extends Controller
             <table class='table table-bordered'>
                 <thead class='thead-dark'>
                     <tr>
+                        <th scope='col'><center>#</center></th>
                         <th scope='col'><center>Respuestas</center></th>
                         <th scope='col'><center>Punto</center></th>
                         <th scope='col'><center>Eliminar</center></th>
@@ -356,6 +368,7 @@ class CursoController extends Controller
             }
             $respuestas.="
             <tr $ocultar id='resp$id_p$id'>
+                <th>$i</th>
                 <th>$respuesta</th>
                 <td><input type='number' onkeyup='puntos($id_p,$id)'  maxlength='2' required class='my-1 mr-sm-2' value='1' min='1' max='99' name='puntos$id_p$id' id='puntos$id_p$id'></td>
                 <td>
@@ -428,4 +441,38 @@ class CursoController extends Controller
         $id=$request->id;
         DB::table('respuestas')->where('preguntas', $id)->delete();
     }
+
+    public function val_pregunta()
+    {
+        //
+        $cons = DB::table('preguntas')->orderBy('id','asc');
+        $cons1 = $cons->get();
+        $num = $cons->count();
+        $boo = true;
+        $pregunta=true;
+        $respuesta=true;
+        if($num > 0){
+            foreach ($cons1 as $cons2) {
+                # code...
+                $id_p = $cons2->id;
+                $consul = DB::table('respuestas')->where('preguntas',$id_p)->orderBy('id','asc')->get();
+                $num2 = $consul->count();
+                if($num2 < 2){
+                    $boo = false;
+                    $respuesta='Las preguntas deben tener mínimo 2 respuestas.';
+                }
+            }
+        }else{
+            $boo = false;
+            $pregunta='No hay preguntas agregadas.';
+        }
+
+        return response()->json([
+            'boo'=>$boo,
+            'pregunta'=>$pregunta,
+            'respuesta'=>$respuesta
+        ]);
+    }
+
+
 }
