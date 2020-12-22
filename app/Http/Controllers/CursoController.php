@@ -102,8 +102,88 @@ class CursoController extends Controller
     public function update(updateCurso $request, Curso $Curso)
     {
         //
+
+        $id=$request['id'];
+        $basico_f=$request['basico_f'];
+        $intermedio_i=$basico_f+1;
+        $intermedio_f=$request['intermedio_f'];
+        $avanzado_i=$intermedio_f+1;
+        $avanzado_f=$request['avanzado_f'];
+        $profesional_i=$avanzado_f+1;
+        $profesional_f=$request['profesional_f'];
         $Curso->update($request->all());
 
+        DB::table('nivel')->where([
+            ['niveles','Basico'],
+            ['cursos',$id]
+        ])->update(['final' => $basico_f]);
+
+        DB::table('nivel')->where([
+            ['niveles','Intermedio'],
+            ['cursos',$id]
+        ])->update([
+            ['inicial' => $intermedio_i],
+            ['final' => $intermedio_f],
+        ]);
+
+        DB::table('nivel')->where([
+            ['niveles','Avanzado'],
+            ['cursos',$id]
+        ])->update([
+            ['inicial' => $avanzado_i],
+            ['final' => $avanzado_f],
+        ]);
+
+        DB::table('nivel')->where([
+            ['niveles','Profesional'],
+            ['cursos',$id]
+        ])->update([
+            ['inicial' => $profesional_i],
+            ['final' => $profesional_f],
+        ]);
+
+        $consu = DB::table('pregunta')->where('cursos',$id)->get();
+        foreach ($consu as $consu2) {
+            $id_p = $consu2->id;
+            DB::table('respuesta')->where('pregunta', $id_p)->delete();
+        }
+        $cons = DB::table('pregunta')->where('cursos',$id)->delete();
+        $cons = DB::table('preguntas')->orderBy('id','asc');
+
+        $cons1 = $cons->get();
+        $num = $cons->count();
+
+        if($num > 0){
+
+            foreach ($cons1 as $cons2) {
+                # code...
+                $id_p = $cons2->id;
+                $pregunta = $cons2->pregunta;
+
+                DB::table('pregunta')->insert(['preguntas' => $pregunta, 'cursos' => $id]);
+
+                $consu = DB::table('pregunta')->where([
+                    ['preguntas',$pregunta],
+                    ['cursos',$id]
+                ])->get();
+
+                foreach ($consu as $consu2) {
+                    # code...
+                    $pregunta = $consu2->id;
+
+                    $consul = DB::table('respuestas')->where('preguntas',$id_p)->orderBy('id','asc')->get();
+
+                    foreach ($consul as $consul2) {
+                        # code...
+                        $respuestas=$consul2->respuesta;
+                        $puntos=$consul2->puntos;
+                        DB::table('respuesta')->insert(['pregunta' => $pregunta, 'respuestas' => $respuestas, 'puntos' => $puntos]);
+
+                    }
+
+                }
+            }
+        }
     }
 
     /**
