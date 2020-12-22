@@ -204,7 +204,7 @@ function mostrar(id, pro) {
     $.ajax({
         type: "POST",
         @yield('rellenar_url')
-        data: "id="+id,
+        data: "id="+id+"&pro="+pro,
         success: function(valores) {
             reiniciar();
             $("#reg").hide();

@@ -115,7 +115,7 @@
 
     <div style='display: none' id="pregunta_ventana">
         <div id="val_pregunta"></div>
-        <div class="form-group">
+        <div id="pregun"  class="form-group">
             <label for="respuestas">Pregunta:</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" aria-describedby="button-addon2" id="preguntas" name="preguntas" />

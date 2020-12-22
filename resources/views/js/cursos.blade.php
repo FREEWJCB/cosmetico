@@ -71,12 +71,46 @@
 
     $("#curso").val(valores.curso);
     $("#curso2").val(valores.curso);
-
+    $("#basico_f").val(valores.basico_f);
+    $("#basico_f2").val(valores.basico_f);
+    $("#intermedio_i").html(valores.basico_f + 1);
+    $("#intermedio_f").val(valores.intermedio_f);
+    $("#intermedio_f2").val(valores.intermedio_f);
+    $("#avanzado_i").html(valores.intermedio_f + 1);
+    $("#avanzado_f").val(valores.avanzado_f);
+    $("#avanzado_f2").val(valores.avanzado_f);
+    $("#profesional_i").html(valores.avanzado_f + 1);
+    $("#profesional_f").val(valores.profesional_f);
+    $("#profesional_f2").val(valores.profesional_f);
+    agreg_pre("no");
+    $("#button_curso").attr("class", "btn btn-success");
+    $("#siguiente").attr("class", "btn btn-primary");
+    $("#siguiente").removeAttr("disabled");
+    $("#button_pregunta").attr("class", "btn btn-primary");
+    $("#button_pregunta").removeAttr("disabled");
+    $('#pregunta_ventana').fadeOut();
+    $('#curso_ventana').fadeIn();
+    $("#ventana").val('1');
 @endsection
 
-@section('editar') $("#curso").removeAttr("readonly"); @endsection
+@section('editar')
+    $("#curso").removeAttr("readonly");
+    $("#basico_f").removeAttr("readonly");
+    $("#intermedio_f").removeAttr("readonly");
+    $("#avanzado_f").removeAttr("readonly");
+    $("#profesional_f").removeAttr("readonly");
+    $("#preguntas").removeAttr("readonly");
+    $("#pregun").show();
+@endsection
 
-@section('mostrar') $("#curso").attr("readonly", "readonly"); @endsection
+@section('mostrar')
+    $("#curso").attr("readonly", "readonly");
+    $("#basico_f").attr("readonly", "readonly");
+    $("#intermedio_f").attr("readonly", "readonly");
+    $("#avanzado_f").attr("readonly", "readonly");
+    $("#profesional_f").attr("readonly", "readonly");
+    $("#pregun").hide();
+@endsection
 
 @section('funciones')
     function basico(){
@@ -529,6 +563,7 @@
         $("#intermedio_f").attr("min", 1);
         $("#avanzado_f").attr("min", 1);
         $("#profesional_f").attr("min", 1);
+        $("#pregun").show();
     }
 
     function val_pregunta(){
