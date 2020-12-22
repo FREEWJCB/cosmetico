@@ -263,7 +263,6 @@ class CursoController extends Controller
     public function mostrar(Request $request)
     {
         //
-        $pro = $request->pro;
         $id = $request->id;
         $curso = Curso::find($id);
         $cons = DB::table('nivel')->where('cursos', $id)->get();
