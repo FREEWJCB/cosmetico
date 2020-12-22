@@ -121,33 +121,33 @@ class CursoController extends Controller
         DB::table('nivel')->where([
             ['niveles','Intermedio'],
             ['cursos',$id]
-        ])->update([
+        ])->update(
             ['inicial' => $intermedio_i],
-            ['final' => $intermedio_f],
-        ]);
+            ['final' => $intermedio_f]
+        );
 
         DB::table('nivel')->where([
             ['niveles','Avanzado'],
             ['cursos',$id]
-        ])->update([
+        ])->update(
             ['inicial' => $avanzado_i],
             ['final' => $avanzado_f],
-        ]);
+        );
 
         DB::table('nivel')->where([
             ['niveles','Profesional'],
             ['cursos',$id]
-        ])->update([
+        ])->update(
             ['inicial' => $profesional_i],
             ['final' => $profesional_f],
-        ]);
+        );
 
         $consu = DB::table('pregunta')->where('cursos',$id)->get();
         foreach ($consu as $consu2) {
             $id_p = $consu2->id;
             DB::table('respuesta')->where('pregunta', $id_p)->delete();
         }
-        $cons = DB::table('pregunta')->where('cursos',$id)->delete();
+        DB::table('pregunta')->where('cursos',$id)->delete();
         $cons = DB::table('preguntas')->orderBy('id','asc');
 
         $cons1 = $cons->get();
@@ -304,6 +304,7 @@ class CursoController extends Controller
     {
         //
 
+        $id="";
         $ag=$request['ag'];
         $pro=$request['pro'];
         $readonly="";
@@ -321,120 +322,123 @@ class CursoController extends Controller
         $i=0;
         $preguntas="";
         $ocultar="";
-        foreach ($cons1 as $cons2) {
+        if ($num > 0) {
             # code...
-            $i++;
-            $id=$cons2->id;
-            $pregunta=$cons2->pregunta;
-            if ($i==$num) {
+            foreach ($cons1 as $cons2) {
                 # code...
-                $ocultar="style='display: none'";
-            }
+                $i++;
+                $id=$cons2->id;
+                $pregunta=$cons2->pregunta;
+                if ($i==$num && $ag == "si") {
+                    # code...
+                    $ocultar="style='display: none'";
+                }
 
-            $preguntas.="
-            <div id='preg$id' $ocultar>
-                <table class='table table-bordered'>
-                    <thead class='thead-dark'>
-                        <tr>
-                            <th scope='col' colspan='2'>
-                                <center>
-                                    #$i $pregunta";
-            if ($pro != "Mostrar") {
                 $preguntas.="
-                                    <button type='button' id='pregun$id' class='close' data-dismiss='alert' aria-label='Close' onclick='return quitar_p($id);'>
-                                        <span aria-hidden='true'>&times;</span>
-                                    </button>";
-            }
-
-            $preguntas.="       </center>
-                            </th>
-                        </tr>
-                        <tr class='bg-primary'>
-                            <th scope='col'><center>Respuesta</center></th>";
-            if ($pro != "Mostrar") {
-                # code...
-                $preguntas.="<th scope='col'><center>Agregar</center></th>";
-            }
-
-            $preguntas.="</tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type='text' class='form-control' $readonly aria-describedby='button-addon2' id='respuestas$id' name='respuestas$id' /></td>";
-            if ($pro != "Mostrar") {
-
-                $preguntas.="<td>
-                                <center>
-                                    <a href='#' onclick = 'return agreg_resp($id,\"si\");' class='btn btn-success btncolorblanco'>
-                                        <i class='fa fa-plus'></i>
-                                    </a>
-                                </center>
-                            </td>";
-            }
-            $preguntas.="</tr>
-                    </tbody>
-                </table>";
-            $consu = DB::table('respuestas')->where('preguntas',$id)->orderBy('id','asc');
-            $consu1 = $consu->get();
-            $num1 = $consu->count();
-
-            $preguntas.="";
-            if ($num1>0) {
-                # code...
-                $preguntas.="
-                <input type='hidden' value='1' id='resp_num$id' name='resp_num$id' />
-                <div id='respuesta_r$id'>
+                <div id='preg$id' $ocultar>
                     <table class='table table-bordered'>
                         <thead class='thead-dark'>
                             <tr>
-                                <th scope='col'><center>#</center></th>
-                                <th scope='col'><center>Respuestas</center></th>
-                                <th scope='col'><center>Punto</center></th>";
-                if ($pro != "Mostrar") {
-                    $preguntas.="<th scope='col'><center>Eliminar</center></th>";
-                }
-                $preguntas.="</tr>
-                        </thead>
-                        <tbody>";
-            }else{
-                $preguntas.="
-                <input type='hidden' value='0' id='resp_num$id' name='resp_num$id' />
-                <div id='respuesta_r$id'>
-                ";
-            }
-            $n=0;
-            foreach ($consu1 as $consu2) {
-                # code...
-                $n++;
-                $id_r=$consu2->id;
-                $respuesta=$consu2->respuesta;
-                $puntos=$consu2->puntos;
-
-                $preguntas.="
-                <tr id='resp$id$id_r'>
-                    <th>$n</th>
-                    <th>$respuesta</th>
-                    <td><input type='number' required maxlength='2' $readonly onkeyup='puntos($id,$id_r)' class='my-1 mr-sm-2' value='$puntos' min='1' max='99' name='puntos$id$id_r' id='puntos$id$id_r'></td>";
+                                <th scope='col' colspan='2'>
+                                    <center>
+                                        #$i $pregunta";
                 if ($pro != "Mostrar") {
                     $preguntas.="
-                        <td>
-                            <center>
-                                <a href='#' onclick = 'return quitar_r($id,$id_r);' class='btn btn-danger btncolorblanco'>
-                                    <i class='fa fa-trash'></i>
-                                </a>
-                            </center>
-                        </td>";
+                                        <button type='button' id='pregun$id' class='close' data-dismiss='alert' aria-label='Close' onclick='return quitar_p($id);'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>";
                 }
-                $preguntas.="</tr>";
+
+                $preguntas.="       </center>
+                                </th>
+                            </tr>
+                            <tr class='bg-primary'>
+                                <th scope='col'><center>Respuesta</center></th>";
+                if ($pro != "Mostrar") {
+                    # code...
+                    $preguntas.="<th scope='col'><center>Agregar</center></th>";
+                }
+
+                $preguntas.="</tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type='text' class='form-control' $readonly aria-describedby='button-addon2' id='respuestas$id' name='respuestas$id' /></td>";
+                if ($pro != "Mostrar") {
+
+                    $preguntas.="<td>
+                                    <center>
+                                        <a href='#' onclick = 'return agreg_resp($id,\"si\");' class='btn btn-success btncolorblanco'>
+                                            <i class='fa fa-plus'></i>
+                                        </a>
+                                    </center>
+                                </td>";
+                }
+                $preguntas.="</tr>
+                        </tbody>
+                    </table>";
+                $consu = DB::table('respuestas')->where('preguntas',$id)->orderBy('id','asc');
+                $consu1 = $consu->get();
+                $num1 = $consu->count();
+
+                $preguntas.="";
+                if ($num1>0) {
+                    # code...
+                    $preguntas.="
+                    <input type='hidden' value='1' id='resp_num$id' name='resp_num$id' />
+                    <div id='respuesta_r$id'>
+                        <table class='table table-bordered'>
+                            <thead class='thead-dark'>
+                                <tr>
+                                    <th scope='col'><center>#</center></th>
+                                    <th scope='col'><center>Respuestas</center></th>
+                                    <th scope='col'><center>Punto</center></th>";
+                    if ($pro != "Mostrar") {
+                        $preguntas.="<th scope='col'><center>Eliminar</center></th>";
+                    }
+                    $preguntas.="</tr>
+                            </thead>
+                            <tbody>";
+                }else{
+                    $preguntas.="
+                    <input type='hidden' value='0' id='resp_num$id' name='resp_num$id' />
+                    <div id='respuesta_r$id'>
+                    ";
+                }
+                $n=0;
+                foreach ($consu1 as $consu2) {
+                    # code...
+                    $n++;
+                    $id_r=$consu2->id;
+                    $respuesta=$consu2->respuesta;
+                    $puntos=$consu2->puntos;
+
+                    $preguntas.="
+                    <tr id='resp$id$id_r'>
+                        <th>$n</th>
+                        <th>$respuesta</th>
+                        <td><input type='number' required maxlength='2' $readonly onkeyup='puntos($id,$id_r)' class='my-1 mr-sm-2' value='$puntos' min='1' max='99' name='puntos$id$id_r' id='puntos$id$id_r'></td>";
+                    if ($pro != "Mostrar") {
+                        $preguntas.="
+                            <td>
+                                <center>
+                                    <a href='#' onclick = 'return quitar_r($id,$id_r);' class='btn btn-danger btncolorblanco'>
+                                        <i class='fa fa-trash'></i>
+                                    </a>
+                                </center>
+                            </td>";
+                    }
+                    $preguntas.="</tr>";
+                }
+
+                if ($num1>0) {
+                    # code...
+                    $preguntas.="</tbody></table>";
+                }
+
+                $preguntas.="</div></div>";
+
             }
-
-            if ($num1>0) {
-                # code...
-                $preguntas.="</tbody></table>";
-            }
-
-            $preguntas.="</div></div>";
-
         }
 
         return response()->json([

@@ -560,6 +560,7 @@
         $('#intermedio_i').html(1);
         $('#avanzado_i').html(1);
         $('#profesional_i').html(1);
+        $('#val_pregunta').html('');
         $("#intermedio_f").attr("min", 1);
         $("#avanzado_f").attr("min", 1);
         $("#profesional_f").attr("min", 1);
@@ -567,28 +568,29 @@
     }
 
     function val_pregunta(){
+        let boo = true;
         $.ajax({
             type: "POST",
             url:"{{route('Curso.val_pregunta')}}",
             success: function(valores) {
                 if(valores.boo == false){
-
+                    boo = false;
                     if (valores.pregunta != true) {
 
                         $('#val_pregunta').html(`<i class="fa fa-trash-alt"></i> ${valores.pregunta}`);
 
-                    }else if(typeof valores.respuesta != true){
+                    }else if(valores.respuesta != true){
 
                         $('#val_pregunta').html(`<i class="fa fa-trash-alt"></i> ${valores.respuesta}`);
                     }
                 }
-                return valores.boo;
+
             },
             error: function(xhr, textStatus, errorMessage) {
                 error(xhr, textStatus, errorMessage);
             }
         });
-        return false;
+        return boo;
     }
 
 
@@ -604,7 +606,8 @@
     if(boo2 == false || boo3 == false){
         i++;
     }
-
+    console.log(boo2);
+    console.log(boo3);
     if(i > 0){
 
         if (boo == false) {
