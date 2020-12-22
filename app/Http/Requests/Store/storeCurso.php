@@ -25,7 +25,7 @@ class storeCurso extends FormRequest
     public function rules()
     {
         return [
-            //
+            'curso' => ['required','max:255','min:3',Rule::unique('cursos')->where('status', 1)]
         ];
     }
 }

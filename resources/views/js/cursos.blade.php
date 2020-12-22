@@ -1,4 +1,4 @@
-<script>
+{{-- <script> --}}
 @section('document')
 
     $("#lim").on("click", function() {
@@ -138,7 +138,6 @@
         let boo = true;
         let message = ['validar'];
         let pro = $("#pro").val();
-        let intermedio_i = parseInt(basico_f) + 1;
         let curso = $("#curso").val(); let curso2 = $("#curso2").val();
         let basico_f = $("#basico_f").val(); let basico_f2 = $("#basico_f2").val();
         let intermedio_f = $("#intermedio_f").val(); let intermedio_f2 = $("#intermedio_f2").val();
@@ -147,7 +146,7 @@
         let intermedio_i = parseInt(basico_f) + 1;
         let avanzado_i = parseInt(intermedio_f) + 1;
         let profesional_i = parseInt(avanzado_f) + 1;
-        let i = 0; let cur = 0; let ba = 0; let in = 0; let av = 0; let pr = 0;
+        let i = 0; let cur = 0; let ba = 0; let inte = 0; let av = 0; let pr = 0;
 
         {{-- curso --}}
         if(curso == ""){
@@ -178,14 +177,14 @@
 
          {{-- intermedio --}}
         if (intermedio_f == "") {
-            i++; in++;
+            i++; inte++;
             message.push('El campo intermedio es obligatorio.');
         }else if (intermedio_f < intermedio_i){
-            i++; in++;
+            i++; inte++;
             message.push(`El campo intermedio debe ser mayor que ${basico_f}.`);
 
         }else if (intermedio_f > 100){
-            i++; in++;
+            i++; inte++;
             message.push('El campo intermedio debe ser menor que 101.');
         }
 
@@ -230,11 +229,11 @@
                     $("#basico_f_e").html(message[u]);
                 }
 
-                if (in > 0) {
+                if (inte > 0) {
                     u++;
                     $("#intermedio_f").val(parseInt($("#basico_f").val()) + 1);
                     $("#intermedio_f").attr('class', 'form-control border border-danger');
-                    $("#intermedio_f").attr('min', parseInt($("#basico_f").val()) + 1));
+                    $("#intermedio_f").attr('min', parseInt($("#basico_f").val()) + 1);
                     $("#intermedio_f_e").html(message[u]);
                 }
 
@@ -242,15 +241,15 @@
                     u++;
                     $("#avanzado_f").val(parseInt($("#intermedio_f").val()) + 1);
                     $("#avanzado_f").attr('class', 'form-control border border-danger');
-                    $("#avanzado_f").attr('min', parseInt($("#intermedio_f").val()) + 1));
+                    $("#avanzado_f").attr('min', parseInt($("#intermedio_f").val()) + 1);
                     $("#avanzado_f_e").html(message[u]);
                 }
 
                 if (pr > 0) {
                     u++;
-                    $("#profesional_f").val(parseInt($("#avanzado_f").val()) + 1));
+                    $("#profesional_f").val(parseInt($("#avanzado_f").val()) + 1);
                     $("#profesional_f").attr('class', 'form-control border border-danger');
-                    $("#profesional_f").attr('min', parseInt($("#avanzado_f").val()) + 1));
+                    $("#profesional_f").attr('min', parseInt($("#avanzado_f").val()) + 1);
                     $("#profesional_f_e").html(message[u]);
                 }
 
@@ -270,7 +269,7 @@
                     $("#basico_f_e").html(message[u]);
                 }
 
-                if (in > 0) {
+                if (inte > 0) {
                     u++;
                     $("#intermedio_f").val(intermedio_f2);
                     $("#intermedio_f").attr('class', 'form-control border border-danger');
