@@ -68,7 +68,6 @@
 @section('rellenar_url') url: "{{route('Curso.mostrar')}}", @endsection
 
 @section('rellenar')
-
     $("#curso").val(valores.curso);
     $("#curso2").val(valores.curso);
     $("#basico_f").val(valores.basico_f);
@@ -110,6 +109,10 @@
     $("#avanzado_f").attr("readonly", "readonly");
     $("#profesional_f").attr("readonly", "readonly");
     $("#pregun").hide();
+@endsection
+
+@section('mostra')
+    clear_p();
 @endsection
 
 @section('funciones')

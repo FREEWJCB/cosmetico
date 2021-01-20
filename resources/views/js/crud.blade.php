@@ -33,26 +33,6 @@ function cargar() {
     return false;
 }
 
-// function cargar_axios() {
-//     axios({
-//         type: "POST",
-//         @yield('cargar')
-//         data: $("#form").serialize(),
-//     })
-//     .then(function (registro){
-//         $("#agrega-registros").html(registro.catalogo);
-//         console.log("%cCargar catalogo realizado con éxito",'color:green;');
-//         return false;
-//     })
-//     .catch(function (registro){
-//         $("#agrega-registros").html(registro.catalogo);
-//         console.log("%cCargar catalogo realizado con éxito",'color:green;');
-//         return false;
-//     });
-//     return false;
-// }
-
-
 $(document).ready(function() {
     $("#nuevo").on("click", function() {
         $("#formulario")[0].reset();

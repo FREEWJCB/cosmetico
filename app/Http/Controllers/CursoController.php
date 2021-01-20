@@ -91,7 +91,6 @@ class CursoController extends Controller
 
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -265,6 +264,7 @@ class CursoController extends Controller
         //
         $id = $request->id;
         $curso = Curso::find($id);
+
         $cons = DB::table('nivel')->where('cursos', $id)->get();
         foreach ($cons as $cons2) {
             # code...
@@ -286,6 +286,33 @@ class CursoController extends Controller
             }
 
         }
+
+        $cons = DB::table('pregunta')->where('cursos', $id)->get();
+
+        foreach ($cons as $cons2){
+
+            $pregunta = $cons2->id;
+            $preguntas = $cons2->preguntas;
+            DB::table('preguntas')->insert(['pregunta' => $preguntas]);
+
+            $consu = DB::table('preguntas')->where('pregunta', $preguntas)->get();
+
+            foreach ($consu as $consu2){
+
+                $idpreguntas = $consu2->id;
+                $consul = DB::table('respuesta')->where('pregunta', $pregunta)->get();
+
+                foreach ($consul as $consul2){
+                    $respuestas = $consul2->respuestas;
+                    $puntos = $consul2->puntos;
+
+                    DB::table('respuestas')->insert(['respuesta' => $respuestas, 'preguntas' => $idpreguntas, 'puntos' => $puntos]);
+                }
+            }
+            
+        }
+
+        
         return response()->json([
             'curso'=>$curso->curso,
             'basico_f'=>$basico_f,
