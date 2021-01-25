@@ -309,10 +309,10 @@ class CursoController extends Controller
                     DB::table('respuestas')->insert(['respuesta' => $respuestas, 'preguntas' => $idpreguntas, 'puntos' => $puntos]);
                 }
             }
-            
+
         }
 
-        
+
         return response()->json([
             'curso'=>$curso->curso,
             'basico_f'=>$basico_f,
@@ -335,13 +335,13 @@ class CursoController extends Controller
         $ag=$request['ag'];
         $pro=$request['pro'];
         $readonly="";
+        $ocul="style='display: none'";
         if ($pro == "Mostrar") {
             $readonly="readonly='readonly'";
         }
         if($ag == "si"){
             DB::table('preguntas')->insert(['pregunta' => $request->preguntas]);
         }
-
 
         $cons = DB::table('preguntas')->orderBy('id','asc');
         $cons1 = $cons->get();
@@ -360,7 +360,7 @@ class CursoController extends Controller
                     # code...
                     $ocultar="style='display: none'";
                 }
-
+                // tabla titulo de la pregunta
                 $preguntas.="
                 <div id='preg$id' $ocultar>
                     <table class='table table-bordered'>
@@ -369,41 +369,41 @@ class CursoController extends Controller
                                 <th scope='col' colspan='2'>
                                     <center>
                                         #$i $pregunta";
+                // boton del icono "x"
                 if ($pro != "Mostrar") {
-                    $preguntas.="
-                                        <button type='button' id='pregun$id' class='close' data-dismiss='alert' aria-label='Close' onclick='return quitar_p($id);'>
-                                            <span aria-hidden='true'>&times;</span>
-                                        </button>";
+                    $preguntas.="<button type='button' id='pregun$id' class='close' data-dismiss='alert' aria-label='Close' onclick='return quitar_p($id);'>
+                                    <span aria-hidden='true'>&times;</span>
+                                 </button>";
                 }
-
-                $preguntas.="       </center>
-                                </th>
-                            </tr>
-                            <tr class='bg-primary'>
-                                <th scope='col'><center>Respuesta</center></th>";
+                // cerrando fila del titulo de la pregunta
+                $preguntas.="</center></th></tr>";
                 if ($pro != "Mostrar") {
                     # code...
-                    $preguntas.="<th scope='col'><center>Agregar</center></th>";
+                    $preguntas.="<tr class='bg-primary'>
+                                    <th scope='col'><center>Respuesta</center></th>
+                                    <th scope='col'><center>Agregar</center></th>
+                                </tr>";
                 }
 
-                $preguntas.="</tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type='text' class='form-control' $readonly aria-describedby='button-addon2' id='respuestas$id' name='respuestas$id' /></td>";
+                $preguntas.="</thead>";
                 if ($pro != "Mostrar") {
 
-                    $preguntas.="<td>
-                                    <center>
-                                        <a href='#' onclick = 'return agreg_resp($id,\"si\");' class='btn btn-success btncolorblanco'>
-                                            <i class='fa fa-plus'></i>
-                                        </a>
-                                    </center>
-                                </td>";
+                    $preguntas.="<tbody>
+                                    <tr>
+                                        <td>
+                                            <input type='text' class='form-control' $readonly aria-describedby='button-addon2' id='respuestas$id' name='respuestas$id'/>
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <a href='#' onclick = 'return agreg_resp($id,\"si\");' class='btn btn-success btncolorblanco'>
+                                                    <i class='fa fa-plus'></i>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                </tbody>";
                 }
-                $preguntas.="</tr>
-                        </tbody>
-                    </table>";
+                $preguntas.=" </table>";
                 $consu = DB::table('respuestas')->where('preguntas',$id)->orderBy('id','asc');
                 $consu1 = $consu->get();
                 $num1 = $consu->count();

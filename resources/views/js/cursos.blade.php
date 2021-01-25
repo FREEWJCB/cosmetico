@@ -433,7 +433,6 @@
 
 
     function agreg_pre(ag) {
-        {{-- console.log("hola"); --}}
         $.ajax({
             type: "POST",
             url:"{{route('Curso.agreg_pre')}}",
