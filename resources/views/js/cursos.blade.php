@@ -72,13 +72,13 @@
     $("#curso2").val(valores.curso);
     $("#basico_f").val(valores.basico_f);
     $("#basico_f2").val(valores.basico_f);
-    $("#intermedio_i").html(valores.basico_f + 1);
+    $("#intermedio_i").html(valores.intermedio_i);
     $("#intermedio_f").val(valores.intermedio_f);
     $("#intermedio_f2").val(valores.intermedio_f);
-    $("#avanzado_i").html(valores.intermedio_f + 1);
+    $("#avanzado_i").html(valores.avanzado_i);
     $("#avanzado_f").val(valores.avanzado_f);
     $("#avanzado_f2").val(valores.avanzado_f);
-    $("#profesional_i").html(valores.avanzado_f + 1);
+    $("#profesional_i").html(valores.profesional_i);
     $("#profesional_f").val(valores.profesional_f);
     $("#profesional_f2").val(valores.profesional_f);
     agreg_pre("no");
@@ -531,6 +531,7 @@
                 $('#pregunta_r').html('');
                 $('#preg_num').val(0);
                 $('#pregunta_r').slideDown();
+                $('#val_pregunta').html('');
             },
             error: function(xhr, textStatus, errorMessage) {
                 error(xhr, textStatus, errorMessage);
