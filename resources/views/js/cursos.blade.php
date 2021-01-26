@@ -356,7 +356,6 @@
     function val_curso(val){
         let ventana = $('#ventana').val();
         let boo = validacion_curso(val);
-
         if (boo == true) {
             if(ventana == 1){
                 $("#button_curso").attr("class", "btn btn-success");
@@ -430,7 +429,6 @@
         }
         return false;
     }
-
 
     function agreg_pre(ag) {
         $.ajax({
@@ -571,21 +569,16 @@
     }
 
     function val_pregunta(){
-        let boo = true;
+        const boo = [];
         $.ajax({
             type: "POST",
             url:"{{route('Curso.val_pregunta')}}",
             success: function(valores) {
                 if(valores.boo == false){
-                    boo = false;
-                    if (valores.pregunta != true) {
-
-                        $('#val_pregunta').html(`<i class="fa fa-trash-alt"></i> ${valores.pregunta}`);
-
-                    }else if(valores.respuesta != true){
-
-                        $('#val_pregunta').html(`<i class="fa fa-trash-alt"></i> ${valores.respuesta}`);
-                    }
+                    $('#val_pregunta').html(valores.mensaje);
+                    boo.push(false);
+                }else{
+                    boo.push(true);
                 }
 
             },
@@ -606,17 +599,17 @@
     let boo3 = val_pregunta();
 
 
-    if(boo2 == false || boo3 == false){
+    if(boo2 == false || boo3[0] == false){
         i++;
     }
     console.log(boo2);
     console.log(boo3);
     if(i > 0){
-
+        boo = false;
         if (boo == false) {
             val_curso('no');
         }
-        boo = false;
+
         $("body").overhang({
             type: "error",
             message: message

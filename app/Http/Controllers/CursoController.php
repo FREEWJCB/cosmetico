@@ -608,8 +608,8 @@ class CursoController extends Controller
         $cons1 = $cons->get();
         $num = $cons->count();
         $boo = true;
-        $pregunta=true;
-        $respuesta=true;
+        $mensaje="";
+        $icono = "<br><i class='fa fa-trash-alt'></i>";
         if($num > 0){
             foreach ($cons1 as $cons2) {
                 # code...
@@ -618,18 +618,20 @@ class CursoController extends Controller
                 $num2 = $consul->count();
                 if($num2 < 2){
                     $boo = false;
-                    $respuesta='Las preguntas deben tener mínimo 2 respuestas.';
+                    $mensaje.="$icono Las preguntas deben tener mínimo 2 respuestas.";
                 }
             }
         }else{
             $boo = false;
-            $pregunta='No hay preguntas agregadas.';
+            $mensaje.="$icono No hay preguntas agregadas.";
         }
-
+        if($num < 2){
+            $boo = false;
+            $mensaje.="$icono deben tener mínimo 2 preguntas.";
+        }
         return response()->json([
             'boo'=>$boo,
-            'pregunta'=>$pregunta,
-            'respuesta'=>$respuesta
+            'mensaje'=>$mensaje
         ]);
     }
 
